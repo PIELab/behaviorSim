@@ -1,4 +1,4 @@
-# import basic functions for calculation & plotting TODO: are these even really needed right now?
+# import basic functions for calculation & plotting 
 from scipy import *
 from pylab import *
 
@@ -86,9 +86,7 @@ for t in range(thisModel.timeToRun):
 #show plots as in literature
 time = range(thisModel.timeToRun);
 
-subplot(511)
-#initialize...
-belief   = PECSinput.belief;
+#initialize output lists...
 attitude = [0 for i in range(thisModel.timeToRun)];
 intention= [0 for i in range(thisModel.timeToRun)];
 behavior = [0 for i in range(thisModel.timeToRun)];
@@ -100,7 +98,57 @@ for t in range(thisModel.timeToRun):
 	behavior[t] = thisModel.stateHistory[t].behavior;
 	PBC[t]      = thisModel.stateHistory[t].PBC;
 
-PECSdisplays.comprehensive();
+subplots_adjust(wspace=0.6)
+
+#inputs on the left (odds)
+subplot(421)
+plot(PECSinput.belief);
+ylabel('belief')
+grid(True)
+
+subplot(423)
+plot(PECSinput.attitude);
+ylabel('attitude in')
+grid(True)
+
+subplot(425)
+plot(PECSinput.socialNorms);
+ylabel('social norms in')
+grid(True)
+
+subplot(427)
+plot(PECSinput.PBC);
+ylabel('PBC in')
+grid(True)
+
+#outputs on the right (evens)
+subplot(422)
+plot(attitude);
+ylabel('attitude')
+grid(True)
+
+subplot(424)
+plot(intention);
+ylabel('intention')
+grid(True)
+
+subplot(426)
+plot(behavior);
+ylabel('behavior')
+grid(True)
+
+subplot(428)
+plot(PBC);
+#xlim(0,thisModel.timeToRun)
+#xlabel('time')
+ylabel('PBC')
+grid(True)
+
+#TODO: what about socialNorms?
+
+
+savefig('modelOutput');
+show();
 
 
 
