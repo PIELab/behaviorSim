@@ -84,7 +84,6 @@ for t in range(thisModel.timeToRun):
 	#run functions for each iteration through deltaT
 
 #show plots as in literature
-subplots_adjust(wspace=0.5)
 time = range(thisModel.timeToRun);
 
 subplot(511)
@@ -101,37 +100,7 @@ for t in range(thisModel.timeToRun):
 	behavior[t] = thisModel.stateHistory[t].behavior;
 	PBC[t]      = thisModel.stateHistory[t].PBC;
 
-plot(belief);
-ylabel('belief')
-grid(True)
-
-subplot(512)
-#attitude = [thisModel.stateHistory[i].attitude for i in range(thisModel.timeToRun)];
-plot(attitude);
-ylabel('attitude')
-grid(True)
-
-subplot(513)
-#intention = [thisModel.stateHistory[i].intention for i in range(thisModel.timeToRun)];
-plot(intention);
-ylabel('intention')
-grid(True)
-
-subplot(514)
-#behavior = [thisModel.stateHistory[i].behavior for i in range(thisModel.timeToRun)];
-plot(behavior);
-ylabel('behavior')
-grid(True)
-
-subplot(515)
-#PBC = [thisModel.stateHistory[i].PBC for i in range(thisModel.timeToRun)];
-plot(PBC);
-#xlim(0,thisModel.timeToRun)
-#xlabel('time')
-ylabel('PBC')
-grid(True)
+PECSdisplays.comprehensive();
 
 
-
-savefig('modelOut');
 
