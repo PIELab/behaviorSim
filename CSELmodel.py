@@ -83,10 +83,7 @@ class modelInstance:
 		#print BETA.shape,'x',eta.shape,'+',GAMMA.shape,'x',xi.shape,'+',zeta.shape
 
 		# 1x5         5x5 * 1x5       3x5 * 1x3    1x5
-		nextEta = np.dot(BETA,eta);
-		nextEta2= np.dot(GAMMA,xi);
-		nextEta3= nextEta + nextEta2;
-		nextEta4= nextEta3 + zeta;
+		nextEta = np.dot(BETA,eta) + np.dot(GAMMA,xi) + zeta;
 
 		#NOTE: I don't really understand why the extra [0] is needed here, but I guess it is...t
 		self.currentState.attitude    = nextEta[0][0];
@@ -170,7 +167,7 @@ grid(True)
 #TODO: what about socialNorms?
 
 
-savefig('figures/modelOutput');
+savefig('figures/CSELmodelOutput');
 show();
 
 
