@@ -147,7 +147,7 @@ grid(True)
 #TODO: what about socialNorms?
 
 
-savefig('modelOutput');
+savefig('figures/modelOutput');
 show();
 
 

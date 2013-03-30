@@ -1,4 +1,7 @@
-#backups
+#figures (this is just for convenience)
+figures/*
+
+#ubuntu backups
 *~
 
 *.py[cod]
