@@ -1,19 +1,25 @@
+from scipy import *
+from pylab import *
+
 timeToRun = 100;	#units are days (I think)
 
 # === coefficients derived from structural equation modeling:
-gamma = [[.11,   0,   0],\
+gamma = array([[.11,   0,   0],\
 	 [  0, .22,   0],\
-	 [  0,   0, .33]];
+	 [  0,   0, .33],\
+         [  0,   0,   0],\
+         [  0,   0,   0]]);
 
-beta  = [[  0,  0,  0,  0,  0],\
+beta  = array([[  0,  0,  0,  0,  0],\
          [  0,  0,  0,  0,  0],\
          [  0,  0,  0,  0,  0],\
          [.41,.42,.43,  0,  0],\
-         [  0,  0,.53,.54,  0]];
+         [  0,  0,.53,.54,  0]]);
 
 # ===
 #init all to 0
 belief = [0 for t in range(timeToRun)];
+
 attitude = [0 for t in range(timeToRun)];
 socialNorms = [0 for t in range(timeToRun)];
 PBC = [0 for t in range(timeToRun)];
