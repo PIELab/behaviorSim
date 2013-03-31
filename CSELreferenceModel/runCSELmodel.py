@@ -3,7 +3,6 @@ from scipy import *
 from pylab import *
 
 #TODO: import definitions for each component?
-import PECSinput
 
 # === === === === === === === === === === === === === === === === === ===
 # runModel runs a the model defined in oppropriate python files for one agent
@@ -35,37 +34,41 @@ for t in range(runParameters.timeToRun):
 	PBC[t]      = firstModel.stateHistory[t].PBC;
 
 subplots_adjust(wspace=0.6)
+subplots_adjust(hspace=0.6)
 
+import firstOrderInput
 #inputs on the left (odds)
 subplot(421)
-plot(PECSinput.belief);
-ylabel('belief')
+plot(firstOrderInput.xi[0]);
+ylabel('attitude (input; xi1)')
 grid(True)
 
 subplot(423)
-plot(PECSinput.attitude);
-ylabel('attitude in')
+plot(firstOrderInput.xi[1]);
+ylabel('subjective norms in (xi2)')
 grid(True)
 
 subplot(425)
-plot(PECSinput.socialNorms);
-ylabel('social norms in')
+plot(firstOrderInput.xi[2]);
+ylabel('PBC in (xi3)')
 grid(True)
 
 subplot(427)
-plot(PECSinput.PBC);
-ylabel('PBC in')
+plot(0);
+ylabel('empty graph')
 grid(True)
 
 #outputs on the right (evens)
 subplot(422)
 plot(attitude);
 ylabel('attitude')
+ylim(0,90)
 grid(True)
 
 subplot(424)
 plot(intention);
 ylabel('intention')
+ylim(0,90)
 grid(True)
 
 subplot(426)

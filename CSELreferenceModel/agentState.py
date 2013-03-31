@@ -1,12 +1,14 @@
+from firstOrderInput import * 
+
 class agentState:
 	#'endogeneous flow variables' from 2010 Navarro-Barrientos et al @ CSEL:
-	attitude = 0;		#eta1; attitude towards behavior
-	socialNorms = 0;	#eta2; subjective norms
-	PBC = 0;		#eta3; perceived Behavioral Control
-	intention = 0;		#eta4;
-	behavior = 0;		#eta5;
+	attitude    = gamma[0,0]*xi[0,0];	#eta1; attitude towards behavior
+	socialNorms = gamma[1,1]*xi[1,0];	#eta2; subjective norms
+	PBC         = gamma[2,2]*xi[2,0];	#eta3; perceived Behavioral Control
+	intention   = beta[3,0]*attitude + beta[3,1]*socialNorms + beta[3,2]*PBC;		#eta4;
+	behavior    = beta[4,3]*intention + beta[4,2]*PBC;		#eta5;
 
-	#TODO: inlude something like 'def init(self, initState)' to initialize all state vars to given state
+	# sets all state vars to those in the given state
 	def setState(self, newState):
 		self.attitude    = newState.attitude;
 		self.socialNorms = newState.socialNorms;

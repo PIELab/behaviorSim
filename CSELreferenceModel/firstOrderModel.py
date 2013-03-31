@@ -41,31 +41,54 @@ class modelInstance:
 		#from eqtn 10 & 11 in 2010 Navarro-Barrientos et al @ CSEL
 		GAMMA = firstOrderInput.gamma;
 		BETA  = firstOrderInput.beta;
+		XI    = firstOrderInput.xi;
+		THETA = firstOrderInput.theta;
+		TAU   = firstOrderInput.tau;
+		ZETA  = firstOrderInput.zeta;
 
-		xi  = array([[firstOrderInput.attitude[t]],\
-		       [firstOrderInput.socialNorms[t]],\
-		       [firstOrderInput.PBC[t]]]);
+		#xi  = array([[firstOrderInput.attitude[t]],\
+		#       [firstOrderInput.socialNorms[t]],\
+		#       [firstOrderInput.PBC[t]]]);
 
-		eta = array([[self.stateHistory[t].attitude],\
-		       [self.stateHistory[t].socialNorms],\
-		       [self.stateHistory[t].PBC],\
-		       [self.stateHistory[t].intention],\
-		       [self.stateHistory[t].behavior]]);
+		# use this to get eta values at t<=now (in the past) 
+		def eta(etaIndex, time):
+			if etaIndex == 0:
+				return self.stateHistory[time].attitude;
+			elif etaIndex == 1:
+				return self.stateHistory[time].socialNorms;
+			elif etaIndex == 2:
+				return self.stateHistory[time].PBC;
+			elif etaIndex == 3:
+				return self.stateHistory[time].intention;
+			elif etaIndex == 4:
+				return self.stateHistory[time].behavior;
 
 		# print '\n',self.stateHistory[t].attitude,'\n'
 
-		#TODO: calculate these disturbances
-		zeta= array([[0],\
-		       [0],\
-		       [0],\
-		       [0],\
-		       [0]]);
+		# ALL INDICIES FIXED TO START AT 0
+		etaDot = [(GAMMA[0,0]*XI[0,t-THETA[0]] - eta(0,t) + ZETA[0])/TAU[0],\
+		          (GAMMA[1,1]*XI[1,t-THETA[1]] - eta(1,t) + ZETA[1])/TAU[1],\
+		          (GAMMA[2,2]*XI[2,t-THETA[2]] - eta(2,t) + ZETA[2])/TAU[2],\
+		          (   BETA[3,0]*eta(0,t-THETA[3]) \
+		            + BETA[3,1]*eta(1,t-THETA[4]) \
+		            + BETA[3,2]*eta(2,t-THETA[5]) -eta(3,t)+ ZETA[3])/TAU[3],\
+		          (   BETA[4,3]*eta(3,t-THETA[6]) \
+		            + BETA[4,2]*eta(2,t-THETA[7]) - eta(4,t) + ZETA[4])/TAU[4]];
 
 		#print BETA, '\n\n', eta,'\n\n',GAMMA,'\n\n',xi,'\n\n',zeta,'\n\n'
 		#print BETA.shape,'x',eta.shape,'+',GAMMA.shape,'x',xi.shape,'+',zeta.shape
 
 		# 1x5         5x5 * 1x5       3x5 * 1x3    1x5
-		nextEta = np.dot(BETA,eta) + np.dot(GAMMA,xi) + zeta;
+#		nextEta = np.dot(BETA,eta) + np.dot(GAMMA,XI) + firstOrderInput.zeta;
+
+			# the most recent eta values:
+		ETA = array([[self.stateHistory[t].attitude],\
+		             [self.stateHistory[t].socialNorms],\
+		             [self.stateHistory[t].PBC],\
+		             [self.stateHistory[t].intention],\
+		             [self.stateHistory[t].behavior]]);
+
+		nextEta = ETA + etaDot;
 
 		#NOTE: I don't really understand why the extra [0] is needed here, but I guess it is...t
 		self.currentState.attitude    = nextEta[0][0];
