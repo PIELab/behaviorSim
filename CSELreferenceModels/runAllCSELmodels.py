@@ -7,7 +7,7 @@ from scipy import *
 from pylab import *
 
 #show & save all relevant plots for given model, input
-def showPlots(runTime,theModel,theInput, saveFileName):
+def makePlots(runTime,theModel,theInput, saveFileName):
 	#initialize output lists...
 	attitude = [0 for i in range(runParameters.timeToRun)];
 	intention= [0 for i in range(runParameters.timeToRun)];
@@ -101,8 +101,9 @@ for t in range(runParameters.timeToRun):
 #	secondModel.iterate();
 
 # === show plots
-showPlots(runParameters.timeToRun,constModel,constInput,'figures/constModel');
-showPlots(runParameters.timeToRun,firstModel,firstInput,'figures/firstOrderModel');
+makePlots(runParameters.timeToRun,constModel,constInput,'figures/constModel');
+makePlots(runParameters.timeToRun,firstModel,firstInput,'figures/firstOrderModel');
+makePlots(runParameters.timeToRun,firstModel,firstInput,'figures/firstOrderModel');
 
 savefig('allModels');
 show();
