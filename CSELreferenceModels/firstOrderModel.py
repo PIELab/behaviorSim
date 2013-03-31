@@ -1,54 +1,56 @@
 from scipy import *
 from pylab import *
 
-import firstOrderInput
 from agentState import *
+import runParameters
 
 # model instance contains all data needed to run a model
 class modelInstance:
 	#time values, T
-	currentTime = 0;
-	timeToRun = firstOrderInput.timeToRun;	
-	#assumed start at 0, deltaT = 1
+	currentTime = 0; 		#assumed start at 0, deltaT = 1
+	timeToRun = runParameters.timeToRun;
+	currentState = None;
+	stateHistory = None;
 
-	# inputs, X
-	# these are defined in firstOrderInputs.py
+	def __init__(self,modelInput):
+		# inputs, X
+		# these are defined in input_<???>.py
 
-	# outputs, Y
+		# outputs, Y
 
-	# state variables, Z:
-	currentState = agentState();
-	stateHistory = [ agentState() for i in range(timeToRun)];	#set up state history to be filled
+		# state variables, Z:
+		self.currentState = agentState(modelInput);
+		self.stateHistory = [ agentState(modelInput) for i in range(self.timeToRun)];	#set up state history to be filled
 
-	# W
+		# W
 
-	# XX
+		# XX
 
-	# YY
+		# YY
 
-	# ZZ
+		# ZZ
 
-	# F
+		# F
 
-	# H
+		# H
 
-	#G
+		#G
 
-	def iterate(self):
+	def iterate(self,modelInput):
 		t = self.currentTime; #for easy formulas
 		self.stateHistory[t].setState(self.currentState);
 
 		#from eqtn 10 & 11 in 2010 Navarro-Barrientos et al @ CSEL
-		GAMMA = firstOrderInput.gamma;
-		BETA  = firstOrderInput.beta;
-		XI    = firstOrderInput.xi;
-		THETA = firstOrderInput.theta;
-		TAU   = firstOrderInput.tau;
-		ZETA  = firstOrderInput.zeta;
+		GAMMA = modelInput.gamma;
+		BETA  = modelInput.beta;
+		XI    = modelInput.xi;
+		THETA = modelInput.theta;
+		TAU   = modelInput.tau;
+		ZETA  = modelInput.zeta;
 
-		#xi  = array([[firstOrderInput.attitude[t]],\
-		#       [firstOrderInput.socialNorms[t]],\
-		#       [firstOrderInput.PBC[t]]]);
+		#xi  = array([[modelInput.attitude[t]],\
+		#       [modelInput.socialNorms[t]],\
+		#       [modelInput.PBC[t]]]);
 
 		# use this to get eta values at t<=now (in the past) 
 		def eta(etaIndex, time):
@@ -79,7 +81,7 @@ class modelInstance:
 		#print BETA.shape,'x',eta.shape,'+',GAMMA.shape,'x',xi.shape,'+',zeta.shape
 
 		# 1x5         5x5 * 1x5       3x5 * 1x3    1x5
-#		nextEta = np.dot(BETA,eta) + np.dot(GAMMA,XI) + firstOrderInput.zeta;
+#		nextEta = np.dot(BETA,eta) + np.dot(GAMMA,XI) + modelInput.zeta;
 
 			# the most recent eta values:
 		ETA = array([[self.stateHistory[t].attitude],\
