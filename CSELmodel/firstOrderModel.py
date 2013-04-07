@@ -75,8 +75,8 @@ class firstOrderModel:
 		self.getEtaConsts();
 
 		return (   beta[3,0]*pastEta(t-theta[3],0) \
-			     + beta[3,1]*pastEta(t-theta[4],1) \
-			     + beta[3,2]*pastEta(t-theta[5],2) - eta+ zeta[3])/tau[3]
+			 + beta[3,1]*pastEta(t-theta[4],1) \
+			 + beta[3,2]*pastEta(t-theta[5],2) - eta+ zeta[3])/tau[3]
 
 	def eta5Func(self,A,t): 
 		eta    = A[0]
@@ -84,8 +84,8 @@ class firstOrderModel:
 
 		self.getEtaConsts();
 
-		return (   beta[4,3]*pastEta(t-theta[6],3) \
-			     + beta[4,2]*pastEta(t-theta[7],2) - eta + zeta[4])/tau[4]
+		return (  beta[4,2]*pastEta(t-theta[6],2) \
+		        + beta[4,3]*pastEta(t-theta[7],3) - eta + zeta[4])/tau[4]
 
 	def getInitialEta(self):
 		self.getEtaConsts()

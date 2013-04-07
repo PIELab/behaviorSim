@@ -84,17 +84,68 @@ class secondOrderModel:
 		etaDDot= self.checkValue(etaDDot)
 		return [etaDot,etaDDot]
 
+# 1ST ORDER:
+#	def eta4Func(self,A,t): 
+#		eta    = A[0]
+#		etaDot = A[1]
+#
+#		self.getEtaConsts();
+#
+#		return (   beta[3,0]*pastEta(t-theta[3],0) \
+#			     + beta[3,1]*pastEta(t-theta[4],1) \
+#			     + beta[3,2]*pastEta(t-theta[5],2) - eta+ zeta[3])/tau[3]
+#
+#	def eta5Func(self,A,t): 
+#		eta    = A[0]
+#		etaDot = A[1]
+#
+#		self.getEtaConsts();
+#
+#		return (   beta[4,3]*pastEta(t-theta[6],3) \
+#			     + beta[4,2]*pastEta(t-theta[7],2) - eta + zeta[4])/tau[4]
+
+# FIRSTGUESS:
+#	def eta4Func(self,state,t): 
+#		# unpack the state vector
+#		eta    = state[0]
+#		etaDot = state[1]
+#		self.getEtaConsts()
+#		 
+#		A = beta[3,0]*pastEta(t-theta[3],0) \
+#			       + beta[3,1]*pastEta(t-theta[4],1) \
+#			       + beta[3,2]*pastEta(t-theta[5],2) \
+#		               - eta + zeta[3] - 2*sigma*tau[3]*etaDot
+#		#print 'eta4ish:',A
+#		etaDDot = A /tau[3]**2
+#		etaDDot= self.checkValue(etaDDot)
+#		return [etaDot,etaDDot]
+#
+#	def eta5Func(self,state,t): 
+#		# unpack the state vector
+#		eta    = state[0]
+#		etaDot = state[1]
+#		self.getEtaConsts()
+#
+#		A = beta[4,3]*pastEta(t-theta[6],3) \
+#			       + beta[4,2]*pastEta(t-theta[7],2) - eta + zeta[4] - 2*sigma*tau[3]*etaDot
+#		#print 'eta5ish:',A
+#		etaDDot =  A /tau[4] **2
+#		etaDDot= self.checkValue(etaDDot)
+#		return [etaDot,etaDDot]
+
+# 2ND GUESS:
 	def eta4Func(self,state,t): 
 		# unpack the state vector
 		eta    = state[0]
 		etaDot = state[1]
-		self.getEtaConsts();
+		self.getEtaConsts()
 		 
-		A = beta[3,0]*pastEta(t-theta[3],0) \
-			       + beta[3,1]*pastEta(t-theta[4],1) \
-			       + beta[3,2]*pastEta(t-theta[5],2) - eta + zeta[3] + 2*sigma*tau[3]*etaDot
+		A = beta[3,0]*( pastEta(t-theta[3],0) + tauA[3]*pastEtaDot(t-theta[3],0) ) \
+		  + beta[3,1]*( pastEta(t-theta[4],1) + tauA[4]*pastEtaDot(t-theta[4],1) ) \
+		  + beta[3,2]*( pastEta(t-theta[5],2) + tauA[5]*pastEtaDot(t-theta[5],2) ) \
+		  - eta + zeta[3] - 2*sigma*tau[3]*etaDot
 		#print 'eta4ish:',A
-		etaDDot = sqrt( A )/tau[3]
+		etaDDot = A / tau[3]**2
 		etaDDot= self.checkValue(etaDDot)
 		return [etaDot,etaDDot]
 
@@ -102,12 +153,13 @@ class secondOrderModel:
 		# unpack the state vector
 		eta    = state[0]
 		etaDot = state[1]
-		self.getEtaConsts();
+		self.getEtaConsts()
 
-		A = beta[4,3]*pastEta(t-theta[6],3) \
-			       + beta[4,2]*pastEta(t-theta[7],2) - eta + zeta[4] + 2*sigma*tau[3]*etaDot
+		A = beta[4,2]*( pastEta(t-theta[6],2) + tauA[6]*pastEtaDot(t-theta[6],2) ) \
+		  + beta[4,3]*( pastEta(t-theta[7],3) + tauA[6]*pastEtaDot(t-theta[7],3) ) \
+		  - eta + zeta[4] - 2*sigma*tau[3]*etaDot
 		#print 'eta5ish:',A
-		etaDDot = sqrt( A )/tau[4]
+		etaDDot =  A / tau[4] **2
 		etaDDot= self.checkValue(etaDDot)
 		return [etaDot,etaDDot]
 
@@ -121,7 +173,7 @@ class secondOrderModel:
 		return array([eta0,eta1,eta2,eta3,eta4])
 
 	def getEtaConsts(self):
-		global theta,tau,gamma,beta,zeta,pastEta, tauA, sigma
+		global theta,tau,gamma,beta,zeta,pastEta,pastEtaDot,tauA, sigma
 	# given belief step function
 		def belief(t):
 			stepTime = 3;
@@ -150,10 +202,10 @@ class secondOrderModel:
 
 		self.xi = newXi
 
-		theta = array([0,0,0, 2,2,2,2,2]);	#time delays
-		tau   = array([1,1,1, 2, 4]);		#time constants
+		theta = array([0,0,0,2,2,2,2,2]);	#time delays
+		tau   = array([1,1,1,2,4]);		#time constants
 
-		tauA  = array([-3,0,0,0,0]);
+		tauA  = array([-3,0,0,0,0,0,0,0]);
 		sigma = 0.3;
 
 		#exogenous inflow resistances:
@@ -185,11 +237,15 @@ class secondOrderModel:
 			elif(T>=self.END_TIME):
 				return self.ETA[etaIndex][self.N_SAMPLES-1,0]
 			else:
-				indexOfTime = int(round(T/self.deltaT))
+				indexOfTime = int(round(T/self.deltaT)) - 1 #-1 b/c of starting @ 0
 				#print ' time:',T
 				#print 'index:',indexOfTime
 				#print ' size:',size(ETA[etaIndex][indexOfTime][0])
 				#print 'value:',ETA[etaIndex][indexOfTime,0]	#[eta#][time , eta_or_dEta]
 				return self.ETA[etaIndex][indexOfTime,0]
-
 		pastEta = newPastEta
+
+		def newPastEtaDot(T,etaIndex):
+			dT = 1e-10
+			return ( (pastEta(T,etaIndex)-pastEta(T-dT,etaIndex)) + (pastEta(T+dT,etaIndex)-pastEta(T,etaIndex)) )/2
+		pastEtaDot = newPastEtaDot
