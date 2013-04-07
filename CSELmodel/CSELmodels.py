@@ -3,7 +3,6 @@ from pylab import * # for plotting commands & array
 
 #show & save all relevant plots for given model, input
 def makePlots(ETA,xi):
-	figure()
 	subplots_adjust(wspace=0.6)
 	subplots_adjust(hspace=0.6)
 
@@ -69,29 +68,33 @@ runParams = runParameters()
 #time window:
 deltaT = abs(runParams.END_TIME-runParams.START_TIME)/runParams.N_SAMPLES;	#time step
 
-
-
+import firstOrderConstIn
+constModel = firstOrderConstIn.firstOrderConstIn(runParams)
 import firstOrderModel
 firstModel = firstOrderModel.firstOrderModel(runParams)
-
-ETA = firstModel.ETA;
-time= firstModel.time;
+#TODO:
+import secondOrderModel
+secondModel = secondOrderModel.secondOrderModel(runParams)
 
 #ETA1= ETA[:,0]
 
 #print 'SIZE'
 #print size(ETA[0][:,0])
 
-#firstOrderModel.getEtaConsts()	#gets xi to this level for makePlots
-makePlots(ETA,firstModel.xi)
+figure()
+legend(( 'Simple plot', ) )
+makePlots(constModel.ETA,constModel.xi)
+makePlots(firstModel.ETA,firstModel.xi)
+makePlots(secondModel.ETA,secondModel.xi)
+show()
 #savefig('figures/CSELmodels');
 
 #another plot:
-figure()
+#figure()
 #ylim(0,90)
-grid(True)
-for i in range(5):
-	plot(time,ETA[i][:,0])
-xlabel('t')
-ylabel('eta')
-show()
+#grid(True)
+#for i in range(5):
+#	plot(time,ETA[i][:,0])
+#xlabel('t')
+#ylabel('eta')
+#show()
