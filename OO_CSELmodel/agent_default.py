@@ -27,3 +27,6 @@ class agent:
 	       0,\
 	       0]);
 
+	# === for 2nd order model only: === 
+	tauA  = array([-3,0,0,0,0,0,0,0]);
+	sigma = 0.3;	# there are actually several different sigma, but they are all the same in the paper TODO: change this. 

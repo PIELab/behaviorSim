@@ -24,8 +24,8 @@ def makePlots(ETA,xi,time):
 	grid(True)
 
 	subplot(427)
-	plot(time,time);
-	ylabel('empty graph')
+	plot(time,ETA[1][:,0]);
+	ylabel('soc. norm (eta2)')
 	grid(True)
 
 	#outputs on the right (evens)
@@ -53,8 +53,6 @@ def makePlots(ETA,xi,time):
 	#xlabel('time')
 	ylabel('PBC (eta3)')
 	grid(True)
-
-	#TODO: what about socialNorms?
 
 	#another way to plot them:
 	#figure()
@@ -84,24 +82,35 @@ deltaT = abs(runParams.END_TIME-runParams.START_TIME)/runParams.N_SAMPLES;	#time
 print 'model start(days):',runParams.START_TIME
 print '  model end(days):',runParams.END_TIME
 print 'number of samples:',runParams.N_SAMPLES
-print ' sample frequency: 1 /',deltaT,' days'
+print ' sample frequency: 1 /',deltaT,' days\n'
 
-import inputs_constant, agent_default
-# === INPUT:
-theInput = inputs_constant.inputs()	# inputs to agent
-theAgent = agent_default.agent()	# agent constants
+from time import time #for measuring model run time
 
+# === CONSTANT 1ST ORDER
 print 'running 1st order model with constant input...'
-import model_firstorder
-constModel = model_firstorder.model(runParams,theInput,theAgent)
+import model_firstorder, inputs_constant, agent_default
+start = time()
+constModel = model_firstorder.model(runParams,inputs_constant.inputs(),agent_default.agent())
+print 'done. Time to complete:', time()-start, 's\n'
 
+# plot this now, since next run of model_firstorder.model() seems to overwrite ETA... TODO: fix this
+figure()
+legend(( 'Simple plot', ) )
+makePlots(constModel.ETA, constModel.theInput.xi, constModel.time)
+
+# === STEP 1ST ORDER
 print 'running 1st order model with step input...'
-import firstOrderModel	#TODO
-firstModel = firstOrderModel.firstOrderModel(runParams)
+import inputs_step_1storder#, model_firstorder, agent_default
+start = time()
+firstModel = model_firstorder.model(runParams,inputs_step_1storder.inputs(),agent_default.agent())
+print 'done. Time to complete:', time()-start, 's\n'
 
+# === STEP 2ND ORDER
 print 'running 2nd order model with step input...'
-import secondOrderModel	#TODO
-secondModel = secondOrderModel.secondOrderModel(runParams)
+import model_secondorder, inputs_step_2ndorder#, agent_default
+start = time()
+secondModel = model_secondorder.model(runParams,inputs_step_2ndorder.inputs(),agent_default.agent())
+print 'done. Time to complete:', time()-start, 's\n'
 
 #ETA1= ETA[:,0]
 
@@ -109,11 +118,8 @@ secondModel = secondOrderModel.secondOrderModel(runParams)
 #print size(ETA[0][:,0])
 
 print 'Creating plots for your enjoyment...'
-figure()
-legend(( 'Simple plot', ) )
-makePlots(constModel.ETA,theInput.xi,constModel.time)
-makePlots(firstModel.ETA,firstModel.xi,firstModel.time)
-makePlots(secondModel.ETA,secondModel.xi,secondModel.time)
+makePlots(firstModel.ETA, firstModel.theInput.xi, firstModel.time)
+makePlots(secondModel.ETA,secondModel.theInput.xi,secondModel.time)
 show()
 
 print 'done.'
