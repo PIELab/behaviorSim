@@ -36,12 +36,12 @@ class model:
 		self.deltaT     = abs(self.END_TIME-self.START_TIME)/self.N_SAMPLES;	#time step	
 
 		self.time     = linspace(self.START_TIME,self.END_TIME,self.N_SAMPLES)	
-
-		self.ETA0     = self.getInitialEta()
-		self.ETADOT0  = [0.0,0.0,0.0,0.0,0.0]
 		
 		self.theAgent = daAgent
 		self.theInput = daInput
+
+		self.ETA0     = self.getInitialEta()
+		self.ETADOT0  = [0.0,0.0,0.0,0.0,0.0]
 
 		#solve the model
 		self.ETA[0] = integrate.odeint(self.eta1Func,[self.ETA0[0],self.ETADOT0[0]],self.time)
@@ -50,36 +50,45 @@ class model:
 		self.ETA[3] = integrate.odeint(self.eta4Func,[self.ETA0[3],self.ETADOT0[3]],self.time)
 		self.ETA[4] = integrate.odeint(self.eta5Func,[self.ETA0[4],self.ETADOT0[4]],self.time)
 
+	# values cannot fall below 0!
+	def checkValue(self,v):
+		return v
 
 	def eta1Func(self,A,t): 
 		eta    = A[0]
 		etaDot = A[1]
-		return (self.theAgent.gamma[0,0]*self.theInput.xi(t-self.theAgent.theta[0])[0] - eta + self.theAgent.zeta[0])/self.theAgent.tau[0]
+		etaDDot= (self.theAgent.gamma[0,0]*self.theInput.xi(t-self.theAgent.theta[0])[0] - eta + self.theAgent.zeta(t,eta,0))/self.theAgent.tau[0]
+		#print etaDDot
+		return self.checkValue(etaDDot)
 
 	def eta2Func(self,A,t): 
 		eta    = A[0]
 		etaDot = A[1]
-		return (self.theAgent.gamma[1,1]*self.theInput.xi(t-self.theAgent.theta[1])[1] - eta + self.theAgent.zeta[1])/self.theAgent.tau[1]
+		etaDDot= (self.theAgent.gamma[1,1]*self.theInput.xi(t-self.theAgent.theta[1])[1] - eta + self.theAgent.zeta(t,eta,1))/self.theAgent.tau[1]
+		return self.checkValue(etaDDot)
 
 	def eta3Func(self,A,t): 
 		eta    = A[0]
 		etaDot = A[1]
-		return (self.theAgent.gamma[2,2]*self.theInput.xi(t-self.theAgent.theta[2])[2] - eta + self.theAgent.zeta[2])/self.theAgent.tau[2]
+		etaDDot= (self.theAgent.gamma[2,2]*self.theInput.xi(t-self.theAgent.theta[2])[2] - eta + self.theAgent.zeta(t,eta,2))/self.theAgent.tau[2]
+		return self.checkValue(etaDDot)
 
 	def eta4Func(self,A,t): 
 		eta    = A[0]
 		etaDot = A[1]
-		return (   self.theAgent.beta[3,0]*self.pastEta(t-self.theAgent.theta[3],0) \
+		etaDDot= (   self.theAgent.beta[3,0]*self.pastEta(t-self.theAgent.theta[3],0) \
 			 + self.theAgent.beta[3,1]*self.pastEta(t-self.theAgent.theta[4],1) \
 			 + self.theAgent.beta[3,2]*self.pastEta(t-self.theAgent.theta[5],2) \
-		         - eta + self.theAgent.zeta[3] )/self.theAgent.tau[3]
+		         - eta + self.theAgent.zeta(t,eta,3) )/self.theAgent.tau[3]
+		return self.checkValue(etaDDot)
 
 	def eta5Func(self,A,t): 
 		eta    = A[0]
 		etaDot = A[1]
-		return (   self.theAgent.beta[4,3]*self.pastEta(t-self.theAgent.theta[6],3) \
+		etaDDot= (   self.theAgent.beta[4,3]*self.pastEta(t-self.theAgent.theta[6],3) \
 			 + self.theAgent.beta[4,2]*self.pastEta(t-self.theAgent.theta[7],2) \
-		         - eta + self.theAgent.zeta[4])/self.theAgent.tau[4]
+		         - eta + self.theAgent.zeta(t,eta,4))/self.theAgent.tau[4]
+		return self.checkValue(etaDDot)
 
 	#finds initial eta values based on steady-state assumption
 	def getInitialEta(self):
@@ -92,13 +101,14 @@ class model:
 
 	#function to lookup a past eta (for time delays)
 	def pastEta(self,T,etaIndex):
+		indexOfTime = int(round(T/self.deltaT))
 		#print T
-		if(T<=self.START_TIME):
+		if(indexOfTime<=0):
 			return self.ETA0[etaIndex];
-		elif(T>=self.END_TIME):
+		elif(indexOfTime>=self.N_SAMPLES):
 			return self.ETA[etaIndex][self.N_SAMPLES-1,0]
 		else:
-			indexOfTime = int(round(T/self.deltaT))
+			
 			#print ' time:',T
 			#print 'index:',indexOfTime
 			#print ' size:',size(ETA[etaIndex][indexOfTime][0])

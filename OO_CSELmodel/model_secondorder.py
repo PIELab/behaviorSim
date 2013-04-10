@@ -1,5 +1,5 @@
 from scipy import integrate	#for integrate.odeint
-from pylab import array, linspace
+from pylab import array, linspace, size
 
 import agent_default, inputs_constant 	#defaults (will be overwritten by values passed to class)
 
@@ -56,6 +56,10 @@ class model:
 		self.ETA[3] = integrate.odeint(self.eta4Func,[self.ETA0[3],self.ETADOT0[3]],self.time)
 		self.ETA[4] = integrate.odeint(self.eta5Func,[self.ETA0[4],self.ETADOT0[4]],self.time)
 
+	# values cannot fall below 0!
+	def checkValue(self,v):
+		return v
+				
 
 	def eta1Func(self,A,t): 
 		eta    = A[0]
@@ -63,17 +67,18 @@ class model:
 
 		etaDDot = ( self.theAgent.gamma[0,0]*(  self.theInput.xi(t-self.theAgent.theta[0])[0] \
 		                                      + self.theAgent.tauA[0]*self.xiDot(t-self.theAgent.theta[0])[0]) \
-		           - eta + self.theAgent.zeta[0] - 2*self.theAgent.sigma*self.theAgent.tau[0]*etaDot )/self.theAgent.tau[0]**2
+		           - eta + self.theAgent.zeta(t,eta,0) - 2*self.theAgent.sigma*self.theAgent.tau[0]*etaDot )/self.theAgent.tau[0]**2
 		res = [etaDot,etaDDot]
-		return res
+		return self.checkValue(res)
 
 	def eta2Func(self,A,t): 
 		eta    = A[0]
 		etaDot = A[1]
 		etaDDot= (self.theAgent.gamma[1,1]*(  self.theInput.xi(t-self.theAgent.theta[1])[1] \
 		                                    + self.theAgent.tauA[1]*self.xiDot(t-self.theAgent.theta[1])[1]) \
-		          - eta + self.theAgent.zeta[1] - 2*self.theAgent.sigma*self.theAgent.tau[1]*etaDot)/self.theAgent.tau[1]**2
-		return [etaDot,etaDDot]
+		          - eta + self.theAgent.zeta(t,eta,1) - 2*self.theAgent.sigma*self.theAgent.tau[1]*etaDot)/self.theAgent.tau[1]**2
+		res = [etaDot,etaDDot]
+		return self.checkValue(res)
 
 
 	def eta3Func(self,A,t): 
@@ -81,8 +86,9 @@ class model:
 		etaDot = A[1]
 		etaDDot= (self.theAgent.gamma[2,2]*(  self.theInput.xi(t-self.theAgent.theta[2])[2] \
 		                                    + self.theAgent.tauA[2]*self.xiDot(t-self.theAgent.theta[2])[2]) \
-		          - eta + self.theAgent.zeta[2] - 2*self.theAgent.sigma*self.theAgent.tau[2]*etaDot)/self.theAgent.tau[2]**2
-		return [etaDot,etaDDot]
+		          - eta + self.theAgent.zeta(t,eta,2) - 2*self.theAgent.sigma*self.theAgent.tau[2]*etaDot)/self.theAgent.tau[2]**2
+		res = [etaDot,etaDDot]
+		return self.checkValue(res)
 
 	def eta4Func(self,A,t): 
 		eta    = A[0]
@@ -93,9 +99,10 @@ class model:
 		                            + self.theAgent.tauA[4]*self.pastEtaDot(t-self.theAgent.theta[4],1) ) \
 		  + self.theAgent.beta[3,2]*( self.pastEta(t-self.theAgent.theta[5],2) \
 		                            + self.theAgent.tauA[5]*self.pastEtaDot(t-self.theAgent.theta[5],2) ) \
-		  - eta + self.theAgent.zeta[3] - 2*self.theAgent.sigma*self.theAgent.tau[3]*etaDot
+		  - eta + self.theAgent.zeta(t,eta,3) - 2*self.theAgent.sigma*self.theAgent.tau[3]*etaDot
 		etaDDot = A / self.theAgent.tau[3]**2
-		return [etaDot,etaDDot]
+		res = [etaDot,etaDDot]
+		return self.checkValue(res)
 
 	def eta5Func(self,A,t): 
 		eta    = A[0]
@@ -104,9 +111,10 @@ class model:
 		                            + self.theAgent.tauA[6]*self.pastEtaDot(t-self.theAgent.theta[6],2) ) \
 		  + self.theAgent.beta[4,3]*( self.pastEta(t-self.theAgent.theta[7],3) \
 		                            + self.theAgent.tauA[6]*self.pastEtaDot(t-self.theAgent.theta[7],3) ) \
-		  - eta + self.theAgent.zeta[4] - 2*self.theAgent.sigma*self.theAgent.tau[3]*etaDot
+		  - eta + self.theAgent.zeta(t,eta,4) - 2*self.theAgent.sigma*self.theAgent.tau[3]*etaDot
 		etaDDot =  A / self.theAgent.tau[4] **2
-		return [etaDot,etaDDot]
+		res = [etaDot,etaDDot]
+		return self.checkValue(res)
 
 	#finds initial eta values based on steady-state assumption
 	def getInitialEta(self):

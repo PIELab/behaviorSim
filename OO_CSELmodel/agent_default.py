@@ -21,11 +21,8 @@ class agent:
 		       [0.5,0.5,0.5,0.5,0.5]]);
 
 	# disturbances
-	zeta= array([0,\
-	       0,\
-	       0,\
-	       0,\
-	       0]);
+	def zeta(self,t,currentValue,index):
+		return 0
 
 	# === for 2nd order model only: === 
 	tauA  = array([-3,0,0,0,0,0,0,0]);
