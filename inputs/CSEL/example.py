@@ -1,4 +1,4 @@
-#class to define all inputs into the model
+# example input for CSEL model
 
 from pylab import array
 

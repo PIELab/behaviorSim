@@ -3,6 +3,10 @@ import inputs.inputs as inputs
 import agents.agents as agents
 sampleInput = inputs.inputs()
 sampleAgent = agents.agents()
+
+PAmodeli = model(runParams,inputs(),agent())	#???
+
+
 # these agents can be modified/added to following editing instructions in ./inputs/inputs.py and ./agents/agents.py. 
 
 print sampleInput.xi(5)		# print exogeneous flow vars @ t=5
