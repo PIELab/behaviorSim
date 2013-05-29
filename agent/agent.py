@@ -4,14 +4,15 @@
 # set input file locations here:
 #from .P.randomWalk import exmpl as P
 #from .E.emotGuesser import xmpl as E
-from .C.CSEL import example as C
+#from .C.CSEL import example as C
 #from .S.CSEL import example as S
 
 # add new models like this:
 # from .InputType import typeInstance as InputType
 
-class agents:
+class agent:
 	def __init__(self):
+		return
 		# TODO: check input and print error if model/input mismatch?	
 
 	# desired initialization must go here:
