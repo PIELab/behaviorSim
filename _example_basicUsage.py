@@ -5,27 +5,32 @@ t = 2	#time of interest
 import PECSagent.agent
 agent1 = PECSagent.agent.agent()
 
+# === === === === === === INPUT === === === === === ===
 # === to get data: ===
-print 'initTime(2): ' + str(agent1.inputs.initTime(2))
+#<agentName>.inputs.<desiredValue>(<desiredTime>)
+print 'time(2): ' + str(agent1.inputs.time(2)) + agent1.inputs.timeUnits
 # don't worry about if the data is 'there' or up-to-date; all of that is handled automagically, just ask for time you want
 
-# === to get all data at once (as a dict) === :
-print '     inputs: ' + str(agent1.inputs)
+# === to get all data at one time (as a dict) === :
+#<agentName>.inputs(<desiredTime>)
 print '  inputs(0): ' + str(agent1.inputs(1))
 
+# === to explore available data in the object use ===
+# help(agent1.inputs)
+# or
+# print dir(agent1.inputs)
+# or explore the contents of agent.inputs.py directly
 
-# === how the raw data is handled (don't do this) ===
-# attempted direct access shows data in memory (don't do this)
-print '   initTime: ' + str(agent1.inputs._inputs__initTime)
-# function call ensures that value is present and up-to-date (this is what you should be using)
-print 'initTime(t): '  + str(agent1.inputs.initTime(t))
-# and updates the raw data (as shown) (do not do this)
-print '   initTime: ' + str(agent1.inputs._inputs__initTime)
 
+
+# === === === === === === STATE === === === === === ===
 #agent.state(t)
 #agent.state.P(t)
 #agent.state.P.bodyTemp(t)
 
+
+
+# === === === === === === OUTPUT === === === === === ===
 #agent.output(t)
 
 #NOTE: all model.run() and all that crap is implicit and done automatically
@@ -42,5 +47,4 @@ print '   initTime: ' + str(agent1.inputs._inputs__initTime)
 #agent.setG(...
 #agent.setH(...
 #...
-
 
