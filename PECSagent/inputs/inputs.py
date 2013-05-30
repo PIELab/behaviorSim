@@ -15,13 +15,13 @@ class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
 		# === define ALL raw data structures ===
 		# ==================================================
 		# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-		self.initTime    = list()
+		self.__initTime    = list()
 		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 	def __call__(self,t):
 		# === 3 return ALL info for that time as a dict ===
 		# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-		return dict(initTime=self.getInitTime(t))
+		return dict(initTime=self.initTime(t))
 		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 	# === 4 define ALL getters using external functions ===
@@ -29,7 +29,7 @@ class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
 	# note: 'getters' are not true getters here; they also set.
 
 	# get the time input was initialized
-	def getInitTime(self,t):
+	def initTime(self,t):
 		return initTimeGetter(self,t)
 
 	# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -6,7 +6,7 @@ import PECSagent.agent
 agent1 = PECSagent.agent.agent()
 
 # === to get data: ===
-print 'initTime(2): ' + str(agent1.inputs.getInitTime(2))
+print 'initTime(2): ' + str(agent1.inputs.initTime(2))
 # don't worry about if the data is 'there' or up-to-date; all of that is handled automagically, just ask for time you want
 
 # === to get all data at once (as a dict) === :
@@ -15,12 +15,12 @@ print '  inputs(0): ' + str(agent1.inputs(1))
 
 
 # === how the raw data is handled (don't do this) ===
-# attempted direct access shows data in memory, which is currently empty
-print '   initTime: ' + str(agent1.inputs.initTime)
+# attempted direct access shows data in memory (don't do this)
+print '   initTime: ' + str(agent1.inputs._inputs__initTime)
 # function call ensures that value is present and up-to-date (this is what you should be using)
-print 'initTime(t): '  + str(agent1.inputs.getInitTime(t))
-# and updates the raw data
-print '   initTime: ' + str(agent1.inputs.initTime)
+print 'initTime(t): '  + str(agent1.inputs.initTime(t))
+# and updates the raw data (as shown) (do not do this)
+print '   initTime: ' + str(agent1.inputs._inputs__initTime)
 
 #agent.state(t)
 #agent.state.P(t)
