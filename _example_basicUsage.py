@@ -1,23 +1,28 @@
 
-t = 2	#time of interest
+t = 5	#time of interest in simulation timesteps (set in settings)
 
-# load settings of the simulation (just FYI here)
-from PECSagent.settings import settings
-print 'settings:' + str(dir(settings)) + '\n'
-
-#agent set-up
+# === === === === === === AGENT SETUP === === === === === ===
 import PECSagent.agent
 agent1 = PECSagent.agent.agent()
 
-# === === === === === === INPUT === === === === === ===
+
+
+print ' === === === === === === SETTINGS === === === === === ==='
+# load settings of the simulation (just FYI here)
+from PECSagent.settings import settings
+print '* simulation start time (sim-time): ' + str(settings.simStartTime)
+print '*     size of time step, deltaTime: ' + str(settings.deltaTime)
+
+
+print '\n === === === === === === INPUTS === === === === === ==='
 # === to get data: ===
 #<agentName>.inputs.<desiredValue>(<desiredTime>)
-print 'time(2): ' + str(agent1.inputs.time(2)) + '\n'
+print '*   time(t): ' + str(agent1.inputs.time(t))
 # don't worry about if the data is 'there' or up-to-date; all of that is handled automagically, just ask for time you want
 
 # === to get all data at one time (as a dict) === :
 #<agentName>.inputs(<desiredTime>)
-print 'inputs(0): ' + str(agent1.inputs(1)) + '\n'
+print '* inputs(3): ' + str(agent1.inputs(3))
 
 # === to explore available data in the object use ===
 # help(agent1.inputs)
@@ -27,9 +32,13 @@ print 'inputs(0): ' + str(agent1.inputs(1)) + '\n'
 
 
 
-# === === === === === === STATE === === === === === ===
+print '\n === === === === === === STATE === === === === === ==='
 # === to get data ===
 #<agentName>.state.<desiredValue>(<desiredTime>)
+print '*     agent name: '+agent1.state.name
+print '* agent birthday: '+str(agent1.state.birthday)
+print '*   agent age(0): '+str(agent1.state.age(0))
+print '*   agent age(t): '+str(agent1.state.age(t))
 
 # === to explore available data in the object use ===
 # help(agent1.state)
@@ -43,7 +52,7 @@ print 'inputs(0): ' + str(agent1.inputs(1)) + '\n'
 
 
 
-# === === === === === === OUTPUT === === === === === ===
+print '\n === === === === === === OUTPUT === === === === === ==='
 #agent.output(t)
 
 #NOTE: all model.run() and all that crap is implicit and done automatically
