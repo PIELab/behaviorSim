@@ -39,6 +39,9 @@ print '*     agent name: '+agent1.state.name
 print '* agent birthday: '+str(agent1.state.birthday)
 print '*   agent age(0): '+str(agent1.state.age(0))
 print '*   agent age(t): '+str(agent1.state.age(t))
+print '      === from CSEL ==='
+print '*    agent theta: '+str(agent1.state.theta)
+print '*  agent zeta(t): '+str(agent1.state.zeta(t))
 
 # === to explore available data in the object use ===
 # help(agent1.state)
@@ -55,7 +58,7 @@ print '*   agent age(t): '+str(agent1.state.age(t))
 print '\n === === === === === === OUTPUT === === === === === ==='
 #agent.output(t)
 
-#NOTE: all model.run() and all that crap is implicit and done automatically
+#NOTE: all model.run() and all that is done automatically, just don't worry about it.
 
 
 
