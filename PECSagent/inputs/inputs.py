@@ -5,6 +5,8 @@
 	# and encapsulated in arrows
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+from ..settings import settings
+
 # === 1 import desired classes to define parts of input here ===
 # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 from .baseInfo.debugInfo  import currentTime  as initTimeGetter
@@ -21,8 +23,6 @@ from .CSEL.inputs_constant import xi          as xiGetter	#TODO: xi not needed, 
 class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
 	# constructor
 	def __init__(self):
-		self.deltaTime = 1	# sim-world time between steps
-		self.timeUnits = 'days'	# sim-world time units
 		# === define ALL raw data structures ===
 		# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 		# from package debugInfo:
@@ -42,7 +42,7 @@ class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
 		# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 		return dict(initTime=self.initTime(t), \
 		            index   =self.index(t), \
-		            time    =str(self.time(t))+self.timeUnits,\
+		            time    =str(self.time(t))+settings.timeUnits,\
 		            PAbelief=str(self.PAbelief(t)),\
 		            PAoutcomeEval=str(self.PAoutcomeEval(t)),\
 		            xi           =str(self.xi(t)))
@@ -63,7 +63,7 @@ class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
 	# sim-world time of calculation
 	# from package debugInfo
 	def time(self,t):
-		return timeGetter(self.__time,t,self.deltaTime)
+		return timeGetter(self.__time,t,settings.deltaTime)
 
 	# belief about physical activity
 	# from package CSEL
