@@ -42,7 +42,7 @@ class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
 		# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 		return dict(initTime=self.initTime(t), \
 		            index   =self.index(t), \
-		            time    =str(self.time(t))+settings.timeUnits,\
+		            time    =str(self.time(t)),\
 		            PAbelief=str(self.PAbelief(t)),\
 		            PAoutcomeEval=str(self.PAoutcomeEval(t)),\
 		            xi           =str(self.xi(t)))
@@ -63,7 +63,7 @@ class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
 	# sim-world time of calculation
 	# from package debugInfo
 	def time(self,t):
-		return timeGetter(self.__time,t,settings.deltaTime)
+		return timeGetter(self.__time,t,settings.simStartTime,settings.deltaTime)
 
 	# belief about physical activity
 	# from package CSEL

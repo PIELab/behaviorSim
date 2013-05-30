@@ -4,12 +4,12 @@
 # requirements for this method to be valid:
 	# requiredTimeScale = null
 	# requiredTimeStep  = null
-def timePassed(data,index,deltaT):
+def timePassed(data,index,t_0,deltaT):
 	if index < len(data):
 		return data[index]
 	else:	# fill in data up to t
 		if len(data) == 0:
-			data.append(0)
+			data.append(t_0)
 		for i in range(len(data),index+1):
 			time = data[i-1]+deltaT
 			data.append(time)
