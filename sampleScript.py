@@ -1,14 +1,16 @@
+t = 5 	# time of interest
+
 # === INPUTS ===
 # load and use the 'standard' input:
 import inputs.inputs as inputs
 sampleInput1 = inputs.inputs()
-print sampleInput1.xi(5)	# print exogeneous flow vars @ t=5
+print sampleInput1.xi(t)	# print exogeneous flow vars @ t=5
 
 # this input can be modified/added to by following editing instructions in ./inputs/inputs.py
 
 # alternatively, specific instances of input/agents can be loaded directly like:
 import inputs.CSEL.example
-print inputs.CSEL.example.belief(5)	# print belief @ t=5
+print inputs.CSEL.example.xi(t)	# print belief @ t=5
 
 
 
@@ -17,6 +19,8 @@ print inputs.CSEL.example.belief(5)	# print belief @ t=5
 import agent.agent as agent
 sampleAgent1 = agent.agent()
 # this agent can be modified/added to by following editing instructions in ./agent/agent.py
+
+print sampleAgent1.P.getState(t)
 
 # alternatively, load a custom instance of an agent directly:
 #init agent data structures
