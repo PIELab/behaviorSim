@@ -42,6 +42,16 @@ print '*   agent age(t): '+str(agent1.state.age(t))
 print '      === from CSEL ==='
 print '*    agent theta: '+str(agent1.state.theta)
 print '*  agent zeta(t): '+str(agent1.state.zeta(t))
+print '*   agent eta(t): '+str(agent1.state.eta(t))
+
+#plot your CSEL state vars
+import pylab
+showTime = [agent1.inputs.time(t) for t in range(0,10)]
+for etaNum in range(0,4):
+	pylab.figure('eta'+str(etaNum))
+	pylab.plot(showTime,[agent1.state.eta(t)[etaNum] for t in range(0,10)])
+	pylab.draw()
+pylab.show()
 
 # === to explore available data in the object use ===
 # help(agent1.state)
