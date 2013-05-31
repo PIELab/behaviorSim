@@ -12,7 +12,7 @@ def age(data,t,birthdatetime,deltaT,t0):
 	if t < len(data):
 		return data[t]
 	else:	# fill in data up to t
-		if t == 0:
+		if len(data) == 0:
 			ageAtStart = t0 - birthdatetime
 			data.append(ageAtStart)
 		for i in range(len(data),t+1):

@@ -32,6 +32,7 @@ class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
 		# from package CSEL:
 		self.__PAbelief     =list()
 		self.__PAoutcomeEval=list()
+		# TODO: add the other inputs which determine xi here OR remove all of them or xi (since they are a bit redundant)
 		self.__xi           =list()
 		
 		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

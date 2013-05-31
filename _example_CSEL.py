@@ -8,48 +8,48 @@ agent1 = PECSagent.agent.agent()
 
 
 print ' === === === === === === SETTINGS === === === === === ==='
-# load settings of the simulation (just FYI here)
+# load settings (same as in _example_basicUsage)
 from PECSagent.settings import settings
 print '* simulation start time (sim-time): ' + str(settings.simStartTime)
 print '*     size of time step, deltaTime: ' + str(settings.deltaTime)
 
 
 print '\n === === === === === === INPUTS === === === === === ==='
-# === to get data: ===
-#<agentName>.inputs.<desiredValue>(<desiredTime>)
+# === to get data: === (same as in _example_basicUsage)
 print '*   time(t): ' + str(agent1.inputs.time(t))
-# don't worry about if the data is 'there' or up-to-date; all of that is handled automagically, just ask for time you want
-
-# === to get all data at one time (as a dict) === :
-#<agentName>.inputs(<desiredTime>)
-print '* inputs(3): ' + str(agent1.inputs(3))
-# that way you can explore available data in the object
-
-# to get at more underlying raw data and methods use:
-# help(agent1.inputs)
-# or
-# print dir(agent1.inputs)
-# or explore the contents of inputs.inputs.py directly
-
-
+# or print '* inputs(3): ' + str(agent1.inputs(3))
+print '      === CSEL inputs ==='
+print '         (exogeneous flow determinants)'
+print '*      PAbelief(t): '+str(agent1.inputs.PAbelief(t))
+print '* PAoutcomeEval(t): '+str(agent1.inputs.PAoutcomeEval(t))
+print '         (exogeneous flow vars:)'
+print '*            xi(t): '+str(agent1.inputs.xi(t))
 
 print '\n === === === === === === STATE === === === === === ==='
-# === to get data ===
+# === to get data === 
 #<agentName>.state.<desiredValue>(<desiredTime>)
 print '*     agent name: '+agent1.state.name
-print '* agent birthday: '+str(agent1.state.birthday)
-print '*   agent age(0): '+str(agent1.state.age(0))
 print '*   agent age(t): '+str(agent1.state.age(t))
+print '      === CSEL vars ==='
+print '       (model constants)'
+print '*    theta: '+str(agent1.state.theta)
+print '*      tau: '+str(agent1.state.tau)
+print '*    gamma: \n'+str(agent1.state.gamma)
+print '*     beta: \n'+str(agent1.state.beta)
+print '*     tauA: '+str(agent1.state.tauA)
+print '*    sigma: '+str(agent1.state.sigma)
+print '*      (disturbances)'
+print '*  zeta(t): '+str(agent1.state.zeta(t))
+print '*      (state vars (endogeneous flow vars))'
+print '*   eta(t): '+str(agent1.state.eta(t))
 
 #plot your CSEL state vars
 import pylab
-timeArray = [agent1.inputs.time(t) for t in range(0,10)]
-ageArray  = [agent1.state.age(t).total_seconds()/(60*60*24*365.242) for t in range(0,10)]
-pylab.figure('agent age[yrs] v time of subject born '+str(agent1.state.birthday))
-pylab.plot(timeArray,ageArray)
-# force yticks to be in years (and not deci-years):
-locs,labels = pylab.yticks()
-pylab.yticks(locs, map(lambda ageArray: "%g" % ageArray, locs))
+showTime = [agent1.inputs.time(t) for t in range(0,10)]
+for etaNum in range(0,4):
+	pylab.figure('eta'+str(etaNum))
+	pylab.plot(showTime,[agent1.state.eta(t)[etaNum] for t in range(0,10)])
+	pylab.draw()
 pylab.show()
 
 # === to explore available data in the object use ===
