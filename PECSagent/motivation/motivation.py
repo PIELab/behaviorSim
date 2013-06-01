@@ -10,6 +10,7 @@
 from .baseInfo.death  import oldAger  as mortalityGetter
 
 # from CSEL model
+from .CSEL.behaviorTankValue import xiFive as PAtankValueGetter
 
 
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -20,9 +21,10 @@ class motivation:
 		self.state = theStates
 		# === define ALL raw data structures ===
 		# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-		# from package debugInfo:
+		# from package baseInfo:
 		self.__mortality=list()
 		# from package CSEL:
+		self.__PAtankValue=list()
 		
 		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -30,7 +32,8 @@ class motivation:
 	def __call__(self,t):
 		# === 3 return ALL info for that time as a dict ===
 		# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-		return dict(mortality=self.mortality(t))
+		return dict(mortality=self.mortality(t),\
+		            PAtankValue=self.PAtankValue(t))
 		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 	# === 4 define ALL getters using external functions ===
@@ -38,9 +41,14 @@ class motivation:
 	# note: 'getters' are not true getters here; they also set.
 
 	# describes the agent's physiological succeptibility to death. 
-	# from package debugInfo
+	# from package baseInfo
 	def mortality(self,t):
 		return mortalityGetter(self.__mortality,t,self.state.age)
+
+	# represents the fullness of the 'behavior' tank in the model (eta_5). This state variable passes through unchanged.
+	# from package CSEL 
+	def PAtankValue(self,t):
+		return PAtankValueGetter(self.__PAtankValue,t,self.state.eta)
 	
 	# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

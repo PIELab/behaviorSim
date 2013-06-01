@@ -43,14 +43,20 @@ print '*  zeta(t): '+str(agent1.state.zeta(t))
 print '*      (state vars (endogeneous flow vars))'
 print '*   eta(t): '+str(agent1.state.eta(t))
 
-#plot your CSEL state vars
-import pylab
-showTime = [agent1.inputs.time(t) for t in range(0,10)]
-for etaNum in range(0,4):
-	pylab.figure('eta'+str(etaNum))
-	pylab.plot(showTime,[agent1.state.eta(t)[etaNum] for t in range(0,10)])
-	pylab.draw()
-pylab.show()
+print 'plot your CSEL state vars? (y/n)'
+choice = raw_input()
+while choice != 'n' and choice != 'y':
+	print choice + '? please enter y or n.'
+	choice = raw_input()
+if choice == 'y':
+	import pylab
+	showTime = [agent1.inputs.time(t) for t in range(0,10)]
+	for etaNum in range(0,4):
+		pylab.figure('eta'+str(etaNum))
+		pylab.plot(showTime,[agent1.state.eta(t)[etaNum] for t in range(0,10)])
+		pylab.draw()
+	pylab.show()
+#else choice == 'n', do nothing.
 
 # === to explore available data in the object use ===
 # help(agent1.state)
@@ -63,7 +69,7 @@ pylab.show()
 #agent.state.P.bodyTemp(t)
 
 print '\n === === === === === === MOTIVATIONS === === === === === ==='
-#agent.motivation(t)
+print str(agent1.motivation(t))
 #agent.motivation.hunger(t)	# == agent.motivation.drive_eat(t)
 #agent.motivation.desire_PA(t)
 #agent.motivation.sleepiness(t)

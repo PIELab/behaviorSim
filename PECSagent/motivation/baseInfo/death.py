@@ -18,4 +18,3 @@ def oldAger(data,t,age):
 			data.append(mortality)
 	return data[t]
 
-	
