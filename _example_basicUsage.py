@@ -70,21 +70,6 @@ print '\n === === === === === === OUTPUT === === === === === ==='
 #NOTE: all model.run() and all that is done automatically, just don't worry about it.
 
 
-
-# === === === === === === PLOTS === === === === === ===
-#to plot something:
-import pylab
-timeArray = [agent1.inputs.time(t) for t in range(0,10)]
-ageArray  = [agent1.state.age(t).total_seconds()/(60*60*24*365.242) for t in range(0,10)]
-pylab.figure('agent age[yrs] v time of subject born '+str(agent1.state.birthday))
-pylab.plot(timeArray,ageArray)
-# force yticks to be in years (and not deci-years):
-locs,labels = pylab.yticks()
-pylab.yticks(locs, map(lambda ageArray: "%g" % ageArray, locs))
-pylab.show()
-
-
-
 # === === === === === === CUSTOMIZING THE AGENT === === === === === ===
 #this is how I want to set the parts:
 #agent.setX(relative.loc.of.file.or.something)
