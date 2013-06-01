@@ -62,6 +62,11 @@ pylab.show()
 #agent.state.P(t)
 #agent.state.P.bodyTemp(t)
 
+print '\n === === === === === === MOTIVATIONS === === === === === ==='
+#agent.motivation(t)
+#agent.motivation.hunger(t)	# == agent.motivation.drive_eat(t)
+#agent.motivation.desire_PA(t)
+#agent.motivation.sleepiness(t)
 
 
 print '\n === === === === === === OUTPUT === === === === === ==='

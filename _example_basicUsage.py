@@ -41,26 +41,26 @@ print '* agent birthday: '+str(agent1.state.birthday)
 print '*   agent age(0): '+str(agent1.state.age(0))
 print '*   agent age(t): '+str(agent1.state.age(t))
 
-#plot your CSEL state vars
-import pylab
-timeArray = [agent1.inputs.time(t) for t in range(0,10)]
-ageArray  = [agent1.state.age(t).total_seconds()/(60*60*24*365.242) for t in range(0,10)]
-pylab.figure('agent age[yrs] v time of subject born '+str(agent1.state.birthday))
-pylab.plot(timeArray,ageArray)
-# force yticks to be in years (and not deci-years):
-locs,labels = pylab.yticks()
-pylab.yticks(locs, map(lambda ageArray: "%g" % ageArray, locs))
-pylab.show()
-
 # === to explore available data in the object use ===
 # help(agent1.state)
 # or
 # print dir(agent1.state)
 # or explore the contents of state.state.py directly
 
+#TODO: group these into PECS parts like this:
 #agent.state(t)
 #agent.state.P(t)
 #agent.state.P.bodyTemp(t)
+
+
+
+print '\n === === === === === === MOTIVATIONS === === === === === ==='
+print '* mortality: '+str(agent1.motivation.mortality(t))
+#agent.motivation.desire_PA(t)
+
+#agent.motivation(t)
+#agent.motivation.hunger(t)	# == agent.motivation.drive_eat(t)
+#agent.motivation.sleepiness(t)
 
 
 
@@ -71,6 +71,21 @@ print '\n === === === === === === OUTPUT === === === === === ==='
 
 
 
+# === === === === === === PLOTS === === === === === ===
+#to plot something:
+import pylab
+timeArray = [agent1.inputs.time(t) for t in range(0,10)]
+ageArray  = [agent1.state.age(t).total_seconds()/(60*60*24*365.242) for t in range(0,10)]
+pylab.figure('agent age[yrs] v time of subject born '+str(agent1.state.birthday))
+pylab.plot(timeArray,ageArray)
+# force yticks to be in years (and not deci-years):
+locs,labels = pylab.yticks()
+pylab.yticks(locs, map(lambda ageArray: "%g" % ageArray, locs))
+pylab.show()
+
+
+
+# === === === === === === CUSTOMIZING THE AGENT === === === === === ===
 #this is how I want to set the parts:
 #agent.setX(relative.loc.of.file.or.something)
 #agent.setFp(...
