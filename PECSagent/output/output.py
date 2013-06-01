@@ -1,4 +1,4 @@
-# this file contains all information pertaining to the 'motivation variables' AKA 'hidden variables' described in the PECS reference model
+# this file contains all information pertaining to the 'behaviors' AKA 'outputs' described in the PECS reference model
 
 # === additions you might make are described in headers ===
 # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
@@ -7,24 +7,24 @@
 
 # === 1 import desired classes to define parts of input here ===
 # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-from .baseInfo.death  import oldAger  as mortalityGetter
 
 # from CSEL model
-from .CSEL.behaviorTankValue import xiFive as will_PAGetter
+from .CSEL.behaviorDescriptor import outputKeys   as behaviorKeyGetter
+from .CSEL.behaviorDescriptor import outputValues as behaviorValueGetter
 
 
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-class motivation:
+class output:
 	# constructor
-	def __init__(self,theStates):
-		self.state = theStates
+	def __init__(self,theInputs,theState,theMotivations):
+		self.inputs     = theInputs
+		self.state      = theState
+		self.motivation = theMotivations
 		# === define ALL raw data structures ===
 		# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-		# from package baseInfo:
-		self.__mortality=list()
-		# from package CSEL:
-		self.__will_PA=list()
+		self.__behaviorKey=list()
+		self.__behaviorValue=list()
 		
 		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -32,23 +32,21 @@ class motivation:
 	def __call__(self,t):
 		# === 3 return ALL info for that time as a dict ===
 		# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-		return dict(mortality=self.mortality(t),\
-		            will_PA=self.will_PA(t))
+		return dict(behaviorKey=self.behaviorKey(t),\
+		            behaviorValue=self.behaviorValue(t))
 		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 	# === 4 define ALL getters using external functions ===
 	# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 	# note: 'getters' are not true getters here; they also set.
 
-	# describes the agent's physiological succeptibility to death. 
-	# from package baseInfo
-	def mortality(self,t):
-		return mortalityGetter(self.__mortality,t,self.state.age)
+	# describes the agent's behavior as a keyword (or list of keywords)
+	def behaviorKey(self,t):
+		return behaviorKeyGetter(self.__behaviorKey,t)
 
-	# represents the will of the agent to be physically active
-	# from package CSEL 
-	def will_PA(self,t):
-		return will_PAGetter(self.__will_PA,t,self.state.eta)
+	# describes intensity of the behavior with a numerical value which (or list of values)
+	def behaviorValue(self,t):
+		return behaviorValueGetter(self.__behaviorValue,t,self.state.eta)
 	
 	# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

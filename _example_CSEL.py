@@ -76,7 +76,7 @@ print str(agent1.motivation(t))
 
 
 print '\n === === === === === === OUTPUT === === === === === ==='
-#agent.output(t)
+print str(agent1.output(t))
 
 #NOTE: all model.run() and all that is done automatically, just don't worry about it.
 
