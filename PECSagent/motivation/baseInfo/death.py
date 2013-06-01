@@ -12,9 +12,9 @@ def oldAger(data,t,age):
 		return data[t]
 	else:	# fill in data up to t
 		maxAge = 130
-		yearAge=age.total_seconds()/(60*60*24*365.242)
-		mortality = yearAge/130
 		for i in range(len(data),t+1):
+			yearAge=age(t).total_seconds()/(60*60*24*365.242)
+			mortality = yearAge/130
 			data.append(mortality)
 	return data[t]
 

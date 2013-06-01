@@ -40,7 +40,7 @@ class motivation:
 	# describes the agent's physiological succeptibility to death. 
 	# from package debugInfo
 	def mortality(self,t):
-		return mortalityGetter(self.__mortality,t,self.state.age(t))
+		return mortalityGetter(self.__mortality,t,self.state.age)
 	
 	# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
