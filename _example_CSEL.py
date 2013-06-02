@@ -68,11 +68,11 @@ if choice == 'y':
 #agent.state.P(t)
 #agent.state.P.bodyTemp(t)
 
-print '\n === === === === === === MOTIVATIONS === === === === === ==='
-print str(agent1.motivation(t))
-#agent.motivation.hunger(t)	# == agent.motivation.drive_eat(t)
-#agent.motivation.desire_PA(t)
-#agent.motivation.sleepiness(t)
+print '\n === === === === === === MOTIVES === === === === === ==='
+print str(agent1.motive(t))
+#agent.motive.hunger(t)	# == agent.motive.drive_eat(t)
+#agent.motive.desire_PA(t)
+#agent.motive.sleepiness(t)
 
 
 print '\n === === === === === === OUTPUT === === === === === ==='

@@ -9,4 +9,4 @@ class agent:
 		self.inputs = inputs()
 		self.state  = state(self.inputs)
 		self.motive = motive(self.state)
-		self.output = output(self.inputs,self.state,self.motivation)
+		self.output = output(self.inputs,self.state,self.motive)

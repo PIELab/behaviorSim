@@ -55,13 +55,13 @@ print '*   agent age(t): '+str(agent1.state.age(t))
 
 
 
-print '\n === === === === === === MOTIVATIONS === === === === === ==='
-print '* mortality: '+str(agent1.motivation.mortality(t))
-#agent.motivation.desire_PA(t)
+print '\n === === === === === === MOTIVES === === === === === ==='
+print '* mortality: '+str(agent1.motive.mortality(t))
+#agent.motive.desire_PA(t)
 
-#agent.motivation(t)
-#agent.motivation.hunger(t)	# == agent.motivation.drive_eat(t)
-#agent.motivation.sleepiness(t)
+#agent.motive(t)
+#agent.motive.hunger(t)	# == agent.motive.drive_eat(t)
+#agent.motive.sleepiness(t)
 
 
 
