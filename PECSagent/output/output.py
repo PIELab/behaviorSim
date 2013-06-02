@@ -17,10 +17,10 @@ from .CSEL.behaviorDescriptor import outputValues as behaviorValueGetter
 
 class output:
 	# constructor
-	def __init__(self,theInputs,theState,theMotivations):
+	def __init__(self,theInputs,theState,themotives):
 		self.inputs     = theInputs
 		self.state      = theState
-		self.motivation = theMotivations
+		self.motive = themotives
 		# === define ALL raw data structures ===
 		# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 		self.__behaviorKey=list()
