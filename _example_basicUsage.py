@@ -14,6 +14,7 @@ print '* simulation start time (sim-time): ' + str(settings.simStartTime)
 print '*     size of time step, deltaTime: ' + str(settings.deltaTime)
 
 
+
 print '\n === === === === === === INPUTS === === === === === ==='
 # === to get data: ===
 #<agentName>.inputs.<desiredValue>(<desiredTime>)
@@ -65,6 +66,8 @@ print '* mortality: '+str(agent1.motivation.mortality(t))
 
 
 print '\n === === === === === === OUTPUT === === === === === ==='
+print '*   behaviorKey: '+str(agent1.output.behaviorKey(t))
+print '* behaviorValue: '+str(agent1.output.behaviorValue(t))
 #agent.output(t)
 
 #NOTE: all model.run() and all that is done automatically, just don't worry about it.
