@@ -1,7 +1,7 @@
 PECSmodeler
 ===========
 
-An implementation of the PECS (physis, emotion, cognition, social) agent model. 
+A framework designed to aid in the implementation of PECS-style agent (based on the work of Bernd Schmidt et al.). This framework is designed to be theory-independent, extensible, and very easy to use. Please see the [wiki page](https://github.com/7yl4r/PECSmodeler/wiki) for additional documentation.
 
 Package Structure
 -----------
