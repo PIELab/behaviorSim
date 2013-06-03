@@ -40,6 +40,8 @@ The output of the agent shows the agent's behavior as determined from motives, s
 Adding to the Model
 --------------------
 The PECS model framework is designed to be extended to allow for the exploration of many behavior models. The following steps should be take to add to the model:
-1. *Add your package to the applicable component.* For instance, a new input definition, your package should be added to PECSagent/Inputs/. 
-2. *Adjust component definition.* The contents of the default component definition should be adjusted to use your new package or to add your new variables. For example: if you intend to add a new state variable, you must add the variable to PECSagent/state/state.py. If you are just changing the way an existing state variable is calculated, you can just change the import statement at the top of the file.
-*NOTE*: only add to the componenet definitions; never remove variables. Ideally, your package can use existing variables but all state variables are not yet incorporated. Please add variables with caution and use descriptive names to enable re-use by other packages.
+> 1. *Add your package to the applicable component.* 
+> For instance, a new input definition, your package should be added to PECSagent/Inputs/. 
+> 2. *Adjust component definition.* 
+> The contents of the default component definition should be adjusted to use your new package or to add your new variables. For example: if you intend to add a new state variable, you must add the variable to PECSagent/state/state.py. If you are just changing the way an existing state variable is calculated, you can just change the import statement at the top of the file.
+>*NOTE*: only add to the componenet definitions; never remove variables. Ideally, your package can use existing variables but all state variables are not yet incorporated. Please add variables with caution and use descriptive names to enable re-use by other packages.
