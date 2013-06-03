@@ -9,21 +9,20 @@
 from pylab import array
 from math import floor
 
-class inputs:
-	# given belief step function
-	def belief(self,t):
-		#return step(t, 2,1,3)
-		return squareWave(t, 3, 1, 1) 
+# given belief step function
+def belief(data,t):
+	#TODO: add cache using given data list
+	return squareWave(t, 3, 1, 1) 
 
-	# given outcome evaluation step function
-	def outcomeEval(self,t):
-		return 1;
+# given outcome evaluation step function
+def outcomeEval(data,t):
+	return 1;
 
-	# xi = [ attitude, social norm, planned behavioral control ]
-	def xi(self,t):
-		return array([self.belief(t)*self.outcomeEval(t),
-		              1,
-		              1]);	#xi_2 & xi_3 are const here...
+# xi = [ attitude, social norm, planned behavioral control ]
+def xi(data,t, belief, outcomeEval):
+	return array([belief*outcomeEval,
+	              1,
+	              1]);	#xi_2 & xi_3 are const here...
 #	xi = array([[b1[t]*e1[t] for t in range(timeToRun)],	
 #		    [1           for t in range(timeToRun)],
 #		    [1           for t in range(timeToRun)]]);

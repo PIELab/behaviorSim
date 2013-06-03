@@ -13,10 +13,10 @@ from .baseInfo.debugInfo  import currentTime  as initTimeGetter
 from .baseInfo.debugInfo  import pointless    as indexGetter
 from .baseInfo.timePassed import timePassed   as timeGetter
 # from CSEL model
-from .CSEL.inputs_constant import belief      as PAbeliefGetter
-from .CSEL.inputs_constant import outcomeEval as PAoutcomeEvalGetter
+from .CSEL.inputs_proteusAttitudeChange import belief      as PAbeliefGetter
+from .CSEL.inputs_proteusAttitudeChange import outcomeEval as PAoutcomeEvalGetter
 #TODO: other metrics which determine exogenous flow vars here
-from .CSEL.inputs_constant import xi          as xiGetter	#TODO: xi not needed, since it is determined from above values?
+from .CSEL.inputs_proteusAttitudeChange import xi          as xiGetter	#TODO: xi not needed, since it is determined from above values?
 #TODO: xi should be split into PBC, attitude, etc...?
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
