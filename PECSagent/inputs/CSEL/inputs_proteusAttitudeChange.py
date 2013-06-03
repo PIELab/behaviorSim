@@ -35,7 +35,7 @@ def step(t, stepTime, beforeStep, afterStep):
 		return afterStep;
 
 #defines square wave starting (high) at t=0 with given high and low and frequency in 1/t units
-# NOTE: 'high' is not required to be lower than 'low', changing this changes intial behavior i.e. |-_-_-| vs |_-_-_|
+# NOTE: 'high' is not required to be lower than 'low', changing this changes intial behavior i.e. highstart:|-_-_-| vs lowstart:|_-_-_|
 def squareWave(t, high, low, frequency):
 	if ( (floor(t/frequency)) % 2 == 0 ):
 		return low
