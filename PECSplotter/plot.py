@@ -1,6 +1,7 @@
 # this file defines a set of functions for plotting the various attributes of a PECS agent
 
 import pylab
+from .horizongraph_matplotlib.plugin import Horizon #for pretty plots
 
 #plots inputs, state, motives, and output
 def plotAll(agent,t0,tf):
@@ -21,6 +22,10 @@ def printAgentConstants(agent):
 	print 'beta='+str(agent.state.beta)
 	print 'tauA='+str(agent.state.tauA)
 	print 'sigma='+str(agent.state.sigma)
+
+#plots a given feature of behavior
+def plotBehaviorFeature(feature,t0,tf):
+	print 'NOT YET IMPLEMENTED!'
 
 #plots all motives of the agent as time series from t0 to tf
 def plotMotive(agent,t0,tf):
@@ -125,7 +130,7 @@ def plotInputs(agent,t0,tf):
 	pylab.figure('agent '+str(agent.state.name)+' inputs')
 
 	pylab.subplot(611)
-	pylab.plot(time,initTime)
+	Horizon(time,initTime)
 	pylab.ylabel('initTime')
 
 	pylab.subplot(612)

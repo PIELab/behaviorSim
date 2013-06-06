@@ -10,6 +10,10 @@ agent1 = PECSagent.agent.agent()
 print ' === === === === === === SETTINGS === === === === === ==='
 # load settings (same as in _example_basicUsage)
 from PECSagent.settings import settings
+
+import datetime
+settings.deltaTime = datetime.timedelta(minutes=1)
+
 print '* simulation start time (sim-time): ' + str(settings.simStartTime)
 print '*     size of time step, deltaTime: ' + str(settings.deltaTime)
 
@@ -57,6 +61,17 @@ if choice == 'y':
 		pylab.draw()
 	pylab.show()
 #else choice == 'n', do nothing.
+
+print 'plotAll? (y/n)'
+choice = raw_input()
+while choice != 'n' and choice != 'y':
+	print choice + '? please enter y or n.'
+	choice = raw_input()
+if choice == 'y':
+	from PECSplotter.plot import plotAll
+	plotAll(agent1,0,100)
+	import pylab
+	pylab.show()
 
 # === to explore available data in the object use ===
 # help(agent1.state)
