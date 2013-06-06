@@ -65,9 +65,9 @@ print '* mortality: '+str(agent1.motive.mortality(t))
 
 
 
-print '\n === === === === === === OUTPUT === === === === === ==='
-print '*   behaviorKey: '+str(agent1.output.behaviorKey(t))
-print '* behaviorValue: '+str(agent1.output.behaviorValue(t))
+print '\n === === === === === === behavior === === === === === ==='
+print '*   behaviorKey: '+str(agent1.behavior.behaviorKey(t))
+print '* behaviorValue: '+str(agent1.behavior.behaviorValue(t))
 #agent.output(t)
 
 #NOTE: all model.run() and all that is done automatically, just don't worry about it.

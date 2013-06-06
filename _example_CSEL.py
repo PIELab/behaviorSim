@@ -75,8 +75,8 @@ print str(agent1.motive(t))
 #agent.motive.sleepiness(t)
 
 
-print '\n === === === === === === OUTPUT === === === === === ==='
-print str(agent1.output(t))
+print '\n === === === === === === behavior === === === === === ==='
+print str(agent1.behavior(t))
 
 #NOTE: all model.run() and all that is done automatically, just don't worry about it.
 

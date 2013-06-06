@@ -15,7 +15,7 @@ from .CSEL.behaviorDescriptor import outputValues as behaviorValueGetter
 
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-class output:
+class behavior:
 	# constructor
 	def __init__(self,theInputs,theState,themotives):
 		self.inputs     = theInputs
