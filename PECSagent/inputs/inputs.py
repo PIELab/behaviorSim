@@ -27,7 +27,6 @@ class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
 		# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 		# from package debugInfo:
 		self.__initTime=list()
-		self.__index   =list()	# index of indexed item (silly)
 		self.__time    =list()	# sim-world time of calculation
 		# from package CSEL:
 		self.__PAbelief     =list()
@@ -42,7 +41,6 @@ class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
 		# === 3 return ALL info for that time as a dict ===
 		# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 		return dict(initTime=self.initTime(t), \
-		            index   =self.index(t), \
 		            time    =str(self.time(t)),\
 		            PAbelief=str(self.PAbelief(t)),\
 		            PAoutcomeEval=str(self.PAoutcomeEval(t)),\
@@ -57,10 +55,7 @@ class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
 	# from package debugInfo
 	def initTime(self,t):
 		return initTimeGetter(self.__initTime,t)
-	# index of indexed item (silly example method)
-	# from package debugInfo
-	def index(self,t):
-		return indexGetter(self.__index,t)
+
 	# sim-world time of calculation
 	# from package debugInfo
 	def time(self,t):
