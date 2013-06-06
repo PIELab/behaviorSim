@@ -1,7 +1,6 @@
 # this file defines a set of functions for plotting the various attributes of a PECS agent
 
 import pylab
-from .horizongraph_matplotlib.plugin import Horizon #for pretty plots
 
 #plots inputs, state, motives, and output
 def plotAll(agent,t0,tf):
@@ -30,22 +29,22 @@ def plotBehaviorFeature(feature,t0,tf):
 #plots all motives of the agent as time series from t0 to tf
 def plotMotive(agent,t0,tf):
 	print 'loading agent motive...'
-	x = [agent.inputs.time(t) for t in range(t0,tf)]
+	time =     [agent.inputs.time(t) for t in range(t0,tf)]
 
-	y = [[agent.motive.mortality(t) for t in range(t0,tf)],\
-	     [agent.motive.will_PA(t) for t in range(t0,tf)]]
-
-	labels = ['mortality','will_PA']
-
-	N = 3	#number of bands
+	mortality =  [agent.motive.mortality(t) for t in range(t0,tf)]
+	will_PA =  [agent.motive.will_PA(t) for t in range(t0,tf)]
 	
 	print 'plotting agent motive...'
-#	pylab.figure('agent '+str(agent.state.name)+' motive')
-	
-	plot = Horizon().run(x,y,labels,\
-	                     figname='agent '+str(agent.state.name)+' motive',\
-	                     bands=N)
-	plot.subplots_adjust(left=0.07, right=0.998, top=0.99,bottom=0.01)
+
+	pylab.figure('agent '+str(agent.state.name)+' motive')
+
+	pylab.subplot(2,1,1)
+	pylab.plot(time,mortality)
+	pylab.ylabel('mortality')
+
+	pylab.subplot(2,1,2)
+	pylab.plot(time,will_PA)
+	pylab.ylabel('will_PA')
 
 
 # plots all state of the agent as a time series from t0 to tf
