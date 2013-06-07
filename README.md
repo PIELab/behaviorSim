@@ -3,8 +3,14 @@ PECSmodeler
 
 A framework designed to aid in the implementation of PECS-style agent (based on the work of Bernd Schmidt et al.). This framework is designed to be theory-independent, extensible, and very easy to use. Please see the [wiki page](https://github.com/7yl4r/PECSmodeler/wiki) for additional documentation.
 
+Installation & Setup
+--------------------
+Simply clone the package and import the package to get started. 
+
+If you want to use the horizonGraph plotter, you will need to install the add-on from [thomaskern/horizongraph_matplotlib](https://github.com/thomaskern/horizongraph_matplotlib).
+
 Package Structure
------------
+-----------------
 		PECSmodeler/
 			myScript.py (run any scripts or start python here)
 			PECSagent/
