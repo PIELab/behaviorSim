@@ -25,6 +25,11 @@ class behavior:
 		# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 		self.__behaviorKey=list()
 		self.__behaviorValue=list()
+
+		# === Behavioral intention and behavior ===
+		#self.__behavioralIntention=list() ???
+		#Behavioral intention: an indication of an individual's readiness to perform a given behavior. It is assumed to be an immediate antecedent of behavior (Ajzen, 2002b). It is based on attitude toward the behavior, subjective norm, and perceived behavioral control, with each predictor weighted for its importance in relation to the behavior and population of interest.
+		#Behavior: an individual's observable response in a given situation with respect to a given target. Ajzen said a behavior is a function of compatible intentions and perceptions of behavioral control in that perceived behavioral control is expected to moderate the effect of intention on behavior, such that a favorable intention produces the behavior only when perceived behavioral control is strong.
 		
 		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

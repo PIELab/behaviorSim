@@ -10,7 +10,7 @@
 from .baseInfo.death  import oldAger  as mortalityGetter
 
 # from CSEL model
-from .CSEL.behaviorTankValue import xiFive as will_PAGetter
+from .CSEL.behaviorTankValue import etaFive as will_PAGetter
 
 
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

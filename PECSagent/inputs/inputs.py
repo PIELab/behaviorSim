@@ -10,14 +10,12 @@ from ..settings import settings
 # === 1 import desired classes to define parts of input here ===
 # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 from .baseInfo.debugInfo  import currentTime  as initTimeGetter
-from .baseInfo.debugInfo  import pointless    as indexGetter
 from .baseInfo.timePassed import timePassed   as timeGetter
 # from CSEL model
-from .CSEL.inputs_proteusAttitudeChange import belief      as PAbeliefGetter
-from .CSEL.inputs_proteusAttitudeChange import outcomeEval as PAoutcomeEvalGetter
-#TODO: other metrics which determine exogenous flow vars here
-from .CSEL.inputs_proteusAttitudeChange import xi          as xiGetter	#TODO: xi not needed, since it is determined from above values?
-#TODO: xi should be split into PBC, attitude, etc...?
+from .CSEL.attitudes import constAttitude as attitudeChange_PAGetter
+from .CSEL.xi        import xi            as xiGetter
+
+#TODO: xi not needed, since it is determined from attitude values?
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
@@ -29,8 +27,8 @@ class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
 		self.__initTime=list()
 		self.__time    =list()	# sim-world time of calculation
 		# from package CSEL:
-		self.__PAbelief     =list()
-		self.__PAoutcomeEval=list()
+		self.__attitudeChange_PA=list()
+
 		# TODO: add the other inputs which determine xi here OR remove all of them or xi (since they are a bit redundant)
 		self.__xi           =list()
 		
@@ -42,8 +40,12 @@ class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
 		# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 		return dict(initTime=self.initTime(t), \
 		            time    =str(self.time(t)),\
-		            PAbelief=str(self.PAbelief(t)),\
-		            PAoutcomeEval=str(self.PAoutcomeEval(t)),\
+		            attitudeChange_PA_behavioralBelief=str(self.attitudeChange_PA(t).behavioralBelief),\
+		            attitudeChange_PA_behaviorAttitude=str(self.attitudeChange_PA(t).behaviorAttitude),\
+		            attitudeChange_PA_normativeBelief=str(self.attitudeChange_PA(t).normativeBelief),\
+		            attitudeChange_PA_subjectiveNorm=str(self.attitudeChange_PA(t).subjectiveNorm),\
+		            attitudeChange_PA_PBC=str(self.attitudeChange_PA(t).PBC),\
+		            attitudeChange_PA_controlBelief=str(self.attitudeChange_PA(t).controlBelief),\
 		            xi           =str(self.xi(t)))
 		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -61,18 +63,15 @@ class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
 	def time(self,t):
 		return timeGetter(self.__time,t,settings.simStartTime,settings.deltaTime)
 
-	# belief about physical activity
+	#attitude about physical activity
 	# from package CSEL
-	def PAbelief(self,t):
-		return PAbeliefGetter(self.__PAbelief,t)
-	# evaluation of physical activity outcomes
-	# from package CSEL
-	def PAoutcomeEval(self,t):
-		return PAoutcomeEvalGetter(self.__PAoutcomeEval,t)
+	def attitudeChange_PA(self,t):
+		return attitudeChange_PAGetter(self.__attitudeChange_PA,t)
+
 	#exogenous flow variables
 	# from package CSEL
 	def xi(self,t):
-		return xiGetter(self.__xi,t,self.PAbelief(t),self.PAoutcomeEval(t))
+		return xiGetter(self.__xi,t,self.attitudeChange_PA)
 	
 	# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

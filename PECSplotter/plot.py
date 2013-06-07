@@ -111,15 +111,53 @@ def plotState(agent,t0,tf):
 	pylab.plot(time,eta5)
 	pylab.ylabel('eta5')
 
+#creates a plot of attitude values from t0 to tf, given appropriate time range t=[t0...tf]
+def plotAttitude(attitude,t0,tf,time,plotName=''):
+	print 'loading attitude values...'
+	bb = [attitude(t).behavioralBelief for t in range(t0,tf)]
+	ba = [attitude(t).behaviorAttitude for t in range(t0,tf)]
+	nb = [attitude(t).normativeBelief for t in range(t0,tf)]
+	sn = [attitude(t).subjectiveNorm for t in range(t0,tf)]
+	pbc = [attitude(t).PBC for t in range(t0,tf)]
+	cb = [attitude(t).controlBelief for t in range(t0,tf)]
+	label = ['behavioralBelief','behaviorAttitude','normativeBelief','subjectiveNorm','PBC','controlBelief']
+
+	print 'plotting attitude...'
+	pylab.figure(plotName)
+
+	pylab.subplot(611)
+	pylab.plot(time,bb)
+	pylab.ylabel(label[0])
+
+	pylab.subplot(612)
+	pylab.plot(time,ba)
+	pylab.ylabel(label[1])
+
+	pylab.subplot(613)
+	pylab.plot(time,nb)
+	pylab.ylabel(label[2])
+
+	pylab.subplot(614)
+	pylab.plot(time,sn)
+	pylab.ylabel(label[3])
+
+	pylab.subplot(615)
+	pylab.plot(time,pbc)
+	pylab.ylabel(label[4])
+
+	pylab.subplot(616)
+	pylab.plot(time,cb)
+	pylab.ylabel(label[5])
 
 # plots all inputs of the agent as a time series from t0 to tf
 def plotInputs(agent,t0,tf): 
 	print 'loading agent inputs...'
 	time =     [agent.inputs.time(t) for t in range(t0,tf)]
 
-	initTime = [agent.inputs.initTime(t) for t in range(t0,tf)]
-	PAbelief = [agent.inputs.PAbelief(t) for t in range(t0,tf)]
-	PAoutcome = [agent.inputs.PAoutcomeEval(t) for t in range(t0,tf)]
+	initTime = [agent.inputs.initTime(t) for t in range(t0,tf)]	
+
+	plotAttitude(agent.inputs.attitudeChange_PA,t0,tf,time,'agent '+str(agent.state.name)+' input: attitudeChange_PA')
+
 	xi1 = [agent.inputs.xi(t)[0] for t in range(t0,tf)]
 	xi2 = [agent.inputs.xi(t)[1] for t in range(t0,tf)]
 	xi3 = [agent.inputs.xi(t)[2] for t in range(t0,tf)]
@@ -128,26 +166,18 @@ def plotInputs(agent,t0,tf):
 
 	pylab.figure('agent '+str(agent.state.name)+' inputs')
 
-	pylab.subplot(611)
+	pylab.subplot(411)
 	pylab.plot(time,initTime)
 	pylab.ylabel('initTime')
 
-	pylab.subplot(612)
-	pylab.plot(time,PAbelief)
-	pylab.ylabel('PAbelief')
-
-	pylab.subplot(613)
-	pylab.plot(time,PAoutcome)
-	pylab.ylabel('PAoutcomeEval')
-
-	pylab.subplot(614)
+	pylab.subplot(412)
 	pylab.plot(time,xi1)
 	pylab.ylabel('xi1')
 
-	pylab.subplot(615)
+	pylab.subplot(413)
 	pylab.plot(time,xi2)
 	pylab.ylabel('xi2')
 
-	pylab.subplot(616)
+	pylab.subplot(414)
 	pylab.plot(time,xi3)
 	pylab.ylabel('xi3')	

@@ -24,8 +24,7 @@ print '*   time(t): ' + str(agent1.inputs.time(t))
 # or print '* inputs(3): ' + str(agent1.inputs(3))
 print '      === CSEL inputs ==='
 print '         (exogeneous flow determinants)'
-print '*      PAbelief(t): '+str(agent1.inputs.PAbelief(t))
-print '* PAoutcomeEval(t): '+str(agent1.inputs.PAoutcomeEval(t))
+print '* attitudeChange_PA: '+str(agent1.inputs.attitudeChange_PA(t))
 print '         (exogeneous flow vars:)'
 print '*            xi(t): '+str(agent1.inputs.xi(t))
 
