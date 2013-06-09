@@ -11,8 +11,8 @@ from ..settings import settings
 # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 from .baseInfo.debugInfo  import currentTime  as initTimeGetter
 from .baseInfo.timePassed import timePassed   as timeGetter
-# from CSEL model
-from .CSEL.attitudes import constAttitude as attitudeChange_PAGetter
+
+from .CSEL.fromEnvironment import pa as attitudeChange_PAGetter
 from .CSEL.xi        import xi            as xiGetter
 
 #TODO: xi not needed, since it is determined from attitude values?
@@ -20,7 +20,8 @@ from .CSEL.xi        import xi            as xiGetter
 
 class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
 	# constructor
-	def __init__(self):
+	def __init__(self,envir):
+		self.environment = envir
 		# === define ALL raw data structures ===
 		# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 		# from package debugInfo:
@@ -66,7 +67,7 @@ class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
 	#attitude about physical activity
 	# from package CSEL
 	def attitudeChange_PA(self,t):
-		return attitudeChange_PAGetter(self.__attitudeChange_PA,t)
+		return attitudeChange_PAGetter(self.__attitudeChange_PA,t,self.environment)
 
 	#exogenous flow variables
 	# from package CSEL

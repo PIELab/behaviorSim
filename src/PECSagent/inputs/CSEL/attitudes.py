@@ -1,4 +1,4 @@
-from ...__util.attitude import attitude
+from ....__util.attitude import attitude
 
 # returns a constant attitude as defined in __util.attitude 
 	# time-invariant? = TRUE

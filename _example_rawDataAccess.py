@@ -1,5 +1,8 @@
-import PECSagent.agent
-agent1 = PECSagent.agent.agent()
+from src.environment.environment import environment
+envmt = environment()	#load default environment
+
+from src.PECSagent.agent import agent
+agent1 = agent(envmt)	#load default agent
 
 t = 3
 

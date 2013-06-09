@@ -1,11 +1,14 @@
 import pylab
 
 # === === === === === === AGENT SETUP === === === === === ===
-import PECSagent.agent
-agent1 = PECSagent.agent.agent()
+from src.environment.environment import environment
+envmt = environment()	#load default environment
+
+from src.PECSagent.agent import agent
+agent1 = agent(envmt)	#load default agent
 
 # === === === === === === PLOTS === === === === === ===
-import PECSplotter.plot	#load the plotter
+from src.PECSplotter.plot import plotAll, plotInputs, plotState 	#load the plotter
 
 print 'plot using plotAll? (y/n)'
 choice = raw_input()
@@ -13,7 +16,7 @@ while choice != 'n' and choice != 'y':
 	print choice + '? please enter y or n.'
 	choice = raw_input()
 if choice == 'y':
-	PECSplotter.plot.plotAll(agent1,0,10)
+	plotAll(agent1,0,10)
 	# and show the plots:
 	pylab.show()	
 
@@ -24,8 +27,8 @@ while choice != 'n' and choice != 'y':
 	choice = raw_input()
 if choice == 'y':
 	#using the built-in plotters:
-	PECSplotter.plot.plotInputs(agent1,0,10)	#plot inputs t={0->10}
-	PECSplotter.plot.plotState(agent1,0,10)
+	plotInputs(agent1,0,10)	#plot inputs t={0->10}
+	plotState(agent1,0,10)
 	# and show the plots:
 	pylab.show()		
 

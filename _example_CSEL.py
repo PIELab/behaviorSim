@@ -2,14 +2,15 @@
 t = 5	#time of interest in simulation timesteps (set in settings)
 
 # === === === === === === AGENT SETUP === === === === === ===
-import PECSagent.agent
-agent1 = PECSagent.agent.agent()
+from src.environment.environment import environment
+envmt = environment()	#load default environment
 
-
+from src.PECSagent.agent import agent
+agent1 = agent(envmt)	#load default agent
 
 print ' === === === === === === SETTINGS === === === === === ==='
 # load settings (same as in _example_basicUsage)
-from PECSagent.settings import settings
+from src.PECSagent.settings import settings
 
 import datetime
 settings.deltaTime = datetime.timedelta(minutes=1)
@@ -67,7 +68,7 @@ while choice != 'n' and choice != 'y':
 	print choice + '? please enter y or n.'
 	choice = raw_input()
 if choice == 'y':
-	from PECSplotter.plot import plotAll
+	from src.PECSplotter.plot import plotAll
 	plotAll(agent1,0,100)
 	import pylab
 	pylab.show()
