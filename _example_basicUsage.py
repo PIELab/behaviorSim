@@ -65,12 +65,25 @@ print '* mortality: '+str(agent1.motive.mortality(t))
 
 
 
-print '\n === === === === === === behavior === === === === === ==='
+print '\n === === === === === === BEHAVIOR === === === === === ==='
 print '*   behaviorKey: '+str(agent1.behavior.behaviorKey(t))
 print '* behaviorValue: '+str(agent1.behavior.behaviorValue(t))
 #agent.output(t)
 
 #NOTE: all model.run() and all that is done automatically, just don't worry about it.
+
+print '\n === === === === === === PLOTS === === === === === ==='
+print 'plotAll? (y/n)'
+choice = raw_input()
+while choice != 'n' and choice != 'y':
+	print choice + '? please enter y or n.'
+	choice = raw_input()
+if choice == 'y':
+	print 'plottings all attributes for time 0 to 100'
+	import PECSplotter.plot
+	PECSplotter.plot.plotAll(agent1,0,100)
+	import pylab
+	pylab.show()	
 
 
 # === === === === === === CUSTOMIZING THE AGENT === === === === === ===
