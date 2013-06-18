@@ -15,7 +15,8 @@ from .baseInfo.name import iterativeNamer as nameSetter
 # from CSEL model:
 from .CSEL.agent_defaultPersonality     import agent      as CSELagent
 from .CSEL.disturbances      import gaussZeta  as zetaGetter
-from .CSEL.model_firstOrder  import model      as etaGetter
+#from .CSEL.model_firstOrder  import model      as etaGetter
+from .CSEL.firstOrderModel2   import geteta     as etaGetter
 
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
