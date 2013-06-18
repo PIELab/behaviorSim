@@ -13,7 +13,7 @@ from .baseInfo.age  import age            as ageGetter
 from .baseInfo.age  import randomAger     as birthdaySetter
 from .baseInfo.name import iterativeNamer as nameSetter
 # from CSEL model:
-from .CSEL.agent_default     import agent      as CSELagent
+from .CSEL.agent_defaultPersonality     import agent      as CSELagent
 from .CSEL.disturbances      import gaussZeta  as zetaGetter
 from .CSEL.model_firstOrder  import model      as etaGetter
 
@@ -25,7 +25,7 @@ class state:	#can't use 'input' as the name b/c of built-in 'input()'
 		self.inputs   = theInputs
 	# === define ALL raw data structures ===
 	# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-		# constant attributes:
+		# constant attributes (personality):
 		# from package baseInfo:
 		self.name     = nameSetter()
 		self.birthday = birthdaySetter(settings.simStartTime)

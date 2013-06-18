@@ -13,7 +13,7 @@ tau   = array([0.0]*5)
 samp = 0
 ETA0 = array([0.0]*5)
 ETADOT0 = [0.0]*5
-time = linspace(0,0,0)	
+time = linspace(0,0,0)	#(start,end,nSamples)
 ETA = [integrate.odeint(fakeFunc,[ETA0[0],ETADOT0[0]],time),\
        integrate.odeint(fakeFunc,[ETA0[1],ETADOT0[1]],time),\
        integrate.odeint(fakeFunc,[ETA0[2],ETADOT0[2]],time),\
@@ -41,12 +41,13 @@ def model(data,t,BETA,GAMMA,XI,THETA,TAU):
 		if len(data) == 0:
 			data.append(ETA0)
 		else :
-			ETA0 = data[t-1]
-		steps = t+1-len(data)	# steps to compute
+			ETA0 = data[0]
+		steps = t	# steps to compute
 		samp = 1	#samples per time step (must be 1?)
 		time = linspace(len(data),t+1,samp*(steps))
 
 		ETA[0] = integrate.odeint(eta1Func,[ETA0[0],ETADOT0[0]],time)
+		#print ETA[0]
 		ETA[1] = integrate.odeint(eta2Func,[ETA0[1],ETADOT0[1]],time)
 		ETA[2] = integrate.odeint(eta3Func,[ETA0[2],ETADOT0[2]],time)
 		ETA[3] = integrate.odeint(eta4Func,[ETA0[3],ETADOT0[3]],time)
