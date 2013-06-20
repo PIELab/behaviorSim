@@ -13,7 +13,7 @@ from .agent_defaultPersonality import agent as agentConstructor
 
 #GLOBAL VARS:
 agent = agentConstructor()
-samp = 1	#samples per time step 
+samp = 2	#samples per time step 
 def fakeFunc(A,t): return -1.0 #fake function for allocating space
 ETA = [integrate.odeint(fakeFunc,[0,0],linspace(0,1,10)),\
        integrate.odeint(fakeFunc,[0,0],linspace(0,1,10)),\
@@ -61,10 +61,10 @@ def eta1Func(A,t):
 	logging.debug( 'A='+str(A) )
 	eta = A[0]
 	etaDot=A[1]
-	logging.debug( '(agent.gamma*XI(t-agent.theta)-eta)/agent.tau' )
-	logging.debug( '('+str(agent.gamma[0,0])+'*'+str(XI(t-agent.theta[0])[0])+'-'+str(eta)+')/' + str(agent.tau[0]) + '=' )
+#	logging.debug( '(agent.gamma*XI(t-agent.theta)-eta)/agent.tau' )
+#	logging.debug( '('+str(agent.gamma[0,0])+'*'+str(XI(t-agent.theta[0])[0])+'-'+str(eta)+')/' + str(agent.tau[0]) + '=' )
 	etaDDot= (agent.gamma[0,0]*XI(t-agent.theta[0])[0] - eta)/agent.tau[0]
-	logging.debug( 'etaDDot='+str(etaDDot) )
+	logging.debug( 'eta1etaDDot='+str(etaDDot) )
 	return checkValue(etaDDot)
 
 def eta2Func(A,t): 
@@ -131,7 +131,7 @@ def pastEta(T,etaIndex):
 		return getInitialEta(agent.beta,agent.gamma,XI);
 	elif indexOfTime>=len(ETA[etaIndex][:,0]):
 		logging.error('attempted reference to future Eta')
-		return ETA[etaIndex][len(ETA)-1,0]
+		return ETA[etaIndex][-1,0]
 	else:
 		logging.debug( ' time:'+str(T) )
 		logging.debug( 'index:'+str(indexOfTime) )
