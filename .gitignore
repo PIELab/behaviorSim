@@ -1,6 +1,9 @@
 #figures (this is just for convenience)
 *figures/
 
+#log files
+*.log
+
 #ubuntu backups
 *~
 

@@ -15,12 +15,13 @@ def printAgentConstants(agent):
 	print 'agent state constants (personality):'
 	print 'name='+str(agent.state.name)
 	print 'birthday='+str(agent.state.birthday)
-	print 'theta='+str(agent.state.theta)
-	print 'tau='+str(agent.state.theta)
-	print 'gamma='+str(agent.state.gamma)
-	print 'beta='+str(agent.state.beta)
-	print 'tauA='+str(agent.state.tauA)
-	print 'sigma='+str(agent.state.sigma)
+	print 'personalityFile='+str('NotYetImplemented')
+#	print 'theta='+str(agent.state.theta)
+#	print 'tau='+str(agent.state.theta)
+#	print 'gamma='+str(agent.state.gamma)
+#	print 'beta='+str(agent.state.beta)
+#	print 'tauA='+str(agent.state.tauA)
+#	print 'sigma='+str(agent.state.sigma)
 
 #plots a given feature of behavior
 def plotBehaviorFeature(feature,t0,tf):

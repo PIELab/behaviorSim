@@ -7,16 +7,20 @@
 
 from ..settings import settings
 
+# setup logging
+import logging
+logging.basicConfig(filename='src/__logs/state.log',\
+                    level=logging.DEBUG,\
+                    format='%(asctime)s %(levelname)s:%(message)s')
+
 # === 1 import desired classes to define parts of input here ===
 # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 from .baseInfo.age  import age            as ageGetter
 from .baseInfo.age  import randomAger     as birthdaySetter
 from .baseInfo.name import iterativeNamer as nameSetter
 # from CSEL model:
-from .CSEL.agent_defaultPersonality     import agent      as CSELagent
 from .CSEL.disturbances      import gaussZeta  as zetaGetter
-#from .CSEL.model_firstOrder  import model      as etaGetter
-from .CSEL.firstOrderModel2   import geteta     as etaGetter
+from .CSEL.model_firstOrder  import getEta     as etaGetter
 
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -30,14 +34,6 @@ class state:	#can't use 'input' as the name b/c of built-in 'input()'
 		# from package baseInfo:
 		self.name     = nameSetter()
 		self.birthday = birthdaySetter(settings.simStartTime)
-		#from package CSEL:
-		# TODO: give these better names!
-		self.theta    = CSELagent.theta	#time delays
-		self.tau      = CSELagent.tau	#time constants
-		self.gamma    = CSELagent.gamma	#inflow resistances
-		self.beta     = CSELagent.beta	#outflow resists (depletion constants)
-		self.tauA     = CSELagent.tauA	#2nd order time const
-		self.sigma    = CSELagent.sigma	# deriv flow resists?
 
 		# (potentially) time-variant attributes:
 		# from package baseInfo:
@@ -76,7 +72,11 @@ class state:	#can't use 'input' as the name b/c of built-in 'input()'
 	# array of endogeneous flow variables
 	# from package CSEL
 	def eta(self,t):
-		return etaGetter(self.__eta,t,self.beta,self.gamma,self.inputs.xi,self.theta,self.tau) + self.zeta(t)
+		et = etaGetter(self.__eta,t,self.inputs.xi)
+		e = list()
+		for etaIndex in range(len(et)):
+			e.append(et[etaIndex]) #+ self.zeta(t)[etaIndex])
+		return e
 
 	# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
