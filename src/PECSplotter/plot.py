@@ -2,6 +2,8 @@
 
 import pylab
 
+import logging
+
 #plots inputs, state, motives, and output
 def plotAll(agent,t0,tf):
 	printAgentConstants(agent)
@@ -54,16 +56,17 @@ def plotState(agent,t0,tf):
 	time =     [agent.inputs.time(t) for t in range(t0,tf)]
 
 	age =     [agent.state.age(t).total_seconds()/(60*60*24*365.242) for t in range(t0,tf)]
-	zeta1 =     [agent.state.zeta(t)[0] for t in range(t0,tf)]
-	zeta2 =     [agent.state.zeta(t)[1] for t in range(t0,tf)]
-	zeta3 =     [agent.state.zeta(t)[2] for t in range(t0,tf)]
-	zeta4 =     [agent.state.zeta(t)[3] for t in range(t0,tf)]
-	zeta5 =     [agent.state.zeta(t)[4] for t in range(t0,tf)]
-	eta1 =     [agent.state.eta(t)[0] for t in range(t0,tf)]
-	eta2 =     [agent.state.eta(t)[1] for t in range(t0,tf)]
-	eta3 =     [agent.state.eta(t)[2] for t in range(t0,tf)]
-	eta4 =     [agent.state.eta(t)[3] for t in range(t0,tf)]
-	eta5 =     [agent.state.eta(t)[4] for t in range(t0,tf)]
+	zeta1 =   [agent.state.zeta(t)[0] for t in range(t0,tf)]
+	zeta2 =   [agent.state.zeta(t)[1] for t in range(t0,tf)]
+	zeta3 =   [agent.state.zeta(t)[2] for t in range(t0,tf)]
+	zeta4 =   [agent.state.zeta(t)[3] for t in range(t0,tf)]
+	zeta5 =   [agent.state.zeta(t)[4] for t in range(t0,tf)]
+	#for t in range(t0,tf): logging.debug('eta('+str(t)+')='+str(agent.state.eta(t)))
+	eta1 =    [agent.state.eta(t)[0]  for t in range(t0,tf)]
+	eta2 =    [agent.state.eta(t)[1]  for t in range(t0,tf)]
+	eta3 =    [agent.state.eta(t)[2]  for t in range(t0,tf)]
+	eta4 =    [agent.state.eta(t)[3]  for t in range(t0,tf)]
+	eta5 =    [agent.state.eta(t)[4]  for t in range(t0,tf)]
 
 	print 'plotting agent state...'
 

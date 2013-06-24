@@ -20,7 +20,7 @@ from .baseInfo.age  import randomAger     as birthdaySetter
 from .baseInfo.name import iterativeNamer as nameSetter
 # from CSEL model:
 from .CSEL.disturbances      import gaussZeta  as zetaGetter
-from .CSEL.model_firstOrder  import getEta     as etaGetter
+from .CSEL.model_ddeint_firstOrder  import getEta     as etaGetter
 
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -75,7 +75,7 @@ class state:	#can't use 'input' as the name b/c of built-in 'input()'
 		et = etaGetter(self.__eta,t,self.inputs.xi)
 		e = list()
 		for etaIndex in range(len(et)):
-			e.append(et[etaIndex]) #+ self.zeta(t)[etaIndex])
+			e.append(et[etaIndex] + self.zeta(t)[etaIndex])
 		return e
 
 	# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
