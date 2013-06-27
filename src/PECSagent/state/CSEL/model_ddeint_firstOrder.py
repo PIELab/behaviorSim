@@ -8,7 +8,7 @@ logging.basicConfig(filename='src/__logs/firstOrderModel2.log',\
                     level=logging.DEBUG,\
                     format='%(asctime)s %(levelname)s:%(message)s')
 
-from .agent_defaultPersonality import agent as agentConstructor
+
 
 from src.__util.ddeint import *	#delay ode solver
 
@@ -52,13 +52,11 @@ def steadyState(beta,gamma,xi):
 	return array([eta0,eta1,eta2,eta3,eta4])
 
 # === SOLVER ===
-def getEta(data,t,xi):
+def getEta(data,t,xi,agent):
 	samps = 20 # number of sub-samples per time step
 	if t < len(data):
 		pass
 	else:
-		# === AGENT PROPERTIES ===
-		agent = agentConstructor()
 		# === HISTORY === 
 		def etahist1(t) : 
 			if t < 0: #steady-state assumption

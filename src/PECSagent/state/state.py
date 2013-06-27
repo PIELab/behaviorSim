@@ -22,6 +22,8 @@ from .baseInfo.name import iterativeNamer as nameSetter
 from .CSEL.disturbances      import gaussZeta  as zetaGetter
 from .CSEL.model_ddeint_firstOrder  import getEta     as etaGetter
 
+from .CSEL.agent_defaultPersonality import agent as agentConstructor
+
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 class state:	#can't use 'input' as the name b/c of built-in 'input()'
@@ -34,6 +36,7 @@ class state:	#can't use 'input' as the name b/c of built-in 'input()'
 		# from package baseInfo:
 		self.name     = nameSetter()
 		self.birthday = birthdaySetter(settings.simStartTime)
+		self.agentPersonality = agentConstructor()
 
 		# (potentially) time-variant attributes:
 		# from package baseInfo:
@@ -72,7 +75,7 @@ class state:	#can't use 'input' as the name b/c of built-in 'input()'
 	# array of endogeneous flow variables
 	# from package CSEL
 	def eta(self,t):
-		et = etaGetter(self.__eta,t,self.inputs.xi)
+		et = etaGetter(self.__eta,t,self.inputs.xi,self.agentPersonality)
 		e = list()
 		for etaIndex in range(len(et)):
 			e.append(et[etaIndex] + self.zeta(t)[etaIndex])

@@ -1,68 +1,64 @@
+# this sample script recreates the results shown in Figure 9 of:
+	# J.-Emeterio Navarro-Barrientos , Daniel E. Rivera & Linda M. Collins (2011):
+	# A dynamical model for describing behavioural interventions for weight loss and body composition
+	# change, Mathematical and Computer Modelling of Dynamical Systems: Methods, Tools and
+	# Applications in Engineering and Related Sciences, 17:2, 183-203
+# link: http://dx.doi.org/10.1080/13873954.2010.520409
 
-t = 5	#time of interest in simulation timesteps (set in settings)
+
+import datetime
 
 # === === === === === === AGENT SETUP === === === === === ===
 from src.environment.environment import environment
-envmt = environment()	#load default environment
+envmt = environment()	# load default environment
 
 from src.PECSagent.agent import agent
-agent1 = agent(envmt)	#load default agent
+agent1 = agent(envmt)	# load default agent
 
 print ' === === === === === === SETTINGS === === === === === ==='
 # load settings (same as in _example_basicUsage)
 from src.PECSagent.settings import settings
-
-import datetime
-settings.deltaTime = datetime.timedelta(minutes=1)
+# customize settings
+settings.deltaTime    = datetime.timedelta(days=1)
+settings.simStartTime = datetime.datetime(2011, 1, 1, 12, 0, 0, 0)
 
 print '* simulation start time (sim-time): ' + str(settings.simStartTime)
 print '*     size of time step, deltaTime: ' + str(settings.deltaTime)
 
+t0 = 0		#startTime
+tf = 180	#endTime
 
 print '\n === === === === === === INPUTS === === === === === ==='
-# === to get data: === (same as in _example_basicUsage)
-print '*   time(t): ' + str(agent1.inputs.time(t))
-# or print '* inputs(3): ' + str(agent1.inputs(3))
 print '      === CSEL inputs ==='
 print '         (exogeneous flow determinants)'
-print '* attitudeChange_PA: '+str(agent1.inputs.attitudeChange_PA(t))
+print '* attitudeChange_PA: '+str(agent1.inputs.attitudeChange_PA(tf))
 print '         (exogeneous flow vars:)'
-print '*            xi(t): '+str(agent1.inputs.xi(t))
+print '* xi(t): '+str(agent1.inputs.xi(tf))
 
 print '\n === === === === === === STATE === === === === === ==='
-# === to get data === 
-#<agentName>.state.<desiredValue>(<desiredTime>)
-print '*     agent name: '+agent1.state.name
-print '*   agent age(t): '+str(agent1.state.age(t))
 print '      === CSEL vars ==='
 print '       (model constants)'
-print '*    theta: '+str(agent1.state.theta)
-print '*      tau: '+str(agent1.state.tau)
-print '*    gamma: \n'+str(agent1.state.gamma)
-print '*     beta: \n'+str(agent1.state.beta)
-print '*     tauA: '+str(agent1.state.tauA)
-print '*    sigma: '+str(agent1.state.sigma)
+print '*    theta: '+str(agent1.state.agentPersonality.theta)
+print '*      tau: '+str(agent1.state.agentPersonality.tau)
+print '*    gamma: \n'+str(agent1.state.agentPersonality.gamma)
+print '*     beta: \n'+str(agent1.state.agentPersonality.beta)
+print '*     tauA: '+str(agent1.state.agentPersonality.tauA)
+print '*    sigma: '+str(agent1.state.agentPersonality.sigma)
 print '*      (disturbances)'
-print '*  zeta(t): '+str(agent1.state.zeta(t))
+print '*  zeta(t): '+str(agent1.state.zeta(tf))
 print '*      (state vars (endogeneous flow vars))'
-print '*   eta(t): '+str(agent1.state.eta(t))
+print '*   eta(t): '+str(agent1.state.eta(tf))
 
-print 'plot your CSEL state vars? (y/n)'
-choice = raw_input()
-while choice != 'n' and choice != 'y':
-	print choice + '? please enter y or n.'
-	choice = raw_input()
-if choice == 'y':
-	import pylab
-	showTime = [agent1.inputs.time(t) for t in range(0,10)]
-	for etaNum in range(0,4):
-		pylab.figure('eta'+str(etaNum))
-		pylab.plot(showTime,[agent1.state.eta(t)[etaNum] for t in range(0,10)])
-		pylab.draw()
-	pylab.show()
-#else choice == 'n', do nothing.
+import pylab
+# this code aims to reproduce the plots from the paper
+showTime = [agent1.inputs.time(t) for t in range(t0,tf)]
+for etaNum in range(0,4):
+	pylab.figure('eta'+str(etaNum))
+	pylab.plot(showTime,[agent1.state.eta(t)[etaNum] for t in range(t0,tf)])
+	pylab.draw()
+pylab.show()
 
-print 'plotAll? (y/n)'
+print 'show all plots? (y/n)'
 choice = raw_input()
 while choice != 'n' and choice != 'y':
 	print choice + '? please enter y or n.'
@@ -73,16 +69,8 @@ if choice == 'y':
 	import pylab
 	pylab.show()
 
-# === to explore available data in the object use ===
-# help(agent1.state)
-# or
-# print dir(agent1.state)
-# or explore the contents of state.state.py directly
 
-#agent.state(t)
-#agent.state.P(t)
-#agent.state.P.bodyTemp(t)
-
+#EVERYTHING BELOW HERE ISN'T REALLY APPLICABLE (though perhaps the weight model can be incorporated)
 print '\n === === === === === === MOTIVES === === === === === ==='
 print str(agent1.motive(t))
 #agent.motive.hunger(t)	# == agent.motive.drive_eat(t)
@@ -93,18 +81,4 @@ print str(agent1.motive(t))
 print '\n === === === === === === behavior === === === === === ==='
 print str(agent1.behavior(t))
 
-#NOTE: all model.run() and all that is done automatically, just don't worry about it.
-
-
-
-#this is how I want to set the parts:
-#agent.setX(relative.loc.of.file.or.something)
-#agent.setFp(...
-#agent.setFe(...
-#...
-#agent.setZp(...
-#agent.setZe(...
-#agent.setG(...
-#agent.setH(...
-#...
 
