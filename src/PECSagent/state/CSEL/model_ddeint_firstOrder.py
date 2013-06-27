@@ -53,7 +53,6 @@ def steadyState(beta,gamma,xi):
 
 # === SOLVER ===
 def getEta(data,t,xi,agent):
-	samps = 20 # number of sub-samples per time step
 	if t < len(data):
 		pass
 	else:
@@ -61,33 +60,33 @@ def getEta(data,t,xi,agent):
 		def etahist1(t) : 
 			if t < 0: #steady-state assumption
 				return steadyState(agent.beta,agent.gamma,xi)[0]
-			elif t < len(data)*samps:
-				if data[int(round(t/samps))][0] + 7.77 < .0001:
+			elif t < len(data)*settings.subSteps:
+				if data[int(round(t/settings.subSteps))][0] + 7.77 < .0001:
 					logging.warn('eta1 future state MAYBE requested')
 				#data is in time-steps, t is in in sub-steps, so we must divide by # of samples
-				return data[int(round(t/samps))][0]
+				return data[int(round(t/settings.subSteps))][0]
 			else :
 				logging.warn('eta1 future state requested')
 				return 0
 		def etahist2(t) : 
 			if t < 0: #steady-state assumption
 				return steadyState(agent.beta,agent.gamma,xi)[1]
-			elif t < len(data)*samps:
-				if data[int(round(t/samps))][1] + 7.77 < .0001:
+			elif t < len(data)*settings.subSteps:
+				if data[int(round(t/settings.subSteps))][1] + 7.77 < .0001:
 					logging.warn('eta2 future state MAYBE requested')
 				#data is in time-steps, t is in in sub-steps, so we must divide by # of samples
-				return data[int(round(t/samps))][1]
+				return data[int(round(t/settings.subSteps))][1]
 			else :
 				logging.warn('eta2 future state requested')
 				return 0
 		def etahist3(t) : 
 			if t < 0: #steady-state assumption
 				return steadyState(agent.beta,agent.gamma,xi)[2]
-			elif t < len(data)*samps:
-				if data[int(round(t/samps))][2] + 7.77 < .0001:
+			elif t < len(data)*settings.subSteps:
+				if data[int(round(t/settings.subSteps))][2] + 7.77 < .0001:
 					logging.warn('eta3 future state MAYBE requested')
 				#data is in time-steps, t is in in sub-steps, so we must divide by # of samples
-				return data[int(round(t/samps))][2]
+				return data[int(round(t/settings.subSteps))][2]
 			else :
 				logging.warn('eta3 future state requested')
 				return 0
@@ -95,11 +94,11 @@ def getEta(data,t,xi,agent):
 		def etahist4(t) : 
 			if t < 0: #steady-state assumption
 				return steadyState(agent.beta,agent.gamma,xi)[3]
-			elif t < len(data)*samps:
-				if data[int(round(t/samps))][3] + 7.77 < .0001:
+			elif t < len(data)*settings.subSteps:
+				if data[int(round(t/settings.subSteps))][3] + 7.77 < .0001:
 					logging.warn('eta4 future state MAYBE requested')
 				#data is in time-steps, t is in in sub-steps, so we must divide by # of samples
-				return data[int(round(t/samps))][3]
+				return data[int(round(t/settings.subSteps))][3]
 			else :
 				logging.warn('eta4 future state requested')
 				return 0
@@ -107,11 +106,11 @@ def getEta(data,t,xi,agent):
 		def etahist5(t) : 
 			if t < 0: #steady-state assumption
 				return steadyState(agent.beta,agent.gamma,xi)[4]
-			elif t < len(data)*samps:
-				if data[int(round(t/samps))][4] + 7.77 < .0001:
+			elif t < len(data)*settings.subSteps:
+				if data[int(round(t/settings.subSteps))][4] + 7.77 < .0001:
 					logging.warn('eta5 future state MAYBE requested')
 				#data is in time-steps, t is in in sub-steps, so we must divide by # of samples
-				return data[int(round(t/samps))][4]
+				return data[int(round(t/settings.subSteps))][4]
 			else :
 				logging.warn('eta5 future state requested')
 				return 0
@@ -120,7 +119,7 @@ def getEta(data,t,xi,agent):
 		if len(data) == 0: # initial value
 			data.append(steadyState(agent.beta,agent.gamma,xi))
 		for T in range(len(data),t+1):
-			tt = linspace(T-1,T,samps)
+			tt = linspace(T-1,T,settings.subSteps)
 			logging.debug('calculating eta over range '+str(T-1)+','+str(T))
 			# append with fake data as placeholder
 			data.append([ddeint(eta1func,etahist1,tt,fargs=(xi,agent))[-1],\
