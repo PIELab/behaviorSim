@@ -12,6 +12,8 @@ logging.basicConfig(filename='src/__logs/firstOrderModel2.log',\
 
 from src.__util.ddeint import *	#delay ode solver
 
+from ...settings import settings
+
 # === MODEL ===
 # setup model functions:
 def eta1func(eta1,t,xi,agent): 
