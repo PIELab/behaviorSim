@@ -5,7 +5,8 @@
 #Applications in Engineering and Related Sciences, 17:2, 183-203
 
 from pylab import array
-from math import ceil, floor
+from math import ceil
+from src.__util.agentData import linearInterpolate
 
 # xi = exogeneous inflow array = [ attitude, social norm, planned behavioral control ]
 def xi(data,t,attitude):
@@ -20,13 +21,3 @@ def xi(data,t,attitude):
 			data.append(array([x1,x2,x3]))	
 		return linearInterpolate(data,t)
 
-
-def linearInterpolate(data,t):
-	if t%1 < .0001 or t%1 >.9999:	#if t is really close to int
-		return data[int(t)]
-	else:
-		#linearly interpolate between data points
-		m = data[int(ceil(t))]-data[int(floor(t))]	#slope
-		x = t%1	#dist from known value
-		b = floor(t)	#known value
-		return m*x + b

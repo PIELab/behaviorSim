@@ -5,8 +5,20 @@
 	# Applications in Engineering and Related Sciences, 17:2, 183-203
 # link: http://dx.doi.org/10.1080/13873954.2010.520409
 
+from datetime import datetime, timedelta
 
-import datetime
+print ' === === === === === === SETTINGS === === === === === ==='
+# load settings (same as in _example_basicUsage)
+from src.PECSagent.settings import settings
+# customize settings
+settings.deltaTime    = timedelta(days=1)
+settings.simStartTime = datetime(2011, 1, 1, 12, 0, 0, 0)
+
+print '* simulation start time (sim-time): ' + str(settings.simStartTime)
+print '*     size of time step, deltaTime: ' + str(settings.deltaTime)
+
+t0 = 0		#startTime
+tf = 180	#endTime
 
 # === === === === === === AGENT SETUP === === === === === ===
 from src.environment.environment import environment
@@ -15,18 +27,26 @@ envmt = environment()	# load default environment
 from src.PECSagent.agent import agent
 agent1 = agent(envmt)	# load default agent
 
-print ' === === === === === === SETTINGS === === === === === ==='
-# load settings (same as in _example_basicUsage)
-from src.PECSagent.settings import settings
-# customize settings
-settings.deltaTime    = datetime.timedelta(days=1)
-settings.simStartTime = datetime.datetime(2011, 1, 1, 12, 0, 0, 0)
+# customize the CSEL input functions (exogeneous flow vars)
+from src.PECSagent.inputs.CSEL.attitudes import stepOne
 
-print '* simulation start time (sim-time): ' + str(settings.simStartTime)
-print '*     size of time step, deltaTime: ' + str(settings.deltaTime)
+def eatingAttitude(data,t):
+	beforeChange = 7
+	afterChange = 10
+	changeT     = 10
+	allOthers   = 1
+	return stepOne(data,t,allOthers,'behavioralBelief',changeT,beforeChange,afterChange)
+# TODO: agent1.inputs.attitudeChange_eatingGetter = eatingAttitude	#overwrite the default function
 
-t0 = 0		#startTime
-tf = 180	#endTime
+def exerciseAttitude(data,t):
+# stepOne(data,t,value,steppedName,stepTime,beforeStep,afterStep):
+	beforeChange = 1
+	afterChange = 3
+	changeT     = 30
+	allOthers   = 1
+	return stepOne(data,t,allOthers,'behavioralBelief',changeT,beforeChange,afterChange)
+agent1.inputs.attitudeChange_PAGetter = exerciseAttitude	#overwrite the default function
+# TODO: this doesn't work...
 
 print '\n === === === === === === INPUTS === === === === === ==='
 print '      === CSEL inputs ==='
