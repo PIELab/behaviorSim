@@ -23,23 +23,23 @@ class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
 	# constructor
 	def __init__(self,envir):
 		self.environment = envir
-		# === define ALL raw data structures ===
-		# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-		# from package debugInfo:
-		self.__initTime=list()
-		self.__time    =list()	# sim-world time of calculation
-		self.time      =dataObject(timeGetter,settings.simStartTime,settings.deltaTime)
-		# from package CSEL:
-		self.__attitudeChange_PA=list()
 
-		# TODO: add the other inputs which determine xi here OR remove all of them or xi (since they are a bit redundant)
-		self.__xi           =list()
+		# real-world time of calculation for each sim-world calculation of inputs
+		self.initTime = dataObject(initTimeGetter)
+
+		# sim-world time of calculation
+		self.time = dataObject(timeGetter,settings.simStartTime,settings.deltaTime)
+
+		#attitude about physical activity from theory of planned behavior
+		self.attitudeChange_PA = dataObject(attitudeChange_PAGetter,self.environment)
+
+		#exogenous flow variables from package CSEL
+		self.xi = dataObject(xiGetter,self.attitudeChange_PA)
 		
-		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 	# returns ALL data for given time t as a dict 
 	def __call__(self,t):
-		# === 3 return ALL info for that time as a dict ===
+		# === 3 return ALL input info for that time as a dict ===
 		# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 		return dict(initTime=self.initTime(t), \
 		            time    =str(self.time(t)),\
@@ -51,30 +51,4 @@ class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
 		            attitudeChange_PA_controlBelief=str(self.attitudeChange_PA(t).controlBelief),\
 		            xi           =str(self.xi(t)))
 		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-	# === 4 define ALL getters using external functions ===
-	# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-	# note: 'getters' are not true getters here; they also set.
-
-	# real-world time of calculation
-	# from package debugInfo
-	def initTime(self,t):
-		return initTimeGetter(self.__initTime,t)
-
-	# sim-world time of calculation
-	# from package debugInfo
-#	def time(self,t):
-#		return timeGetter(self.__time,t,settings.simStartTime,settings.deltaTime)
-
-	#attitude about physical activity
-	# from package CSEL
-	def attitudeChange_PA(self,t):
-		return attitudeChange_PAGetter(self.__attitudeChange_PA,t,self.environment)
-
-	#exogenous flow variables
-	# from package CSEL
-	def xi(self,t):
-		return xiGetter(self.__xi,t,self.attitudeChange_PA)
-	
-	# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

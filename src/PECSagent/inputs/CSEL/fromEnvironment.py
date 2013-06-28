@@ -6,11 +6,5 @@
 # requirements for this method to be valid:
 	# requiredTimeScale = null
 	# requiredTimeStep  = null
-def pa(data, t,environment):
-	if t < len(data):
-		return data[t]
-	else:
-		for i in range(len(data),t+1):
-			a = environment.influence_PA(i)
-			data.append(a)
-		return data[t]
+def pa(past,t,environment):
+		return environment.influence_PA(t)

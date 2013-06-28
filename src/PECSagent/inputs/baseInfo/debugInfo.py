@@ -7,14 +7,8 @@ from datetime import datetime	# for getTime
 # requirements for this method to be valid:
 	# requiredTimeScale = null
 	# requiredTimeStep  = null
-def currentTime(data,t):
-	if t < len(data):
-		return data[t]
-	else:	# fill in data up to t
-		now = datetime.now()
-		for i in range(len(data),t+1):
-			data.append(now)
-	return data[t]
+def currentTime(t):
+	return datetime.now()
 
 # the most basic of testing functions, this returns the index that is given
 # method metadata:
