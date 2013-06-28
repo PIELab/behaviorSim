@@ -1,5 +1,7 @@
 from math import ceil, floor
 
+import logging
+
 class dataObject(object):
 	def __init__(self):
 		self.data = list()           # time series data list
@@ -34,7 +36,9 @@ def linearInterpolate(data,t):
 		return data[int(t)]
 	else:
 		#linearly interpolate between data points
+		logging.debug('m = (y2-y1)/1 = ('+str(data[int(ceil(t))])+'-'+str(data[int(floor(t))])+')/1')
 		m = data[int(ceil(t))]-data[int(floor(t))]	#slope
 		x = t%1	#dist from known value
-		b = floor(t)	#known value
+		b = data[int(floor(t))]	#known value
+		logging.debug('y = mx+b = '+str(m)+'*'+str(x)+'+'+str(b))
 		return m*x + b

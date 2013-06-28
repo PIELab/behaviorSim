@@ -7,11 +7,7 @@
 
 from ..settings import settings
 
-# setup logging
 import logging
-logging.basicConfig(filename='src/__logs/state.log',\
-                    level=logging.DEBUG,\
-                    format='%(asctime)s %(levelname)s:%(message)s')
 
 # === 1 import desired classes to define parts of input here ===
 # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
