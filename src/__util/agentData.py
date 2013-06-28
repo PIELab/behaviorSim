@@ -10,7 +10,7 @@ class dataObject(object):
 		if func==None:
 			logging.warn('getter function not specified for dataObject;'+\
 			             ' I will set a temporary function for now and hope you change it later.')
-			self.calc = lambda t,args=None: t*0.1
+			self.calc = lambda t: t*0.1
 		else :
 			self.calc = func  # function for calculating value at given time
 
@@ -34,7 +34,7 @@ class dataObject(object):
 			return linearInterpolate(self.data,t)
 		else:	              # new time, solve as initial value problem from last known point
 			for i in range(len(self.data),int(ceil(t+1))):
-				if self.args == None:
+				if len(self.args) == 0:
 					self.data.append(self.calc(i))
 				else:
 					self.data.append(self.calc(self,i,*self.args))
