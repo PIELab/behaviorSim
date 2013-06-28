@@ -12,8 +12,21 @@ class dataObject(object):
 			return linearInterpolate(self.data,t)
 		else:	              # new time, solve as initial value problem from last known point
 			for i in range(len(self.data),int(ceil(t+1))):
-				self.data.append(self.calc(i,args))
+				if args == None:
+					self.data.append(self.calc(i))
+				else:
+					self.data.append(self.calc(i,args))
 			return linearInterpolate(self.data,t)
+
+	# sets a new function for calculating values given a time t and other optional arguments
+	def setFunction(self,f):
+		# TODO: checks?
+		self.data = list()	# clear any data so far
+		self.calc = f
+
+	# clears all data and resets to default
+	def reset(self):
+		self = dataObject()
 
 # linear interpolation for the PECS data object class
 def linearInterpolate(data,t):
