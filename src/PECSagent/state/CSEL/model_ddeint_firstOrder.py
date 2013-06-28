@@ -4,11 +4,6 @@ from pylab import array, linspace
 
 # setup logging
 import logging
-logging.basicConfig(filename='src/__logs/firstOrderModel2.log',\
-                    level=logging.DEBUG,\
-                    format='%(asctime)s %(levelname)s:%(message)s')
-
-
 
 from src.__util.ddeint import *	#delay ode solver
 

@@ -6,6 +6,7 @@
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 from ..settings import settings
+from ...__util.agentData import dataObject
 
 # === 1 import desired classes to define parts of input here ===
 # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
@@ -27,6 +28,7 @@ class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
 		# from package debugInfo:
 		self.__initTime=list()
 		self.__time    =list()	# sim-world time of calculation
+		self.time      =dataObject(timeGetter,settings.simStartTime,settings.deltaTime)
 		# from package CSEL:
 		self.__attitudeChange_PA=list()
 
@@ -61,8 +63,8 @@ class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
 
 	# sim-world time of calculation
 	# from package debugInfo
-	def time(self,t):
-		return timeGetter(self.__time,t,settings.simStartTime,settings.deltaTime)
+#	def time(self,t):
+#		return timeGetter(self.__time,t,settings.simStartTime,settings.deltaTime)
 
 	#attitude about physical activity
 	# from package CSEL
