@@ -70,12 +70,48 @@ print '*      (state vars (endogeneous flow vars))'
 print '*   eta(t): '+str(agent1.state.eta(tf))
 
 import pylab
+#reduce font size of display
+pylab.rcParams.update({'font.size': 8})
+
 # this code aims to reproduce the plots from the paper
-showTime = [agent1.inputs.time(t) for t in range(t0,tf)]
-for etaNum in range(0,4):
-	pylab.figure('eta'+str(etaNum))
-	pylab.plot(showTime,[agent1.state.eta(t)[etaNum] for t in range(t0,tf)])
-	pylab.draw()
+# showTime = [agent1.inputs.time(t) for t in range(t0,tf)]	# this can be used to display dates rather than indexes
+pylab.figure('CSEL behavior model plot')
+
+# odd plots are Energy intake
+pylab.subplot(421)
+pylab.title('Energy Intake')
+pylab.ylabel('behavioral beliefs')
+
+pylab.subplot(423)
+pylab.ylabel('attitude (eta1)')
+
+pylab.subplot(425)
+pylab.ylabel('intention (eta4)')
+
+pylab.subplot(427)
+pylab.ylabel('behavior (eta5)')
+pylab.xlabel('time')
+
+# even plots are PA
+pylab.subplot(422)
+pylab.title('Pysical activity')
+pylab.plot(etaObject.data[agent1.inputs.attitudeChange_PA(t).behavioralBelief for t in range(t0,tf)])
+
+pylab.subplot(424)
+pylab.ylabel('attitude (eta1)')
+pylab.plot(etaObject.data[agent1.state.eta(t)[0] for t in range(t0,tf)])
+
+pylab.subplot(426)
+pylab.ylabel('intention (eta4)')
+pylab.plot(etaObject.data[agent1.state.eta(t)[3] for t in range(t0,tf)])
+
+pylab.subplot(428)
+pylab.ylabel('behavior (eta5)')
+pylab.plot(etaObject.data[agent1.state.eta(t)[4] for t in range(t0,tf)])
+
+pylab.xlabel('time')
+
+pylab.draw()
 pylab.show()
 
 print 'show all plots? (y/n)'
