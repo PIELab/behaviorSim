@@ -6,5 +6,5 @@
 # requirements for this method to be valid:
 	# requiredTimeScale = null
 	# requiredTimeStep  = null
-def pa(past,t,environment):
+def pa(t,environment):
 		return environment.influence_PA(t)

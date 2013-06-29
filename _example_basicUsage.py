@@ -10,9 +10,9 @@ myAgent = agent(envmt)	#load default agent
 #TODO: customize the agent
 #TODO: defaultAgent.tag = 'my very first agent'
 
-#you can not reference the agent using 'myAgent' or 'envmt.agent[0]'
+# you can not reference the agent using 'myAgent' or 'envmt.agent[0]'
 
-#add agent to environment 
+# add agent to environment 
 
 
 

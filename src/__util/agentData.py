@@ -34,10 +34,15 @@ class dataObject(object):
 			return linearInterpolate(self.data,t)
 		else:	              # new time, solve as initial value problem from last known point
 			for i in range(len(self.data),int(ceil(t+1))):
-				if len(self.args) == 0:
+				if len(self.args) == 0: #if no arguments
 					self.data.append(self.calc(i))
 				else:
-					self.data.append(self.calc(self,i,*self.args))
+					try: #use the given arguments
+						self.data.append(self.calc(i,*self.args))
+					except TypeError:#wrong number of arguments, try passing raw data array
+						logging.warn('raw data access granted to calculating function '+str(self.calc))
+						self.calc(self.data,t,*self.args)
+						break
 			return linearInterpolate(self.data,t)
 
 	# sets a new function for calculating values given a time t and other optional arguments

@@ -8,17 +8,8 @@ import random
 # requirements for this method to be valid:
 	# requiredTimeScale = null
 	# requiredTimeStep  = null
-def age(data,t,birthdatetime,deltaT,t0):
-	if t < len(data):
-		return data[t]
-	else:	# fill in data up to t
-		if len(data) == 0:
-			ageAtStart = t0 - birthdatetime
-			data.append(ageAtStart)
-		for i in range(len(data),t+1):
-			age = data[i-1] + deltaT
-			data.append(age)
-	return data[t]
+def age(t,birthdatetime,deltaT,t0):
+	return t0+(t*deltaT)-birthdatetime
 
 # returns a randomly chosen age based on a flat (TODO: make this normal) probability distribution to make the average age at currentTime reasonable
 def randomAger(currentTime):

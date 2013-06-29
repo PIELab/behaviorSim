@@ -6,6 +6,7 @@
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 from ..settings import settings
+from ...__util.agentData import dataObject
 
 import logging
 
@@ -24,8 +25,7 @@ from .CSEL.agent_defaultPersonality import agent as agentConstructor
 
 class state:	#can't use 'input' as the name b/c of built-in 'input()'
 	# constructor
-	def __init__(self,theInputs):
-		self.inputs   = theInputs
+	def __init__(self,inputs):
 	# === define ALL raw data structures ===
 	# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 		# constant attributes (personality):
@@ -35,11 +35,15 @@ class state:	#can't use 'input' as the name b/c of built-in 'input()'
 		self.agentPersonality = agentConstructor()
 
 		# (potentially) time-variant attributes:
-		# from package baseInfo:
-		self.__age = list()
-		# from package CSEL:
-		self.__zeta = list()
-		self.__eta  = list()
+		
+		# sim-world age of agent
+		self.age = dataObject(ageGetter,self.birthday,settings.deltaTime,settings.simStartTime)
+
+		# random distubances into the endogeneous flow vars, eta
+		self.zeta = dataObject(zetaGetter)
+
+		# array of endogeneous flow variables from package CSEL
+		self.eta  = dataObject(etaGetter,inputs.xi,self.agentPersonality)
 
 		
 		
@@ -53,29 +57,4 @@ class state:	#can't use 'input' as the name b/c of built-in 'input()'
 		            birthday=self.birthday,\
 		            age     =self.age(t))
 		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-	# === 4 define ALL getters using external functions ===
-	# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-	# note: 'getters' are not true getters here; they also set.
-
-	# sim-world age of agent
-	# from package baseInfo
-	def age(self,t):
-		return ageGetter(self.__age,t,self.birthday,settings.deltaTime,settings.simStartTime)
-	
-	# array of random distubances into the endogeneous flow vars, eta
-	# from package CSEL
-	def zeta(self,t):
-		return zetaGetter(self.__zeta,t)
-
-	# array of endogeneous flow variables
-	# from package CSEL
-	def eta(self,t):
-		et = etaGetter(self.__eta,t,self.inputs.xi,self.agentPersonality)
-		e = list()
-		for etaIndex in range(len(et)):
-			e.append(et[etaIndex] + self.zeta(t)[etaIndex])
-		return e
-
-	# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

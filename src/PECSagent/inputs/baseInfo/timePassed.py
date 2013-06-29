@@ -4,9 +4,6 @@
 # requirements for this method to be valid:
 	# requiredTimeScale = null
 	# requiredTimeStep  = null
-def timePassed(timeFunc,t,t_0,deltaT):
-	if t == 0:
-		return t_0
-	else:
-		return timeFunc(t-1)+deltaT
+def timePassed(t,t_0,deltaT):
+	return t_0+t*deltaT
 

@@ -45,7 +45,7 @@ def exerciseAttitude(data,t):
 	changeT     = 30
 	allOthers   = 1
 	return stepOne(data,t,allOthers,'behavioralBelief',changeT,beforeChange,afterChange)
-agent1.inputs.attitudeChange_PAGetter = exerciseAttitude	#overwrite the default function
+#agent1.inputs.attitudeChange_PAGetter = exerciseAttitude	#overwrite the default function
 # TODO: this doesn't work...
 
 print '\n === === === === === === INPUTS === === === === === ==='
@@ -88,6 +88,7 @@ if choice == 'y':
 	plotAll(agent1,0,100)
 	import pylab
 	pylab.show()
+
 
 
 #EVERYTHING BELOW HERE ISN'T REALLY APPLICABLE (though perhaps the weight model can be incorporated)

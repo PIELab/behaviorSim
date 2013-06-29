@@ -9,7 +9,7 @@ from math import ceil
 from src.__util.agentData import linearInterpolate
 
 # xi = exogeneous inflow array = [ attitude, social norm, planned behavioral control ]
-def xi(past,t,attitude):
+def xi(t,attitude):
 	a = attitude(t)
 	x1 = a.behavioralBelief*a.behaviorAttitude
 	x2 = a.normativeBelief*a.subjectiveNorm
