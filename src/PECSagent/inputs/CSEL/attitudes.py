@@ -33,40 +33,37 @@ def constAttitude(data, t, value=1):
 	# stepTime = (int) time of step (units specified by settings)
 	# beforeStep = value of <steppedName> prior to <stepTime>
 	# afterStep  = value of <steppedName> after <stepTime>
-def stepOne(data,t,value,steppedName,stepTime,beforeStep,afterStep):
-	if t < len(data):
-		return data[t]
+def stepOne(t,value,steppedName,stepTime,beforeStep,afterStep):
+	a = attitude()
+	# set all to value
+	a.behavioralBelief = value
+	a.behaviorAttitude = value
+	a.normativeBelief  = value
+	a.subjectiveNorm   = value
+	a.PBC              = value
+	a.controlBelief    = value
+
+	if t > stepTime:
+		vvv = afterStep
 	else:
-		a = attitude()
-		# set all to value
-		a.behavioralBelief = value
-		a.behaviorAttitude = value
-		a.normativeBelief  = value
-		a.subjectiveNorm   = value
-		a.PBC              = value
-		a.controlBelief    = value
+		vvv = beforeStep
+	# find & overwrite the steppedValue
+	if   steppedName=='behavioralBelief':
+		a.behavioralBelief = vvv
+	elif steppedName=='behaviorAttitude':
+		a.behaviorAttitude = vvv
+	elif steppedName=='normativeBelief':
+		a.normativeBelief  = vvv
+	elif steppedName=='subjectiveNorm':
+		a.subjectiveNorm   = vvv
+	elif steppedName=='PBC':
+		a.PBC              = vvv
+	elif steppedName=='controlBelief':
+		a.controlBelief    = vvv
+	else:
+		print 'ERR: unrecoginzed inventory "'+str(steppedName)+'" for theory of planned behavior given to stepOne(). Check your steppedName string. Aborting program from /PECSagent/inputs/CSEL/attitudes.'
+		print '>>> traceback <<<'
+ 		traceback.print_exc()
+		exit()
 
-		# find & overwrite the steppedValue
-		if   steppedName=='behavioralBelief':
-			a.behavioralBelief = value
-		elif steppedName=='behaviorAttitude':
-			a.behaviorAttitude = value
-		elif steppedName=='normativeBelief':
-			a.normativeBelief  = value
-		elif steppedName=='subjectiveNorm':
-			a.subjectiveNorm   = value
-		elif steppedName=='PBC':
-			a.PBC              = value
-		elif steppedName=='controlBelief':
-			a.controlBelief    = value
-		else:
-			print 'ERR: unrecoginzed inventory "'+str(steppedName)+'" for theory of planned behavior given to stepOne(). Check your steppedName string. Aborting program from /PECSagent/inputs/CSEL/attitudes.'
-			print '>>> traceback <<<'
-    			traceback.print_exc()
-			exit()
-
-		if len(data) == 0:
-			data.append(a)
-		for i in range(len(data),t+1):
-			data.append(a)
-		return data[t]
+	return a

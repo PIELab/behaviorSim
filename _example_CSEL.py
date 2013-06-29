@@ -30,22 +30,22 @@ agent1 = agent(envmt)	# load default agent
 # customize the CSEL input functions (exogeneous flow vars)
 from src.PECSagent.inputs.CSEL.attitudes import stepOne
 
-def eatingAttitude(data,t):
+def eatingAttitude(t):
 	beforeChange = 7
 	afterChange = 10
 	changeT     = 10
 	allOthers   = 1
-	return stepOne(data,t,allOthers,'behavioralBelief',changeT,beforeChange,afterChange)
+	return stepOne(t,allOthers,'behavioralBelief',changeT,beforeChange,afterChange)
 # TODO: agent1.inputs.attitudeChange_eatingGetter = eatingAttitude	#overwrite the default function
 
-def exerciseAttitude(data,t):
+def exerciseAttitude(t):
 # stepOne(data,t,value,steppedName,stepTime,beforeStep,afterStep):
 	beforeChange = 1
 	afterChange = 3
 	changeT     = 30
 	allOthers   = 1
-	return stepOne(data,t,allOthers,'behavioralBelief',changeT,beforeChange,afterChange)
-#agent1.inputs.attitudeChange_PAGetter = exerciseAttitude	#overwrite the default function
+	return stepOne(t,allOthers,'behavioralBelief',changeT,beforeChange,afterChange)
+agent1.inputs.attitudeChange_PA.setFunction(exerciseAttitude)	#overwrite the default function
 # TODO: this doesn't work...
 
 print '\n === === === === === === INPUTS === === === === === ==='
