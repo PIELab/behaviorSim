@@ -7,6 +7,14 @@
 
 from datetime import datetime, timedelta
 
+#setup log file for this script
+import logging
+print str(logging.getLogger())
+logging.basicConfig(filename='src/__logs/CSELexample.log',\
+	                 level=logging.DEBUG,\
+	                format='%(asctime)s %(levelname)s:%(message)s',\
+                   filemode='w')
+
 print ' === === === === === === SETTINGS === === === === === ==='
 # load settings (same as in _example_basicUsage)
 from src.PECSagent.settings import settings
@@ -18,7 +26,7 @@ print '* simulation start time (sim-time): ' + str(settings.simStartTime)
 print '*     size of time step, deltaTime: ' + str(settings.deltaTime)
 
 t0 = 0		#startTime
-tf = 180	#endTime
+tf = 50	#endTime
 
 # === === === === === === AGENT SETUP === === === === === ===
 from src.environment.environment import environment
@@ -46,7 +54,6 @@ def exerciseAttitude(t):
 	allOthers   = 1
 	return stepOne(t,allOthers,'behavioralBelief',changeT,beforeChange,afterChange)
 agent1.inputs.attitudeChange_PA.setFunction(exerciseAttitude)	#overwrite the default function
-# TODO: this doesn't work...
 
 print '\n === === === === === === INPUTS === === === === === ==='
 print '      === CSEL inputs ==='
@@ -122,7 +129,7 @@ while choice != 'n' and choice != 'y':
 	choice = raw_input()
 if choice == 'y':
 	from src.PECSplotter.plot import plotAll
-	plotAll(agent1,0,100)
+	plotAll(agent1,t0,tf)
 	import pylab
 	pylab.show()
 

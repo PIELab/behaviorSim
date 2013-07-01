@@ -1,5 +1,5 @@
-#from ..PECSagent.agent import agent
-from attitudeInfluences.PA import squareWaves as influence_PAGetter
+from attitudeInfluences.testAttitudes import squareWaves as influence_PAGetter
+#from attitudeInfluences.CSELsteps     import pa          as influence_PAGetter
 
 class environment(object):
 	def __init__(self):

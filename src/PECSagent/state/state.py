@@ -19,7 +19,7 @@ from .baseInfo.name import iterativeNamer as nameSetter
 from .CSEL.disturbances      import gaussZeta  as zetaGetter
 from .CSEL.model_ddeint_firstOrder  import getEta     as etaGetter
 
-from .CSEL.agent_defaultPersonality import agent as agentConstructor
+from .CSEL.agent_i import agent as agentConstructor
 
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

@@ -1,10 +1,9 @@
 # first order fluid-flow model based on the theory of planned behavior
+# NOTE: to re-enable debug printouts ctrl+h 'pass #logging.debug' and replace with 'logging.debug'
 
 from pylab import array, linspace
 
-# setup logging
 import logging
-
 from src.__util.ddeint import *	#delay ode solver
 
 from ...settings import settings
@@ -12,10 +11,10 @@ from ...settings import settings
 # === MODEL ===
 # setup model functions:
 def eta1func(eta1,t,xi,agent): 
-	#logging.debug( '(agent.gamma*XI(t-agent.theta)-eta)/agent.tau' )
-	#logging.debug( '('+str(agent.gamma[0,0])+'*'+str(xi(t-agent.theta[0])[0])+'-'+str(eta1(t))+')/' + str(agent.tau[0]) + '=' )
+	pass #logging.debug( '(agent.gamma*XI(t-agent.theta)-eta)/agent.tau' )
+	pass #logging.debug( '('+str(agent.gamma[0,0])+'*'+str(xi(t-agent.theta[0])[0])+'-'+str(eta1(t))+')/' + str(agent.tau[0]) + '=' )
 	etaDDot= (agent.gamma[0,0]*xi(t-agent.theta[0])[0] - eta1(t))/agent.tau[0]
-	#logging.debug( 'eta1etaDDot='+str(etaDDot) )
+	pass #logging.debug( 'eta1etaDDot='+str(etaDDot) )
 	return etaDDot
 
 def eta2func(eta2,t,xi,agent): 
@@ -54,84 +53,53 @@ def getEta(data,t,xi,agent):
 		pass
 	else:
 		# === HISTORY === 
+		# uses given data list to get historical eta
+		def etaFromData(t,etaIndex):
+		pass #logging.debug('looking up past eta'+str(etaIndex)+' at t='+str(t))
+			if t > 0 and int(round(t)) < len(data):
+				#indexOfT = int(round(float(t)/float(settings.subSteps)))
+				indexOfT = int(round(t))
+			pass #logging.debug(str(data))
+			pass #logging.debug(str(data[indexOfT]))
+			pass #logging.debug(str(data[indexOfT][etaIndex]))
+				if data[indexOfT][etaIndex] + 7.77 < .0001:
+					logging.warn('eta'+str(etaIndex)+' future state MAYBE requested')
+			pass #logging.debug('returning past eta'+str(etaIndex)+' for time='+str(t)+' at index='+str(indexOfT))
+				return data[indexOfT][etaIndex]
+			elif t <= 0: #steady-state assumption
+			pass #logging.debug('steady state value returned for eta'+str(etaIndex))
+				return steadyState(agent.beta,agent.gamma,xi)[etaIndex]
+			else :
+				logging.warn('eta'+str(etaIndex)+' future state requested')
+				return 0
+
 		def etahist1(t) : 
-			if t < 0: #steady-state assumption
-				return steadyState(agent.beta,agent.gamma,xi)[0]
-			elif t < len(data)*settings.subSteps:
-				if data[int(round(t/settings.subSteps))][0] + 7.77 < .0001:
-					logging.warn('eta1 future state MAYBE requested')
-				#data is in time-steps, t is in in sub-steps, so we must divide by # of samples
-				return data[int(round(t/settings.subSteps))][0]
-			else :
-				logging.warn('eta1 future state requested')
-				return 0
+			return etaFromData(t,0)
 		def etahist2(t) : 
-			if t < 0: #steady-state assumption
-				return steadyState(agent.beta,agent.gamma,xi)[1]
-			elif t < len(data)*settings.subSteps:
-				if data[int(round(t/settings.subSteps))][1] + 7.77 < .0001:
-					logging.warn('eta2 future state MAYBE requested')
-				#data is in time-steps, t is in in sub-steps, so we must divide by # of samples
-				return data[int(round(t/settings.subSteps))][1]
-			else :
-				logging.warn('eta2 future state requested')
-				return 0
+			return etaFromData(t,1)
 		def etahist3(t) : 
-			if t < 0: #steady-state assumption
-				return steadyState(agent.beta,agent.gamma,xi)[2]
-			elif t < len(data)*settings.subSteps:
-				if data[int(round(t/settings.subSteps))][2] + 7.77 < .0001:
-					logging.warn('eta3 future state MAYBE requested')
-				#data is in time-steps, t is in in sub-steps, so we must divide by # of samples
-				return data[int(round(t/settings.subSteps))][2]
-			else :
-				logging.warn('eta3 future state requested')
-				return 0
-
+			return etaFromData(t,2)
 		def etahist4(t) : 
-			if t < 0: #steady-state assumption
-				return steadyState(agent.beta,agent.gamma,xi)[3]
-			elif t < len(data)*settings.subSteps:
-				if data[int(round(t/settings.subSteps))][3] + 7.77 < .0001:
-					logging.warn('eta4 future state MAYBE requested')
-				#data is in time-steps, t is in in sub-steps, so we must divide by # of samples
-				return data[int(round(t/settings.subSteps))][3]
-			else :
-				logging.warn('eta4 future state requested')
-				return 0
-
+			return etaFromData(t,3)
 		def etahist5(t) : 
-			if t < 0: #steady-state assumption
-				return steadyState(agent.beta,agent.gamma,xi)[4]
-			elif t < len(data)*settings.subSteps:
-				if data[int(round(t/settings.subSteps))][4] + 7.77 < .0001:
-					logging.warn('eta5 future state MAYBE requested')
-				#data is in time-steps, t is in in sub-steps, so we must divide by # of samples
-				return data[int(round(t/settings.subSteps))][4]
-			else :
-				logging.warn('eta5 future state requested')
-				return 0
+			return etaFromData(t,4)
 
 		# === SOLUTION ===
 		if len(data) == 0: # initial value
 			data.append(steadyState(agent.beta,agent.gamma,xi))
 		for T in range(len(data),t+1):
 			tt = linspace(T-1,T,settings.subSteps)
-			logging.debug('calculating eta over range '+str(T-1)+','+str(T))
-			# append with fake data as placeholder
-			data.append([ddeint(eta1func,etahist1,tt,fargs=(xi,agent))[-1],\
-			             -7.77,-7.77,-7.77,-7.77])
+		pass #logging.debug('calculating eta over range '+str(T-1)+','+str(T))
+			# append eta1 and fake data for others as placeholder
+			data.append(array([ddeint(eta1func,etahist1,tt,fargs=(xi,agent))[-1],\
+			             -7.77,-7.77,-7.77,-7.77]))
 			# then fill in real data as we get it...
+
 			data[-1][1] = ddeint(eta2func,etahist2,tt,fargs=(xi,agent))[-1]
  			data[-1][2] = ddeint(eta3func,etahist3,tt,fargs=(xi,agent))[-1]
+			pass #logging.debug('f_eta4('+str(T)+')='+str(data[-1][3]))
 			data[-1][3] = ddeint(eta4func,etahist4,tt,fargs=(agent,etahist1,etahist2,etahist3))[-1]
+			pass #logging.debug('f_eta4('+str(T)+')='+str(data[-1][3]))
 			data[-1][4] = ddeint(eta5func,etahist5,tt,fargs=(agent,etahist3,etahist4))[-1]
-			
-#			ETA =array([ddeint(eta1func,etahist1,tt,fargs=(xi,agent))[-1],\
-#			      ddeint(eta2func,etahist2,tt,fargs=(xi,agent))[-1],\
-#			      ddeint(eta3func,etahist3,tt,fargs=(xi,agent))[-1],\
-#			      ddeint(eta4func,etahist4,tt,fargs=(agent,etahist1,etahist2,etahist3))[-1],\
-#			      ddeint(eta5func,etahist5,tt,fargs=(agent,etahist3,etahist4))[-1]])
-#			data.append(ETA) 
 	return data[t]
 

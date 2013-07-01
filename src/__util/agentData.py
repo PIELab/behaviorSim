@@ -40,7 +40,7 @@ class dataObject(object):
 					try: #use the given arguments
 						self.data.append(self.calc(i,*self.args))
 					except TypeError:#wrong number of arguments, try passing raw data array
-						logging.warn('raw data access granted to calculating function '+str(self.calc))
+						logging.warn('raw data access granted to calculating function '+str(self.calc)+'to find @t='+str(t))
 						self.calc(self.data,t,*self.args)
 						break
 			return linearInterpolate(self.data,t)
@@ -57,8 +57,15 @@ class dataObject(object):
 
 # linear interpolation for the PECS data object class
 def linearInterpolate(data,t):
+	logging.disable(logging.DEBUG)	#comment this line if debugging this function; otherwise disables to avoid log clutter
+
+	# custom return function to handle onExit behaviors
+	def prepExit( val ):
+		logging.disable(logging.NOTSET)	# undo logging disable
+		return val
+
 	if t%1 < .0001 or t%1 >.9999:	#if t is really close to int
-		return data[int(t)]
+		return prepExit( data[int(t)] )
 	else:
 		#linearly interpolate between data points
 		logging.debug('m = (y2-y1)/1 = ('+str(data[int(ceil(t))])+'-'+str(data[int(floor(t))])+')/1')
@@ -66,4 +73,4 @@ def linearInterpolate(data,t):
 		x = t%1	#dist from known value
 		b = data[int(floor(t))]	#known value
 		logging.debug('y = mx+b = '+str(m)+'*'+str(x)+'+'+str(b))
-		return m*x + b
+		return prepExit( m*x + b )

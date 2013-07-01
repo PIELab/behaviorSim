@@ -1,6 +1,13 @@
 
 t = 5	#time of interest in simulation timesteps (set in settings)
 
+#setup log file for this script
+import logging
+logging.basicConfig(filename='src/__logs/basicExample.log',\
+	                 level=logging.DEBUG,\
+	                format='%(asctime)s %(levelname)s:%(message)s',\
+                   filemode='w')
+
 # === === === === === === AGENT SETUP === === === === === ===
 from src.environment.environment import environment
 envmt = environment()	#load default environment
