@@ -12,8 +12,10 @@ from pylab import array
 
 class agent:
 
-	theta = array([0,0,0, 2,2,2,0,2]);	#time delays
-	tau   = array([.1,1,1, 2, 4]);		#time constants
+	disturbancesOn = False
+
+	theta = array([0,0,0, 2,2,2,0,15]);	#time delays
+	tau   = array([20,1,1, 2, 4]);		#time constants
 
 	# exogenous inflow resistances:
 	gamma = array([[1,1,1],\
@@ -26,7 +28,7 @@ class agent:
 	beta  = array([[0.5,0.5,0.5,0.5,0.5],\
 		       [0.5,0.5,0.5,0.5,0.5],\
 		       [0.5,0.5,0.5,0.5,0.5],\
-		       [1.0,0.5,0.5,0.5,0.5],\
+		       [0.5,0.5,0.5,0.5,0.5],\
 		       [0.5,0.5,  0,0.5,0.5]]);
 
 

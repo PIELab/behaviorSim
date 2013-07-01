@@ -25,15 +25,29 @@ settings.simStartTime = datetime(2011, 1, 1, 12, 0, 0, 0)
 print '* simulation start time (sim-time): ' + str(settings.simStartTime)
 print '*     size of time step, deltaTime: ' + str(settings.deltaTime)
 
-t0 = 0		#startTime
-tf = 50	#endTime
+t0 = 0   #startTime
+tf = 180 #endTime
 
 # === === === === === === AGENT SETUP === === === === === ===
 from src.environment.environment import environment
 envmt = environment()	# load default environment
 
+# load agents personalities for i, ii, and iii
 from src.PECSagent.agent import agent
-agent1 = agent(envmt)	# load default agent
+from src.PECSagent.state.CSEL import agent_i, agent_ii, agent_iii
+agent1 = agent(envmt)
+agent1.state.setPersonality(agent_i.agent())
+
+agent2 = agent(envmt)
+agent2.state.setPersonality(agent_ii.agent())
+
+agent3 = agent(envmt)
+agent3.state.setPersonality(agent_iii.agent())
+#add disturbances
+from src.PECSagent.state.CSEL.model_ddeint_firstOrder_withDisturbances import getEta
+print 'args='+str(agent3.state.eta.args)
+#def getEta(data,t,xi,agent,zeta):
+agent3.state.eta.setFunction(getEta,agent3.inputs.xi,agent3.state.agentPersonality,agent3.state.zeta)
 
 # customize the CSEL input functions (exogeneous flow vars)
 from src.PECSagent.inputs.CSEL.attitudes import stepOne
@@ -54,6 +68,8 @@ def exerciseAttitude(t):
 	allOthers   = 1
 	return stepOne(t,allOthers,'behavioralBelief',changeT,beforeChange,afterChange)
 agent1.inputs.attitudeChange_PA.setFunction(exerciseAttitude)	#overwrite the default function
+agent2.inputs.attitudeChange_PA.setFunction(exerciseAttitude)	#overwrite the default function
+agent3.inputs.attitudeChange_PA.setFunction(exerciseAttitude)	#overwrite the default function
 
 print '\n === === === === === === INPUTS === === === === === ==='
 print '      === CSEL inputs ==='
@@ -104,18 +120,26 @@ pylab.xlabel('time')
 pylab.subplot(422)
 pylab.title('Pysical activity')
 pylab.plot(showTime,[agent1.inputs.attitudeChange_PA(t).behavioralBelief for t in range(t0,tf)])
+pylab.plot(showTime,[agent2.inputs.attitudeChange_PA(t).behavioralBelief for t in range(t0,tf)])
+pylab.plot(showTime,[agent3.inputs.attitudeChange_PA(t).behavioralBelief for t in range(t0,tf)])
 
 pylab.subplot(424)
 pylab.ylabel('attitude (eta1)')
 pylab.plot(showTime,[agent1.state.eta(t)[0] for t in range(t0,tf)])
+pylab.plot(showTime,[agent2.state.eta(t)[0] for t in range(t0,tf)])
+pylab.plot(showTime,[agent3.state.eta(t)[0] for t in range(t0,tf)])
 
 pylab.subplot(426)
 pylab.ylabel('intention (eta4)')
 pylab.plot(showTime,[agent1.state.eta(t)[3] for t in range(t0,tf)])
+pylab.plot(showTime,[agent2.state.eta(t)[3] for t in range(t0,tf)])
+pylab.plot(showTime,[agent3.state.eta(t)[3] for t in range(t0,tf)])
 
 pylab.subplot(428)
 pylab.ylabel('behavior (eta5)')
 pylab.plot(showTime,[agent1.state.eta(t)[4] for t in range(t0,tf)])
+pylab.plot(showTime,[agent2.state.eta(t)[4] for t in range(t0,tf)])
+pylab.plot(showTime,[agent3.state.eta(t)[4] for t in range(t0,tf)])
 
 pylab.xlabel('time')
 

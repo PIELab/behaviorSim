@@ -19,19 +19,21 @@ from .baseInfo.name import iterativeNamer as nameSetter
 from .CSEL.disturbances      import gaussZeta  as zetaGetter
 from .CSEL.model_ddeint_firstOrder  import getEta     as etaGetter
 
-from .CSEL.agent_i import agent as agentConstructor
+from .CSEL.agent_defaultPersonality import agent as agentConstructor
 
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 class state:	#can't use 'input' as the name b/c of built-in 'input()'
 	# constructor
 	def __init__(self,inputs):
+		self.theInputs = inputs
 	# === define ALL raw data structures ===
 	# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 		# constant attributes (personality):
 		# from package baseInfo:
 		self.name     = nameSetter()
 		self.birthday = birthdaySetter(settings.simStartTime)
+
 		self.agentPersonality = agentConstructor()
 
 		# (potentially) time-variant attributes:
@@ -44,8 +46,6 @@ class state:	#can't use 'input' as the name b/c of built-in 'input()'
 
 		# array of endogeneous flow variables from package CSEL
 		self.eta  = dataObject(etaGetter,inputs.xi,self.agentPersonality)
-
-		
 		
 	# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -57,4 +57,9 @@ class state:	#can't use 'input' as the name b/c of built-in 'input()'
 		            birthday=self.birthday,\
 		            age     =self.age(t))
 		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+	def setPersonality(self,newP):
+		self.agentPersonality = newP
+		# reset all personality-dependent data:
+		self.eta = dataObject(etaGetter,self.theInputs.xi,newP)
 
