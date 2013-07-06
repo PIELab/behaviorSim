@@ -5,6 +5,7 @@ from ...__util.agentData import dataObject
 ### import default functions ###
 from .baseInfo.death         import oldAger as _DFLT_FUNC_mortality
 from .CSEL.behaviorTankValue import etaFive as _DFLT_FUNC_will_PA
+from .CSEL.behaviorTankValue import etaFive as _DFLT_FUNC_will_EB
 
 
 
@@ -20,6 +21,8 @@ class motive:
 		# the will of the agent to be physically active
 		self.will_PA=dataObject(_DFLT_FUNC_will_PA, state.eta_PA)
 		
+		# the will of the agent to be eat healthily
+		self.will_PA=dataObject(_DFLT_FUNC_will_EB, state.eta_EB)
 
 	# returns ALL data for given time t as a dict 
 	def __call__(self,t):
