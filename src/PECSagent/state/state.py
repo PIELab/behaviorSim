@@ -37,17 +37,13 @@ class state:
 
 		## for physical activity (PA) ##
 		# random distubances into the endogeneous flow vars, eta
-		self.zeta = dataObject(_DFLT_FUNC_zeta)
-
+		self.zeta_PA = dataObject(_DFLT_FUNC_zeta)
 		# array of endogeneous flow variables from package CSEL
-		self.eta  = dataObject(_DFLT_FUNC_eta,inputs.xi_PA,self.agentPersonality)
+		self.eta_PA  = dataObject(_DFLT_FUNC_eta,inputs.xi_PA,self.agentPersonality)
 
-#TODO:
-#		## for eating behavior (EB) ##
-#		self.zeta_EB = dataObject(_DFLT_FUNC_zeta)
-#
-#		# array of endogeneous flow variables from package CSEL
-#		self.eta_EB  = dataObject(_DFLT_FUNC_eta,inputs.xi,self.agentPersonality)
+		## for eating behavior (EB) ##
+		self.zeta_EB = dataObject(_DFLT_FUNC_zeta)
+		self.eta_EB  = dataObject(_DFLT_FUNC_eta,inputs.xi_EB,self.agentPersonality)
 		
 
 	# returns ALL data for given time t as a dict 
@@ -61,5 +57,6 @@ class state:
 	def setPersonality(self,newP):
 		self.agentPersonality = newP
 		# reset all personality-dependent data:
-		self.eta = dataObject(_DFLT_FUNC_eta,self.theInputs.xi_PA,newP)
+		self.eta_PA = dataObject(_DFLT_FUNC_eta,self.theInputs.xi_PA,newP)
+		self.eta_EB = dataObject(_DFLT_FUNC_eta,self.theInputs.xi_EB,newP)
 

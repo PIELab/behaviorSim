@@ -18,7 +18,7 @@ class motive:
 		self.mortality=dataObject(_DFLT_FUNC_mortality, state.age)
 
 		# the will of the agent to be physically active
-		self.will_PA=dataObject(_DFLT_FUNC_will_PA, state.eta)
+		self.will_PA=dataObject(_DFLT_FUNC_will_PA, state.eta_PA)
 		
 
 	# returns ALL data for given time t as a dict 

@@ -32,14 +32,12 @@ class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
 		## for Physical Activity (PA)
 		#inflow to attitude about physical activity from theory of planned behavior
 		self.attitudeChange_PA = dataObject(_DFLT_FUNC_attitudeChange_PA,self.environment)
-
 		#exogenous flow variables from package CSEL
 		self.xi_PA = dataObject(_DFLT_FUNC_xi,self.attitudeChange_PA)
 
 		## for Eating Behavior (EB) ##
 		#inflow to attitude about eating behaviors from theory of planned behavior
 		self.attitudeChange_EB = dataObject(_DFLT_FUNC_attitudeChange_EB,self.environment)
-
 		#exogenous flow variables from package CSEL
 		self.xi_EB = dataObject(_DFLT_FUNC_xi,self.attitudeChange_EB)
 

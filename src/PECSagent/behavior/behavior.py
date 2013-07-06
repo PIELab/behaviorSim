@@ -46,7 +46,7 @@ class behavior:
 
 	# describes intensity of the behavior with a numerical value which (or list of values)
 	def behaviorValue(self,t):
-		return behaviorValueGetter(self.__behaviorValue,t,self.state.eta)
+		return behaviorValueGetter(self.__behaviorValue,t,self.state.eta_PA)
 	
 	# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

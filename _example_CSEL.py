@@ -45,9 +45,9 @@ agent3 = agent(envmt)
 agent3.state.setPersonality(agent_iii.agent())
 #add disturbances
 from src.PECSagent.state.CSEL.model_ddeint_firstOrder_withDisturbances import getEta
-print 'args='+str(agent3.state.eta.args)
-#def getEta(data,t,xi_PA,agent,zeta):
-agent3.state.eta.setFunction(getEta,agent3.inputs.xi_PA,agent3.state.agentPersonality,agent3.state.zeta)
+print 'args='+str(agent3.state.eta_PA.args)
+#def getEta(data,t,xi_PA,agent,zeta_PA):
+agent3.state.eta_PA.setFunction(getEta,agent3.inputs.xi_PA,agent3.state.agentPersonality,agent3.state.zeta_PA)
 
 # customize the CSEL input functions (exogeneous flow vars)
 from src.PECSagent.inputs.CSEL.attitudes import stepOne
@@ -88,9 +88,10 @@ print '*     beta: \n'+str(agent1.state.agentPersonality.beta)
 print '*     tauA: '+str(agent1.state.agentPersonality.tauA)
 print '*    sigma: '+str(agent1.state.agentPersonality.sigma)
 print '*      (disturbances)'
-print '*  zeta(t): '+str(agent1.state.zeta(tf))
+print '*  zeta_PA(t): '+str(agent1.state.zeta_PA(tf))
 print '*      (state vars (endogeneous flow vars))'
-print '*   eta(t): '+str(agent1.state.eta(tf))
+print '*   eta_PA(t): '+str(agent1.state.eta_PA(tf))
+print '*   eta_EB(t): '+str(agent1.state.eta_EB(tf))
 
 import pylab
 #reduce font size of display
@@ -101,7 +102,7 @@ pylab.rcParams.update({'font.size': 8})
 showTime = range(t0,tf)
 pylab.figure('CSEL behavior model plot')
 
-# odd plots are Energy intake
+# odd plots are Eating Behavior
 pylab.subplot(421)
 pylab.title('Energy Intake')
 pylab.ylabel('behavioral beliefs')
@@ -111,38 +112,49 @@ pylab.plot(showTime,[agent3.inputs.attitudeChange_EB(t).behavioralBelief for t i
 
 pylab.subplot(423)
 pylab.ylabel('attitude (eta1)')
+pylab.plot(showTime,[agent1.state.eta_EB(t)[0] for t in range(t0,tf)])
+pylab.plot(showTime,[agent2.state.eta_EB(t)[0] for t in range(t0,tf)])
+pylab.plot(showTime,[agent3.state.eta_EB(t)[0] for t in range(t0,tf)])
 
 pylab.subplot(425)
 pylab.ylabel('intention (eta4)')
+pylab.plot(showTime,[agent1.state.eta_EB(t)[3] for t in range(t0,tf)])
+pylab.plot(showTime,[agent2.state.eta_EB(t)[3] for t in range(t0,tf)])
+pylab.plot(showTime,[agent3.state.eta_EB(t)[3] for t in range(t0,tf)])
 
 pylab.subplot(427)
 pylab.ylabel('behavior (eta5)')
+pylab.plot(showTime,[agent1.state.eta_EB(t)[4] for t in range(t0,tf)])
+pylab.plot(showTime,[agent2.state.eta_EB(t)[4] for t in range(t0,tf)])
+pylab.plot(showTime,[agent3.state.eta_EB(t)[4] for t in range(t0,tf)])
+
 pylab.xlabel('time')
 
 # even plots are PA
 pylab.subplot(422)
 pylab.title('Pysical activity')
+pylab.ylabel('behavioral beliefs')
 pylab.plot(showTime,[agent1.inputs.attitudeChange_PA(t).behavioralBelief for t in range(t0,tf)])
 pylab.plot(showTime,[agent2.inputs.attitudeChange_PA(t).behavioralBelief for t in range(t0,tf)])
 pylab.plot(showTime,[agent3.inputs.attitudeChange_PA(t).behavioralBelief for t in range(t0,tf)])
 
 pylab.subplot(424)
 pylab.ylabel('attitude (eta1)')
-pylab.plot(showTime,[agent1.state.eta(t)[0] for t in range(t0,tf)])
-pylab.plot(showTime,[agent2.state.eta(t)[0] for t in range(t0,tf)])
-pylab.plot(showTime,[agent3.state.eta(t)[0] for t in range(t0,tf)])
+pylab.plot(showTime,[agent1.state.eta_PA(t)[0] for t in range(t0,tf)])
+pylab.plot(showTime,[agent2.state.eta_PA(t)[0] for t in range(t0,tf)])
+pylab.plot(showTime,[agent3.state.eta_PA(t)[0] for t in range(t0,tf)])
 
 pylab.subplot(426)
 pylab.ylabel('intention (eta4)')
-pylab.plot(showTime,[agent1.state.eta(t)[3] for t in range(t0,tf)])
-pylab.plot(showTime,[agent2.state.eta(t)[3] for t in range(t0,tf)])
-pylab.plot(showTime,[agent3.state.eta(t)[3] for t in range(t0,tf)])
+pylab.plot(showTime,[agent1.state.eta_PA(t)[3] for t in range(t0,tf)])
+pylab.plot(showTime,[agent2.state.eta_PA(t)[3] for t in range(t0,tf)])
+pylab.plot(showTime,[agent3.state.eta_PA(t)[3] for t in range(t0,tf)])
 
 pylab.subplot(428)
 pylab.ylabel('behavior (eta5)')
-pylab.plot(showTime,[agent1.state.eta(t)[4] for t in range(t0,tf)])
-pylab.plot(showTime,[agent2.state.eta(t)[4] for t in range(t0,tf)])
-pylab.plot(showTime,[agent3.state.eta(t)[4] for t in range(t0,tf)])
+pylab.plot(showTime,[agent1.state.eta_PA(t)[4] for t in range(t0,tf)])
+pylab.plot(showTime,[agent2.state.eta_PA(t)[4] for t in range(t0,tf)])
+pylab.plot(showTime,[agent3.state.eta_PA(t)[4] for t in range(t0,tf)])
 
 pylab.xlabel('time')
 
