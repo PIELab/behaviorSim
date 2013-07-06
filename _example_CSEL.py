@@ -45,9 +45,10 @@ agent3 = agent(envmt)
 agent3.state.setPersonality(agent_iii.agent())
 #add disturbances
 from src.PECSagent.state.CSEL.model_ddeint_firstOrder_withDisturbances import getEta
-print 'args='+str(agent3.state.eta_PA.args)
+# print 'args='+str(agent3.state.eta_PA.args)
 #def getEta(data,t,xi_PA,agent,zeta_PA):
 agent3.state.eta_PA.setFunction(getEta,agent3.inputs.xi_PA,agent3.state.agentPersonality,agent3.state.zeta_PA)
+agent3.state.eta_EB.setFunction(getEta,agent3.inputs.xi_EB,agent3.state.agentPersonality,agent3.state.zeta_EB)
 
 # customize the CSEL input functions (exogeneous flow vars)
 from src.PECSagent.inputs.CSEL.attitudes import stepOne
@@ -58,7 +59,9 @@ def eatingAttitude(t):
 	changeT     = 10
 	allOthers   = 1
 	return stepOne(t,allOthers,'behavioralBelief',changeT,beforeChange,afterChange)
-# TODO: agent1.inputs.attitudeChange_eatingGetter = eatingAttitude	#overwrite the default function
+agent1.inputs.attitudeChange_EB.setFunction(eatingAttitude)	#overwrite the default function
+agent2.inputs.attitudeChange_EB.setFunction(eatingAttitude)	#overwrite the default function
+agent3.inputs.attitudeChange_EB.setFunction(eatingAttitude)	#overwrite the default function
 
 def exerciseAttitude(t):
 # stepOne(data,t,value,steppedName,stepTime,beforeStep,afterStep):
