@@ -48,6 +48,16 @@ def squareWaves(data, t):
 			data.append(a)
 		return data[t]
 
+def someSteps(t):
+	a = attitude()
+	a.behavioralBelief = step(t,1  ,1,5)
+	a.behaviorAttitude = step(t,10 ,4,2)
+	a.normativeBelief  = step(t,20 ,5,6)
+	a.subjectiveNorm   = step(t,15 ,2,4)
+	a.PBC              = step(t,30 ,3,1)
+	a.controlBelief    = step(t,100,7,3)
+	return a
+
 
 #defines a step function at stepTime
 def step(t, stepTime, beforeStep, afterStep):

@@ -46,8 +46,8 @@ agent3.state.setPersonality(agent_iii.agent())
 #add disturbances
 from src.PECSagent.state.CSEL.model_ddeint_firstOrder_withDisturbances import getEta
 print 'args='+str(agent3.state.eta.args)
-#def getEta(data,t,xi,agent,zeta):
-agent3.state.eta.setFunction(getEta,agent3.inputs.xi,agent3.state.agentPersonality,agent3.state.zeta)
+#def getEta(data,t,xi_PA,agent,zeta):
+agent3.state.eta.setFunction(getEta,agent3.inputs.xi_PA,agent3.state.agentPersonality,agent3.state.zeta)
 
 # customize the CSEL input functions (exogeneous flow vars)
 from src.PECSagent.inputs.CSEL.attitudes import stepOne
@@ -76,7 +76,7 @@ print '      === CSEL inputs ==='
 print '         (exogeneous flow determinants)'
 print '* attitudeChange_PA: '+str(agent1.inputs.attitudeChange_PA(tf))
 print '         (exogeneous flow vars:)'
-print '* xi(t): '+str(agent1.inputs.xi(tf))
+print '* xi_PA(t): '+str(agent1.inputs.xi_PA(tf))
 
 print '\n === === === === === === STATE === === === === === ==='
 print '      === CSEL vars ==='
@@ -105,6 +105,9 @@ pylab.figure('CSEL behavior model plot')
 pylab.subplot(421)
 pylab.title('Energy Intake')
 pylab.ylabel('behavioral beliefs')
+pylab.plot(showTime,[agent1.inputs.attitudeChange_EB(t).behavioralBelief for t in range(t0,tf)])
+pylab.plot(showTime,[agent2.inputs.attitudeChange_EB(t).behavioralBelief for t in range(t0,tf)])
+pylab.plot(showTime,[agent3.inputs.attitudeChange_EB(t).behavioralBelief for t in range(t0,tf)])
 
 pylab.subplot(423)
 pylab.ylabel('attitude (eta1)')

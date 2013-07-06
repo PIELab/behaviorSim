@@ -1,6 +1,10 @@
 # the environment class describes the world which is shared by all agents in the simulation. Agent inputs/context may be derived from the values in this environment
 
+from src.__util.agentData import dataObject
+
+### define default functions
 from attitudeInfluences.testAttitudes import squareWaves as influence_PAGetter
+from attitudeInfluences.testAttitudes import someSteps   as _DFLT_FUNC_influence_EB
 #from attitudeInfluences.CSELsteps     import pa          as influence_PAGetter
 
 class environment(object):
@@ -17,8 +21,11 @@ class environment(object):
 		self.name = 'defaultEnvironment'
 		self.width = self.height = 100 #physical dimensions of environment grid
 
+		#TODO: change this to use dataObject
 		#time-dependent functions:
 		self.__influence_PA = list()
+
+		self.influence_EB = dataObject(_DFLT_FUNC_influence_EB)
 
 		#environment maps (location dependent functions):
 		self.temperature = [[[20]*self.width]*self.height]	#array of temperatures in degrees Celcius

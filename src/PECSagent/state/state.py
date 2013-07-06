@@ -18,7 +18,7 @@ from .CSEL.model_ddeint_firstOrder  import getEta     as _DFLT_FUNC_eta
 
 
 
-class state:	#can't use 'input' as the name b/c of built-in 'input()'
+class state:
 	# constructor
 	def __init__(self,inputs):
 		### dependencies ###
@@ -35,11 +35,19 @@ class state:	#can't use 'input' as the name b/c of built-in 'input()'
 		# sim-world age of agent
 		self.age = dataObject(_DFLT_FUNC_age,self.birthday,settings.deltaTime,settings.simStartTime)
 
+		## for physical activity (PA) ##
 		# random distubances into the endogeneous flow vars, eta
 		self.zeta = dataObject(_DFLT_FUNC_zeta)
 
 		# array of endogeneous flow variables from package CSEL
-		self.eta  = dataObject(_DFLT_FUNC_eta,inputs.xi,self.agentPersonality)
+		self.eta  = dataObject(_DFLT_FUNC_eta,inputs.xi_PA,self.agentPersonality)
+
+#TODO:
+#		## for eating behavior (EB) ##
+#		self.zeta_EB = dataObject(_DFLT_FUNC_zeta)
+#
+#		# array of endogeneous flow variables from package CSEL
+#		self.eta_EB  = dataObject(_DFLT_FUNC_eta,inputs.xi,self.agentPersonality)
 		
 
 	# returns ALL data for given time t as a dict 
@@ -53,5 +61,5 @@ class state:	#can't use 'input' as the name b/c of built-in 'input()'
 	def setPersonality(self,newP):
 		self.agentPersonality = newP
 		# reset all personality-dependent data:
-		self.eta = dataObject(_DFLT_FUNC_eta,self.theInputs.xi,newP)
+		self.eta = dataObject(_DFLT_FUNC_eta,self.theInputs.xi_PA,newP)
 

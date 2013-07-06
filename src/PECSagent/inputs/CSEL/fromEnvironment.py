@@ -7,4 +7,7 @@
 	# requiredTimeScale = null
 	# requiredTimeStep  = null
 def pa(t,environment):
-		return environment.influence_PA(t)
+	return environment.influence_PA(t)
+
+def eb(t,environment):
+	return environment.influence_EB(t)
