@@ -4,9 +4,9 @@
 #		agent.inputs
 #		agent.motives
 
-### define default functions ###
+from ...__util.agentData import dataObject
 
-# from CSEL model
+### define default functions ###
 from .CSEL.behaviorDescriptor import outputKeys   as behaviorKeyGetter
 from .CSEL.behaviorDescriptor import outputValues as behaviorValueGetter
 
