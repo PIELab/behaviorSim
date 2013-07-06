@@ -1,65 +1,57 @@
-# this file encapsulates all information pertaining to the state of the agent
-
-# === additions you might make are described in headers ===
-# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-	# and encapsulated in arrows
-# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+# the state class encapsulates all information pertaining to the internal state variables of the agent
 
 from ..settings import settings
 from ...__util.agentData import dataObject
 
 import logging
 
-# === 1 import desired classes to define parts of input here ===
-# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-from .baseInfo.age  import age            as ageGetter
+### import personality setters ###
 from .baseInfo.age  import randomAger     as birthdaySetter
 from .baseInfo.name import iterativeNamer as nameSetter
-# from CSEL model:
-from .CSEL.disturbances      import gaussZeta  as zetaGetter
-from .CSEL.model_ddeint_firstOrder  import getEta     as etaGetter
 
-from .CSEL.agent_defaultPersonality import agent as agentConstructor
+from .CSEL.agent_defaultPersonality import agent      as agentConstructor
 
-# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+### import default functions for data ###
+from .baseInfo.age                  import age        as __DFLT_FUNC__age
+from .CSEL.disturbances             import gaussZeta  as __DFLT_FUNC__zeta
+from .CSEL.model_ddeint_firstOrder  import getEta     as __DFLT_FUNC__eta
+
+
 
 class state:	#can't use 'input' as the name b/c of built-in 'input()'
 	# constructor
 	def __init__(self,inputs):
+		### dependencies ###
 		self.theInputs = inputs
-	# === define ALL raw data structures ===
-	# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-		# constant attributes (personality):
-		# from package baseInfo:
+
+		### constant (non-time-dependent) attributes (personality) ###
 		self.name     = nameSetter()
 		self.birthday = birthdaySetter(settings.simStartTime)
 
 		self.agentPersonality = agentConstructor()
 
-		# (potentially) time-variant attributes:
+		### define dataObjects (potentially time-dependent) ###
 		
 		# sim-world age of agent
-		self.age = dataObject(ageGetter,self.birthday,settings.deltaTime,settings.simStartTime)
+		self.age = dataObject(__DFLT_FUNC__age,self.birthday,settings.deltaTime,settings.simStartTime)
 
 		# random distubances into the endogeneous flow vars, eta
-		self.zeta = dataObject(zetaGetter)
+		self.zeta = dataObject(__DFLT_FUNC__zeta)
 
 		# array of endogeneous flow variables from package CSEL
-		self.eta  = dataObject(etaGetter,inputs.xi,self.agentPersonality)
+		self.eta  = dataObject(__DFLT_FUNC__eta,inputs.xi,self.agentPersonality)
 		
-	# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 	# returns ALL data for given time t as a dict 
 	def __call__(self,t):
-		# === 3 return ALL info for that time as a dict ===
-		# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+		### return ALL info for that time as a dict ###
 		return dict(agentName=self.name,\
 		            birthday=self.birthday,\
 		            age     =self.age(t))
-		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+	# sets the personality of the agent using a new agent personality object 'newP'
 	def setPersonality(self,newP):
 		self.agentPersonality = newP
 		# reset all personality-dependent data:
-		self.eta = dataObject(etaGetter,self.theInputs.xi,newP)
+		self.eta = dataObject(__DFLT_FUNC__eta,self.theInputs.xi,newP)
 

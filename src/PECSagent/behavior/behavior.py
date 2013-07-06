@@ -1,28 +1,26 @@
-# this file contains all information pertaining to the 'behaviors' AKA 'outputs' described in the PECS reference model
+# the behavior class defines information pertaining to the 'behaviors' AKA 'outputs' described in the PECS reference model
+#	dependencies:
+#		agent.state
+#		agent.inputs
+#		agent.motives
 
-# === additions you might make are described in headers ===
-# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-	# and encapsulated in arrows
-# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-# === 1 import desired classes to define parts of input here ===
-# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+### define default functions ###
 
 # from CSEL model
 from .CSEL.behaviorDescriptor import outputKeys   as behaviorKeyGetter
 from .CSEL.behaviorDescriptor import outputValues as behaviorValueGetter
 
 
-# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 class behavior:
 	# constructor
 	def __init__(self,theInputs,theState,themotives):
+		### dependencies ###
 		self.inputs     = theInputs
 		self.state      = theState
 		self.motive = themotives
-		# === define ALL raw data structures ===
-		# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+
+		### define dataObjects ###
 		self.__behaviorKey=list()
 		self.__behaviorValue=list()
 
@@ -31,15 +29,12 @@ class behavior:
 		#Behavioral intention: an indication of an individual's readiness to perform a given behavior. It is assumed to be an immediate antecedent of behavior (Ajzen, 2002b). It is based on attitude toward the behavior, subjective norm, and perceived behavioral control, with each predictor weighted for its importance in relation to the behavior and population of interest.
 		#Behavior: an individual's observable response in a given situation with respect to a given target. Ajzen said a behavior is a function of compatible intentions and perceptions of behavioral control in that perceived behavioral control is expected to moderate the effect of intention on behavior, such that a favorable intention produces the behavior only when perceived behavioral control is strong.
 		
-		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 	# returns ALL data for given time t as a dict 
 	def __call__(self,t):
-		# === 3 return ALL info for that time as a dict ===
-		# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+		### return ALL info for that time as a dict ###
 		return dict(behaviorKey=self.behaviorKey(t),\
 		            behaviorValue=self.behaviorValue(t))
-		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 	# === 4 define ALL getters using external functions ===
 	# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv

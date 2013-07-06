@@ -1,40 +1,30 @@
-# this file contains all information pertaining to the 'motivation variables' AKA 'hidden variables' described in the PECS reference model
+# the motive class contains all information pertaining to the 'motivation variables' AKA 'hidden variables' described in the PECS reference model
 
-# === additions you might make are described in headers ===
-# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-	# and encapsulated in arrows
-# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-# === 1 import desired classes to define parts of input here ===
-# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+### import default functions ###
 from .baseInfo.death  import oldAger  as mortalityGetter
 
 # from CSEL model
 from .CSEL.behaviorTankValue import etaFive as will_PAGetter
 
 
-# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 class motive:
 	# constructor
 	def __init__(self,theStates):
 		self.state = theStates
 		# === define ALL raw data structures ===
-		# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+
 		# from package baseInfo:
 		self.__mortality=list()
 		# from package CSEL:
 		self.__will_PA=list()
 		
-		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 	# returns ALL data for given time t as a dict 
 	def __call__(self,t):
-		# === 3 return ALL info for that time as a dict ===
-		# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+		### return ALL info for that time as a dict ###
 		return dict(mortality=self.mortality(t),\
 		            will_PA=self.will_PA(t))
-		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 	# === 4 define ALL getters using external functions ===
 	# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv

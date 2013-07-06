@@ -1,3 +1,5 @@
+# the environment class describes the world which is shared by all agents in the simulation. Agent inputs/context may be derived from the values in this environment
+
 from attitudeInfluences.testAttitudes import squareWaves as influence_PAGetter
 #from attitudeInfluences.CSELsteps     import pa          as influence_PAGetter
 
