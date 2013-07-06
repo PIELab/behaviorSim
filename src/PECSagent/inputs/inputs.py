@@ -6,12 +6,12 @@ from ..settings import settings
 from ...__util.agentData import dataObject
 
 ### import default functions ###
-from .baseInfo.debugInfo  import currentTime as __DFLT_FUNC__initTime
-from .baseInfo.timePassed import timePassed  as __DFLT_FUNC__time
+from .baseInfo.debugInfo  import currentTime as _DFLT_FUNC_initTime
+from .baseInfo.timePassed import timePassed  as _DFLT_FUNC_time
 
-from .CSEL.fromEnvironment import pa         as __DFLT_FUNC__attitudeChange_PA
-#TODO: from .CSEL.fromEnvironment import eb         as __DFLT_FUNC__attitudeChange_EB
-from .CSEL.xi              import xi         as __DFLT_FUNC__xi
+from .CSEL.fromEnvironment import pa         as _DFLT_FUNC_attitudeChange_PA
+#TODO: from .CSEL.fromEnvironment import eb         as _DFLT_FUNC_attitudeChange_EB
+from .CSEL.xi              import xi         as _DFLT_FUNC_xi
 
 #TODO: xi not needed, since it is determined from attitudeChange values?
 
@@ -24,20 +24,20 @@ class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
 		### create dataObjects ###
 
 		# real-world time of calculation for each sim-world calculation of inputs
-		self.initTime = dataObject(__DFLT_FUNC__initTime)
+		self.initTime = dataObject(_DFLT_FUNC_initTime)
 
 		# sim-world time of calculation
-		self.time = dataObject(__DFLT_FUNC__time,settings.simStartTime,settings.deltaTime)
+		self.time = dataObject(_DFLT_FUNC_time,settings.simStartTime,settings.deltaTime)
 
 		#inflow to attitude about physical activity from theory of planned behavior
-		self.attitudeChange_PA = dataObject(__DFLT_FUNC__attitudeChange_PA,self.environment)
+		self.attitudeChange_PA = dataObject(_DFLT_FUNC_attitudeChange_PA,self.environment)
 
 #TODO:
 	#	#inflow to attitude about eating behaviors from theory of planned behavior
-	#	self.attitudeChange_EB = dataObject(__DFLT_FUNC__attitudeChange_EB,self.environment)
+	#	self.attitudeChange_EB = dataObject(_DFLT_FUNC_attitudeChange_EB,self.environment)
 
 		#exogenous flow variables from package CSEL
-		self.xi = dataObject(__DFLT_FUNC__xi,self.attitudeChange_PA)
+		self.xi = dataObject(_DFLT_FUNC_xi,self.attitudeChange_PA)
 		
 
 	# returns ALL data for given time t as a dict 

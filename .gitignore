@@ -1,3 +1,6 @@
+# my local TODO file
+TODO.md
+
 #figures (this is just for convenience)
 *figures/
 
@@ -6,6 +9,8 @@
 
 #ubuntu backups
 *~
+
+
 
 *.py[cod]
 
