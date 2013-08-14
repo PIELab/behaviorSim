@@ -164,17 +164,26 @@ pylab.xlabel('time')
 pylab.draw()
 pylab.show()
 
-print 'show all plots? (y/n)'
-choice = raw_input()
-while choice != 'n' and choice != 'y':
-	print choice + '? please enter y or n.'
+def ask(question):
+	print question+' (y/n)'
 	choice = raw_input()
-if choice == 'y':
+	while choice != 'n' and choice != 'y':
+		print choice + '? please enter y or n.'
+		choice = raw_input()
+	return choice
+
+
+if ask('plot all?') == 'y':
 	from src.PECSplotter.plot import plotAll
 	plotAll(agent1,t0,tf)
 	import pylab
 	pylab.show()
 
+if ask('show infoFlow?') == 'y':
+	from src.PECSplotter.infoFlow import showInfoFlow
+	print 'showing agent 1 infoFlow...'
+	showInfoFlow(agent1)
+	
 
 
 #EVERYTHING BELOW HERE ISN'T REALLY APPLICABLE (though perhaps the weight model can be incorporated)

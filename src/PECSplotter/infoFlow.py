@@ -21,14 +21,16 @@ def getEdges(agent):
 					except AttributeError: 
 						try: connArgs = eval('agent.behavior.'+dataObjName+'.args')
 						except AttributeError: 
-							logging.error('infoFlow.getEdges: attribute "'+dataObjName+'" cannot be found! check agent dicts against agent dataObject names.') 
-							print 'ERR from infoFlow.getEdges: attribute "'+dataObjName+'" cannot be found! check agent dicts against agent dataObject names.'
+							logging.error('infoFlow.getEdges: attribute "'+dataObjName+\
+							   '" cannot be found! check agent dicts against agent dataObject names.') 
+							print 'ERR from infoFlow.getEdges: attribute "'+dataObjName+\
+							   '" cannot be found! check agent dicts against agent dataObject names.'
 							exit()
 			for arg in connArgs:
 				try: 
 					edgeList.append([arg.name,dataObjName])
-					print '['+arg.name+', '+dataObjName+']' 
-				except AttributeError: print '[?, '+dataObjName+'] (attribute is not a dataObject)'
+					#print '['+arg.name+', '+dataObjName+']' 
+				except AttributeError: print '\nERR: for edge [?, '+dataObjName+'] ("name" attribute not found)'
 	return edgeList
 	
 def showInfoFlow(agent):
@@ -69,12 +71,11 @@ def showInfoFlow(agent):
 	for edge in edgeList:
 		n1 = getNodeFromSubGraphs(graph,edge[0])
 		n2 = getNodeFromSubGraphs(graph,edge[1])
-
-		print edge[0]+'--->'+edge[1]
-		print str(n1)+'--->'+str(n2)
-		edge = pydot.Edge(n1, n2)
-		try: graph.add_edge(edge)
-		except TypeError: print 'cannot find one or more nodes for edge '+str(edge)
+		#print edge[0]+'--->'+edge[1]
+		#print str(n1)+'--->'+str(n2)
+		ed = pydot.Edge(n1, n2)
+		try: graph.add_edge(ed)
+		except TypeError: print '\nERR: cannot find one or more nodes for edge '+str(edge)+'\n\tn1='+str(n1)+'\n\tn2='+str(n2)
 
 	# save the dot file
 #	graph.write_raw('example_graph.dot')
