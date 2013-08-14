@@ -7,7 +7,14 @@ Installation & Setup
 --------------------
 Simply clone the package and import the package to get started. 
 
-If you want to use the horizonGraph plotter, you will need to install the add-on from [thomaskern/horizongraph_matplotlib](https://github.com/thomaskern/horizongraph_matplotlib).
+Dependencies
+-------------
+* Python (v2.7 preferred, others may work)
+* [PyLab](http://wiki.scipy.org/PyLab)
+
+_Feature-dependent dependencies:_
+* The horizonGraph plotter requires an install of the matplotlib add-on from [thomaskern/horizongraph_matplotlib](https://github.com/thomaskern/horizongraph_matplotlib).
+* creating/viewing informationFlow graphs using [pydot](https://code.google.com/p/pydot/) (included) requires [graphViz](http://www.graphviz.org/). Simply install with "sudo apt-get graphviz".
 
 Package Structure
 -----------------
