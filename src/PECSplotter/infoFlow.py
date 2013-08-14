@@ -25,7 +25,7 @@ def getEdges(agent):
 							exit()
 			for arg in connArgs:
 				try: print '['+arg.name+', '+dataObjName+']'
-				except AttributeError: print '[?, '+dataObjName+']'
+				except AttributeError: print '[?, '+dataObjName+'] (attribute is not a dataObject)'
 
 def showInfoFlow(agent):
 	graph = pydot.Dot(graph_type='digraph')
