@@ -22,3 +22,4 @@ class agent:
 		self.state    = state(self.inputs)
 		self.motive   = motive(self.state)
 		self.behavior = behavior(self.inputs,self.state,self.motive)
+

@@ -101,6 +101,14 @@ if choice == 'y':
 	import pylab
 	pylab.show()	
 
+print 'show infoFlow? (y/n)'
+choice = raw_input()
+while choice != 'n' and choice != 'y':
+	print choice + '? please enter y or n.'
+	choice = raw_input()
+if choice == 'y':
+	import src.PECSplotter.infoFlow as infoFlow
+	infoFlow.showInfoFlow(envmt.agents[0])
 
 # === === === === === === CUSTOMIZING THE AGENT === === === === === ===
 #this is how I want to set the parts:
