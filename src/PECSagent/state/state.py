@@ -33,30 +33,34 @@ class state:
 		### define dataObjects (potentially time-dependent) ###
 		
 		# sim-world age of agent
-		self.age = dataObject(_DFLT_FUNC_age,self.birthday,settings.deltaTime,settings.simStartTime)
+		self.age = dataObject('age',_DFLT_FUNC_age,self.birthday,settings.deltaTime,settings.simStartTime)
 
 		## for physical activity (PA) ##
 		# random distubances into the endogeneous flow vars, eta
-		self.zeta_PA = dataObject(_DFLT_FUNC_zeta)
+		self.zeta_PA = dataObject('zeta_PA',_DFLT_FUNC_zeta)
 		# array of endogeneous flow variables from package CSEL
-		self.eta_PA  = dataObject(_DFLT_FUNC_eta,inputs.xi_PA,self.agentPersonality)
+		self.eta_PA  = dataObject('eta_PA',_DFLT_FUNC_eta,inputs.xi_PA,self.agentPersonality)
 
 		## for eating behavior (EB) ##
-		self.zeta_EB = dataObject(_DFLT_FUNC_zeta)
-		self.eta_EB  = dataObject(_DFLT_FUNC_eta,inputs.xi_EB,self.agentPersonality)
+		self.zeta_EB = dataObject('zeta_EB',_DFLT_FUNC_zeta)
+		self.eta_EB  = dataObject('eta_EB',_DFLT_FUNC_eta,inputs.xi_EB,self.agentPersonality)
 		
 
 	# returns ALL data for given time t as a dict 
 	def __call__(self,t):
 		### return ALL info for that time as a dict ###
-		return dict(agentName=self.name,\
-		            birthday=self.birthday,\
-		            age     =self.age(t))
+		return dict(age     =self.age(t),\
+		            zeta_PA =self.zeta_PA(t),\
+		            eta_PA  =self.eta_PA(t),\
+		            zeta_EB =self.zeta_EB(t),\
+		            eta_EB  =self.eta_PA(t))
+						#agentName=self.name,\
+		            #birthday=self.birthday,\
 
 	# sets the personality of the agent using a new agent personality object 'newP'
 	def setPersonality(self,newP):
 		self.agentPersonality = newP
 		# reset all personality-dependent data:
-		self.eta_PA = dataObject(_DFLT_FUNC_eta,self.theInputs.xi_PA,newP)
-		self.eta_EB = dataObject(_DFLT_FUNC_eta,self.theInputs.xi_EB,newP)
+		self.eta_PA = dataObject('eta_PA',_DFLT_FUNC_eta,self.theInputs.xi_PA,newP)
+		self.eta_EB = dataObject('eta_EB',_DFLT_FUNC_eta,self.theInputs.xi_EB,newP)
 

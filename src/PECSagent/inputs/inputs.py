@@ -24,22 +24,22 @@ class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
 		### create dataObjects ###
 
 		# real-world time of calculation for each sim-world calculation of inputs
-		self.initTime = dataObject(_DFLT_FUNC_initTime)
+		self.initTime = dataObject('initTime',_DFLT_FUNC_initTime)
 
 		# sim-world time of calculation
-		self.time = dataObject(_DFLT_FUNC_time,settings.simStartTime,settings.deltaTime)
+		self.time = dataObject('time',_DFLT_FUNC_time,settings.simStartTime,settings.deltaTime)
 
 		## for Physical Activity (PA)
 		#inflow to attitude about physical activity from theory of planned behavior
-		self.attitudeChange_PA = dataObject(_DFLT_FUNC_attitudeChange_PA,self.environment)
+		self.attitudeChange_PA = dataObject('attitudeChange_PA',_DFLT_FUNC_attitudeChange_PA,self.environment)
 		#exogenous flow variables from package CSEL
-		self.xi_PA = dataObject(_DFLT_FUNC_xi,self.attitudeChange_PA)
+		self.xi_PA = dataObject('xi_PA',_DFLT_FUNC_xi,self.attitudeChange_PA)
 
 		## for Eating Behavior (EB) ##
 		#inflow to attitude about eating behaviors from theory of planned behavior
-		self.attitudeChange_EB = dataObject(_DFLT_FUNC_attitudeChange_EB,self.environment)
+		self.attitudeChange_EB = dataObject('attitudeChange_EB',_DFLT_FUNC_attitudeChange_EB,self.environment)
 		#exogenous flow variables from package CSEL
-		self.xi_EB = dataObject(_DFLT_FUNC_xi,self.attitudeChange_EB)
+		self.xi_EB = dataObject('xi_EB',_DFLT_FUNC_xi,self.attitudeChange_EB)
 
 		
 
@@ -47,12 +47,12 @@ class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
 	def __call__(self,t):
 		### return ALL input info for that time as a dict ###
 		return dict(initTime=self.initTime(t), \
-		            time    =str(self.time(t)),\
-		            attitudeChange_PA_behavioralBelief=str(self.attitudeChange_PA(t).behavioralBelief),\
-		            attitudeChange_PA_behaviorAttitude=str(self.attitudeChange_PA(t).behaviorAttitude),\
-		            attitudeChange_PA_normativeBelief=str(self.attitudeChange_PA(t).normativeBelief),\
-		            attitudeChange_PA_subjectiveNorm=str(self.attitudeChange_PA(t).subjectiveNorm),\
-		            attitudeChange_PA_PBC=str(self.attitudeChange_PA(t).PBC),\
-		            attitudeChange_PA_controlBelief=str(self.attitudeChange_PA(t).controlBelief),\
+		            time    =self.time(t),\
+		            attitudeChange_PA=[self.attitudeChange_PA(t).behavioralBelief,\
+		            self.attitudeChange_PA(t).behaviorAttitude,\
+		            self.attitudeChange_PA(t).normativeBelief,\
+		            self.attitudeChange_PA(t).subjectiveNorm,\
+		            self.attitudeChange_PA(t).PBC,\
+		            self.attitudeChange_PA(t).controlBelief],\
 		            xi_PA           =str(self.xi_PA(t)))
 

@@ -4,9 +4,9 @@ import logging
 import datetime
 
 class dataObject(object):
-	def __init__(self,func=None,*args):
+	def __init__(self,name=None,func=None,*args):
 		self.data = list()           # time series data list
-
+		self.name = name
 		if func==None:
 			logging.warn('getter function not specified for dataObject;'+\
 			             ' I will set a temporary function for now and hope you change it later.')

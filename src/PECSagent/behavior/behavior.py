@@ -14,15 +14,14 @@ from .CSEL.behaviorDescriptor import outputValues as behaviorValueGetter
 
 class behavior:
 	# constructor
-	def __init__(self,theInputs,theState,themotives):
+	def __init__(self,theInputs,state,themotives):
 		### dependencies ###
 		self.inputs     = theInputs
-		self.state      = theState
 		self.motive = themotives
 
 		### define dataObjects ###
-		self.__behaviorKey=list()
-		self.__behaviorValue=list()
+		self.behaviorKey=dataObject('behaviorKey',behaviorKeyGetter)
+		self.behaviorValue=dataObject('behaviorValue',behaviorValueGetter,state.eta_PA)
 
 		# === Behavioral intention and behavior ===
 		#self.__behavioralIntention=list() ???
@@ -41,12 +40,12 @@ class behavior:
 	# note: 'getters' are not true getters here; they also set.
 
 	# describes the agent's behavior as a keyword (or list of keywords)
-	def behaviorKey(self,t):
-		return behaviorKeyGetter(self.__behaviorKey,t)
+#	def behaviorKey(self,t):
+#		return behaviorKeyGetter(self.__behaviorKey,t)
 
 	# describes intensity of the behavior with a numerical value which (or list of values)
-	def behaviorValue(self,t):
-		return behaviorValueGetter(self.__behaviorValue,t,self.state.eta_PA)
+#	def behaviorValue(self,t):
+#		return behaviorValueGetter(self.__behaviorValue,t,self.state.eta_PA)
 	
 	# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

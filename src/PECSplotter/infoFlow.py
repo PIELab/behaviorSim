@@ -8,6 +8,25 @@ import logging
 def getNodes(agent):
 	return {'inputs':list(agent.inputs(0)),'state':list(agent.state(0)),'motive':list(agent.motive(0)),'behavior':list(agent.behavior(0))}
 
+def getEdges(agent):
+	nodeDict = getNodes(agent)
+	for clusterName in list(nodeDict):
+		for dataObjName in nodeDict[clusterName]:
+			try: connArgs = eval('agent.inputs.'+dataObjName+'.args')
+			except AttributeError:
+				try: connArgs = eval('agent.state.'+dataObjName+'.args')
+				except AttributeError:
+					try: connArgs = eval('agent.motive.'+dataObjName+'.args')
+					except AttributeError: 
+						try: connArgs = eval('agent.behavior.'+dataObjName+'.args')
+						except AttributeError: 
+							logging.error('infoFlow.getEdges: attribute "'+dataObjName+'" cannot be found! check agent dicts against agent dataObject names.') 
+							print 'ERR from infoFlow.getEdges: attribute "'+dataObjName+'" cannot be found! check agent dicts against agent dataObject names.'
+							exit()
+			for arg in connArgs:
+				try: print '['+arg.name+', '+dataObjName+']'
+				except AttributeError: print '[?, '+dataObjName+']'
+
 def showInfoFlow(agent):
 	graph = pydot.Dot(graph_type='digraph')
 
@@ -23,6 +42,7 @@ def showInfoFlow(agent):
 		graph.add_subgraph(cluster)
 
 	#TODO: add edges
+	edgeList = getEdges(agent)
 
 	# save the dot file
 #	graph.write_raw('example_graph.dot')
