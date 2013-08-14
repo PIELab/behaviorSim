@@ -9,6 +9,7 @@ def getNodes(agent):
 	return {'inputs':list(agent.inputs(0)),'state':list(agent.state(0)),'motive':list(agent.motive(0)),'behavior':list(agent.behavior(0))}
 
 def getEdges(agent):
+	edgeList = list()
 	nodeDict = getNodes(agent)
 	for clusterName in list(nodeDict):
 		for dataObjName in nodeDict[clusterName]:
@@ -24,11 +25,17 @@ def getEdges(agent):
 							print 'ERR from infoFlow.getEdges: attribute "'+dataObjName+'" cannot be found! check agent dicts against agent dataObject names.'
 							exit()
 			for arg in connArgs:
-				try: print '['+arg.name+', '+dataObjName+']'
+				try: 
+					edgeList.append([arg.name,dataObjName])
+					print '['+arg.name+', '+dataObjName+']' 
 				except AttributeError: print '[?, '+dataObjName+'] (attribute is not a dataObject)'
-
+	return edgeList
+	
 def showInfoFlow(agent):
 	graph = pydot.Dot(graph_type='digraph')
+
+	#add environment node(s) at start & end
+	graph.add_node(pydot.Node('environment'))
 
 	nodeDict = getNodes(agent)
 	#for each key in getNodes() dict
@@ -39,10 +46,35 @@ def showInfoFlow(agent):
 		for nodeName in nodeDict[clustName]:
 			node = pydot.Node(nodeName)
 			cluster.add_node(node)
+			# print 'node added'
 		graph.add_subgraph(cluster)
+		# print 'subgraph added'
+
+	def getNodeFromSubGraphs(graph,name):
+		nodeL = list()
+		for subG in graph.get_subgraphs():
+			#print subG.get_nodes()
+			n = subG.get_node(name)
+			if len(n) == 1:
+				nodeL.append(n[0])
+			elif len(n) > 1:
+				nodeL.append(n)
+		if len(nodeL)==1:
+			return nodeL[0]
+		else: return nodeL
+		
 
 	#TODO: add edges
 	edgeList = getEdges(agent)
+	for edge in edgeList:
+		n1 = getNodeFromSubGraphs(graph,edge[0])
+		n2 = getNodeFromSubGraphs(graph,edge[1])
+
+		print edge[0]+'--->'+edge[1]
+		print str(n1)+'--->'+str(n2)
+		edge = pydot.Edge(n1, n2)
+		try: graph.add_edge(edge)
+		except TypeError: print 'cannot find one or more nodes for edge '+str(edge)
 
 	# save the dot file
 #	graph.write_raw('example_graph.dot')
