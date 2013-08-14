@@ -23,7 +23,7 @@ def getEdges(agent):
 						except AttributeError: 
 							logging.error('infoFlow.getEdges: attribute "'+dataObjName+\
 						'" from agent dict cannot be found! check against agent dataObject names.') 
-							print '\nERR from infoFlow.getEdges: attribute "'+dataObjName+\
+							print '\nERR: attribute "'+dataObjName+\
 							 '" from agent dict cannot be found! check against agent dataObject names.'
 			for arg in connArgs:
 				try: 
