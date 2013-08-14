@@ -1,5 +1,5 @@
 # this class defines an opinion of a behavior based on the expectancy-value model & theory of planned behavior 
-# (variable descriptions from http://en.wikipedia.org/wiki/Theory_of_planned_behavior
+# (variable descriptions from http://en.wikipedia.org/wiki/Theory_of_planned_behavior May 2013)
 class attitude:
 # === Behavioral beliefs and attitude toward behavior ===
 	behavioralBelief = 0	#=b
