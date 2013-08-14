@@ -25,7 +25,7 @@ class environment(object):
 		#time-dependent functions:
 		self.__influence_PA = list()
 
-		self.influence_EB = dataObject(_DFLT_FUNC_influence_EB)
+		self.influence_EB = dataObject('influence_EB',_DFLT_FUNC_influence_EB)
 
 		#environment maps (location dependent functions):
 		self.temperature = [[[20]*self.width]*self.height]	#array of temperatures in degrees Celcius

@@ -54,5 +54,12 @@ class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
 		            self.attitudeChange_PA(t).subjectiveNorm,\
 		            self.attitudeChange_PA(t).PBC,\
 		            self.attitudeChange_PA(t).controlBelief],\
-		            xi_PA           =str(self.xi_PA(t)))
+		            xi_PA           =str(self.xi_PA(t)),\
+						attitudeChange_EB=[self.attitudeChange_EB(t).behavioralBelief,\
+		            self.attitudeChange_EB(t).behaviorAttitude,\
+		            self.attitudeChange_EB(t).normativeBelief,\
+		            self.attitudeChange_EB(t).subjectiveNorm,\
+		            self.attitudeChange_EB(t).PBC,\
+		            self.attitudeChange_EB(t).controlBelief],\
+		            xi_EB           =str(self.xi_EB(t)))
 

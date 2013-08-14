@@ -49,13 +49,15 @@ class state:
 	# returns ALL data for given time t as a dict 
 	def __call__(self,t):
 		### return ALL info for that time as a dict ###
-		return dict(age     =self.age(t),\
+		return dict(agentName=self.name,\
+		            birthday=self.birthday,\
+						#TODO: personality=self.agentPersonality,\
+						age     =self.age(t),\
 		            zeta_PA =self.zeta_PA(t),\
 		            eta_PA  =self.eta_PA(t),\
 		            zeta_EB =self.zeta_EB(t),\
 		            eta_EB  =self.eta_PA(t))
-						#agentName=self.name,\
-		            #birthday=self.birthday,\
+
 
 	# sets the personality of the agent using a new agent personality object 'newP'
 	def setPersonality(self,newP):
