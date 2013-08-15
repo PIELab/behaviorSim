@@ -5,7 +5,7 @@ A framework designed to aid in the implementation of PECS-style agent (based on 
 
 Installation & Setup
 --------------------
-Simply clone the package and import the package to get started. 
+Simply download and import the package to get started. For more hints take a look at the included example scripts.
 
 Dependencies
 -------------
@@ -14,12 +14,17 @@ Dependencies
 
 _Feature-dependent dependencies:_
 * The horizonGraph plotter requires an install of the matplotlib add-on from [thomaskern/horizongraph_matplotlib](https://github.com/thomaskern/horizongraph_matplotlib).
-* creating/viewing informationFlow graphs using [pydot](https://code.google.com/p/pydot/) (included) requires [graphViz](http://www.graphviz.org/). Simply install with "sudo apt-get graphviz".
+* viewing informationFlow graphs using requires [graphViz](http://www.graphviz.org/). Simply install with "sudo apt-get graphviz".
+
+_Included Packages (no work needed, these are just FYI)_
+* [pydot](https://code.google.com/p/pydot/) for creating informationFlow graphs
+* [ddeint](http://zulko.wordpress.com/2013/03/01/delay-differential-equations-easy-with-python/) for solving delay differential equations
 
 Package Structure
 -----------------
-		PECSmodeler/
-			myScript.py (run any scripts or start python here)
+If you would like to add functions or data objects to the agent, it is best to keep them nested in their proper location in following package structure. Please try to refrain from changing the existing data objects and only add if absolutely necessary. If you are going to add a piece of information to one of the components, use the dataObject() class in __util/agentData.py. The idea here is to build up a complete data structure for behavior modeling and allow the functions associated with each piece of information to be swapped out easily.
+		myScript.py (run any scripts or start python here)
+		src/
 			PECSagent/
 				agent.py
 				settings.py
@@ -38,6 +43,7 @@ Package Structure
 
 Components
 -----------
+The agent model is split into the following components in an attempt to make flow of information through the agent more organized. Please see [the wiki page on information flow](https://github.com/PIELab/behaviorSim/wiki/information-flow) for more information, and consider the following descriptions of model components.
 ### Inputs ###
 Inputs represent the context of the agent. This input comes from the environment exterior to the agent or from past actions of the agent.
 
@@ -56,5 +62,5 @@ The PECS model framework is designed to be extended to allow for the exploration
 > 1. *Add your package to the applicable component.* 
 > For instance, a new input definition, your package should be added to PECSagent/Inputs/. 
 > 2. *Adjust component definition.* 
-> The contents of the default component definition should be adjusted to use your new package or to add your new variables. For example: if you intend to add a new state variable, you must add the variable to PECSagent/state/state.py. If you are just changing the way an existing state variable is calculated, you can just change the import statement at the top of the file.
->*NOTE*: only add to the componenet definitions; never remove variables. Ideally, your package can use existing variables but all state variables are not yet incorporated. Please add variables with caution and use descriptive names to enable re-use by other packages.
+> The contents of the default component definition should be adjusted to use your new package or to add your new variables. For example: if you intend to add a new state variable, you must add the variable to PECSagent/state/state.py. If you are just changing the way an existing state variable is calculated, you can just change the import statement at the top of the file or load your custom function in a script.
+>*NOTE*: only add to the component definitions; never remove variables. Ideally, your package can use existing variables but all state variables are not yet incorporated. Please add variables with caution and use descriptive names to enable re-use by other packages.
