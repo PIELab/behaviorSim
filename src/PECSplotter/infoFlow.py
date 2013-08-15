@@ -24,12 +24,12 @@ def getEdges(agent):
 							logging.error('infoFlow.getEdges: attribute "'+dataObjName+\
 						'" from agent dict cannot be found! check against agent dataObject names.') 
 							print '\nERR: attribute "'+dataObjName+\
-							 '" from agent dict cannot be found! check against agent dataObject names.'
+							 '" from agent dict cannot be found in agent component dataObjects! '
 			for arg in connArgs:
 				try: 
 					edgeList.append([arg.name,dataObjName])
 					#print '['+arg.name+', '+dataObjName+']' 
-				except AttributeError: print '\nERR: for edge [?, '+dataObjName+'] ("name" attribute not found)'
+				except AttributeError: print '\nERR: for edge [?, '+dataObjName+'] ("name" attribute not found in attribute from dict)'
 	return edgeList
 	
 def showInfoFlow(agent):
@@ -65,7 +65,7 @@ def showInfoFlow(agent):
 		else: return nodeL
 		
 
-	#TODO: add edges
+	# add edges
 	edgeList = getEdges(agent)
 	for edge in edgeList:
 		n1 = getNodeFromSubGraphs(graph,edge[0])
