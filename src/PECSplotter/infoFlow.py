@@ -22,14 +22,15 @@ def getEdges(agent):
 						try: connArgs = eval('agent.behavior.'+dataObjName+'.args')
 						except AttributeError: 
 							logging.error('infoFlow.getEdges: attribute "'+dataObjName+\
-						'" from agent dict cannot be found! check against agent dataObject names.') 
+						'" from dataObj args cannot be found! check against agent dataObject names.') 
 							print '\nERR: attribute "'+dataObjName+\
-							 '" from agent dict cannot be found in agent component dataObjects! '
+							 '" from dataObj args cannot be found in agent component dataObjects! '
 			for arg in connArgs:
 				try: 
 					edgeList.append([arg.name,dataObjName])
 					#print '['+arg.name+', '+dataObjName+']' 
-				except AttributeError: print '\nERR: for edge [?, '+dataObjName+'] ("name" attribute not found in attribute from dict)'
+				except AttributeError: print '\nERR: for edge [?, '+dataObjName+\
+				        '] ("name" attribute not found in data from dataObj args)'
 	return edgeList
 	
 def showInfoFlow(agent):
