@@ -25,10 +25,10 @@ class state:
 		self.theInputs = inputs
 
 		### constant (non-time-dependent) attributes (personality) ###
-		self.name     = nameSetter()
-		self.birthday = birthdaySetter(settings.simStartTime)
+		self.name     = dataObject('name',nameSetter())
+		self.birthday = dataObject('birthday',birthdaySetter(settings.simStartTime))
 
-		self.agentPersonality = agentConstructor()
+		self.personality = dataObject('personality',agentConstructor())
 
 		### define dataObjects (potentially time-dependent) ###
 		
@@ -39,19 +39,19 @@ class state:
 		# random distubances into the endogeneous flow vars, eta
 		self.zeta_PA = dataObject('zeta_PA',_DFLT_FUNC_zeta)
 		# array of endogeneous flow variables from package CSEL
-		self.eta_PA  = dataObject('eta_PA',_DFLT_FUNC_eta,inputs.xi_PA,self.agentPersonality)
+		self.eta_PA  = dataObject('eta_PA',_DFLT_FUNC_eta,inputs.xi_PA,self.personality)
 
 		## for eating behavior (EB) ##
 		self.zeta_EB = dataObject('zeta_EB',_DFLT_FUNC_zeta)
-		self.eta_EB  = dataObject('eta_EB',_DFLT_FUNC_eta,inputs.xi_EB,self.agentPersonality)
+		self.eta_EB  = dataObject('eta_EB',_DFLT_FUNC_eta,inputs.xi_EB,self.personality)
 		
 
 	# returns ALL data for given time t as a dict 
 	def __call__(self,t):
 		### return ALL info for that time as a dict ###
-		return dict(name=self.name,\
-		            birthday=self.birthday,\
-						#TODO: personality=self.agentPersonality,\
+		return dict(name=self.name(t),\
+		            birthday=self.birthday(t),\
+						personality=self.personality,\
 						age     =self.age(t),\
 		            zeta_PA =self.zeta_PA(t),\
 		            eta_PA  =self.eta_PA(t),\
@@ -61,7 +61,7 @@ class state:
 
 	# sets the personality of the agent using a new agent personality object 'newP'
 	def setPersonality(self,newP):
-		self.agentPersonality = newP
+		self.personality = newP
 		# reset all personality-dependent data:
 		self.eta_PA = dataObject('eta_PA',_DFLT_FUNC_eta,self.theInputs.xi_PA,newP)
 		self.eta_EB = dataObject('eta_EB',_DFLT_FUNC_eta,self.theInputs.xi_EB,newP)

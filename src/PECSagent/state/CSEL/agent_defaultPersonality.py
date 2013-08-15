@@ -11,6 +11,7 @@ from pylab import array
 #		self.sigma    = CSELagent.sigma	
 
 class agent:
+	name = 'personality'
 	theta = array([0,0,0, 2,2,2,2,2]);	#time delays
 	tau   = array([1,1,1, 2, 4]);		#time constants
 

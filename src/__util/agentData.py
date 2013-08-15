@@ -4,17 +4,22 @@ import logging
 import datetime
 
 class dataObject(object):
-	def __init__(self,name=None,func=None,*args):
+	def __init__(self,name,func,*args):
+		logging.disable(logging.ERROR)
+		self.args = args	# dependencies of this function
 		self.data = list()           # time series data list
 		self.name = name
+		#logging.debug(str(name)+' args='+str(ar) for ar in self.args)
 		if func==None:
 			logging.warn('getter function not specified for dataObject;'+\
 			             ' I will set a temporary function for now and hope you change it later.')
 			self.calc = lambda t: t*0.1
-		else :
+		elif hasattr(func, '__call__'): #function is given
+			logging.debug(str(name)+' get function saved.')
 			self.calc = func  # function for calculating value at given time
-
-		self.args = args	# dependencies of this function
+		else : #non-callable data given, assume constant function
+			logging.debug(str(name)+' is constant valued.')
+			self.calc = lambda t: func
 
 	def __call__(self, t=None):
 		if t==None:	        # if no time specified, spit out all the data we have
@@ -44,6 +49,7 @@ class dataObject(object):
 						self.calc(self.data,t,*self.args)
 						break
 			return linearInterpolate(self.data,t)
+	logging.disable(logging.NOTSET)
 
 	# sets a new function for calculating values given a time t and other optional arguments
 	def setFunction(self,f,*args):

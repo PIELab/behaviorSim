@@ -9,7 +9,11 @@ import random
 	# requiredTimeScale = null
 	# requiredTimeStep  = null
 def age(t,birthdatetime,deltaT,t0):
-	return t0+(t*deltaT)-birthdatetime
+	#print 't='+str(t)
+	#print 'birthdatetime='+str(birthdatetime(0))
+	#print 'deltaT='+str(deltaT)
+	#print 't0='+str(t0)
+	return t0+(t*deltaT)-birthdatetime(0)
 
 # returns a randomly chosen age based on a flat (TODO: make this normal) probability distribution to make the average age at currentTime reasonable
 def randomAger(currentTime):
