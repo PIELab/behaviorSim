@@ -75,7 +75,22 @@ def showInfoFlow(agent):
 		#print str(n1)+'--->'+str(n2)
 		ed = pydot.Edge(n1, n2)
 		try: graph.add_edge(ed)
-		except TypeError: print '\nERR: cannot find one or more nodes for edge '+str(edge)+'\n\tn1='+str(n1)+'\n\tn2='+str(n2)
+		except TypeError: 
+			print '\nERR: cannot find one or more nodes for edge '+str(edge)+\
+			      '\n\tn1='+str(n1)+'\n\tn2='+str(n2)
+			if n1==[]:
+				n1 = pydot.Node(edge[0])
+				graph.add_node(n1)
+			if n2==[]:
+				n2 = pydot.Node(edge[0])
+				graph.add_node(n2)
+			try: 
+				ed = pydot.Edge(n1, n2)
+				graph.add_edge(ed)
+				print '\tnode(s) added as a (sortof) fix.'
+			except TypeError:
+				print '\tattempt to add missing nodes and connect failed.'
+			
 
 	# save the dot file
 #	graph.write_raw('example_graph.dot')
