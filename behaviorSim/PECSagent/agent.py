@@ -23,3 +23,12 @@ class agent:
 		self.motive   = motive(self.state)
 		self.behavior = behavior(self.inputs,self.state,self.motive)
 
+#	def __call__(self,t):
+#		"""
+#		Returns all data for the agent at given time t
+#		"""
+#		self.environment(t)
+#		self.inputs(t)
+#		self.state(t)
+#		self.behavior(t)
+#		return self

@@ -4,7 +4,7 @@
 from pylab import array, linspace
 
 import logging
-from src.__util.ddeint import *	#delay ode solver
+from behaviorSim.__util.ddeint import *	#delay ode solver
 
 from ...settings import settings
 
@@ -49,6 +49,10 @@ def steadyState(beta,gamma,xi):
 
 # === SOLVER ===
 def getEta(data,t,xi,agent):
+#	print 'data='+str(data)
+#	print 't='+str(t)
+#	print 'xi='+str(xi)
+#	print 'agent='+str(agent)
 	if t < len(data):
 		pass
 	else:

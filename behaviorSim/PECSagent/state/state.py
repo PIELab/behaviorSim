@@ -9,7 +9,7 @@ import logging
 from .baseInfo.age  import randomAger     as birthdaySetter
 from .baseInfo.name import iterativeNamer as nameSetter
 
-from .CSEL.agent_defaultPersonality import agent      as agentConstructor
+from .CSEL.agent_defaultPersonality import personality      as agentConstructor
 
 ### import default functions for data ###
 from .baseInfo.age                  import age        as _DFLT_FUNC_age
@@ -28,7 +28,7 @@ class state:
 		self.name     = dataObject('name',nameSetter())
 		self.birthday = dataObject('birthday',birthdaySetter(settings.simStartTime))
 
-		self.personality = dataObject('personality',agentConstructor())
+		self.personality = agentConstructor()
 
 		### define dataObjects (potentially time-dependent) ###
 		

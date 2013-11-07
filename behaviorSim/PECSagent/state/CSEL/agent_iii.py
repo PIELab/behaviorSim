@@ -10,12 +10,13 @@ from pylab import array
 #		self.tauA     = CSELagent.tauA	
 #		self.sigma    = CSELagent.sigma	
 
-class agent:
+class personality:
 	def __call__(self,t):
 			return self
 
 	disturbancesOn = True
 
+	name  = 'agentIII'
 	theta = array([0,0,0, 2,2,2,0,15]);	#time delays
 	tau   = array([20,1,1, 2, 4]);		#time constants
 

@@ -1,6 +1,6 @@
 # the environment class describes the world which is shared by all agents in the simulation. Agent inputs/context may be derived from the values in this environment
 
-from src.__util.agentData import dataObject
+from behaviorSim.__util.agentData import dataObject
 
 ### define default functions
 from attitudeInfluences.testAttitudes import squareWaves as influence_PAGetter

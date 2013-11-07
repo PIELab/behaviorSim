@@ -6,7 +6,7 @@
 
 from pylab import array
 from math import ceil
-from src.__util.agentData import linearInterpolate
+from behaviorSim.__util.agentData import linearInterpolate
 
 # xi = exogeneous inflow array = [ attitude, social norm, planned behavioral control ]
 def xi(t,attitude):

@@ -44,10 +44,16 @@ class dataObject(object):
 				else:
 					try: #use the given arguments
 						self.data.append(self.calc(i,*self.args))
-					except TypeError:#wrong number of arguments, try passing raw data array
-						logging.warn('raw data access granted to calculating function '+str(self.calc)+'to find @t='+str(t))
-						self.calc(self.data,t,*self.args)
-						break
+					except TypeError as e:#wrong number of arguments, try passing raw data array
+						if e.message.split('type')[0] == 'unsupported operand ':
+							raise
+						else:
+							logging.warn('typical usage of dataObject fails'
+								         +'\n\tERR:'+e.message
+								         +'\n\tARGS given: time,'+str([str(arg) for arg in self.args])
+								         +'\n\traw data access granted to calculating function '+str(self.calc)+'to find @t='+str(t))
+							self.calc(self.data,t,*self.args)
+							break
 			return linearInterpolate(self.data,t)
 	logging.disable(logging.NOTSET)
 

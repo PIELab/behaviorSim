@@ -3,16 +3,16 @@ t = 5	#time of interest in simulation timesteps (set in settings)
 
 #setup log file for this script
 import logging
-logging.basicConfig(filename='src/__logs/basicExample.log',\
+logging.basicConfig(filename='__logs/basicExample.log',\
 	                 level=logging.DEBUG,\
 	                format='%(asctime)s %(levelname)s:%(message)s',\
                    filemode='w')
 
 # === === === === === === AGENT SETUP === === === === === ===
-from src.environment.environment import environment
+from behaviorSim.environment.environment import environment
 envmt = environment()	#load default environment
 
-from src.PECSagent.agent import agent
+from behaviorSim.PECSagent.agent import agent
 myAgent = agent(envmt)	#load default agent
 #TODO: customize the agent
 #TODO: defaultAgent.tag = 'my very first agent'
@@ -25,7 +25,7 @@ myAgent = agent(envmt)	#load default agent
 
 print ' === === === === === === SETTINGS === === === === === ==='
 # load settings of the simulation (just FYI here)
-from src.PECSagent.settings import settings
+from behaviorSim.PECSagent.settings import settings
 print '* simulation start time (sim-time): ' + str(settings.simStartTime)
 print '*     size of time step, deltaTime: ' + str(settings.deltaTime)
 
@@ -53,7 +53,7 @@ print '* inputs(3): ' + str(envmt.agents[0].inputs(3))
 print '\n === === === === === === STATE === === === === === ==='
 # === to get data ===
 #<agentName>.state.<desiredValue>(<desiredTime>)
-print '*     agent name: '+envmt.agents[0].state.name
+print '*     agent name: '+str(envmt.agents[0].state.name)
 print '* agent birthday: '+str(envmt.agents[0].state.birthday)
 print '*   agent age(0): '+str(envmt.agents[0].state.age(0))
 print '*   agent age(t): '+str(envmt.agents[0].state.age(t))
@@ -96,7 +96,7 @@ while choice != 'n' and choice != 'y':
 	choice = raw_input()
 if choice == 'y':
 	print 'plottings all attributes for time 0 to 100'
-	from src.PECSplotter.plot import plotAll
+	from behaviorSim.PECSplotter.plot import plotAll
 	plotAll(envmt.agents[0],0,100)
 	import pylab
 	pylab.show()	
@@ -107,7 +107,7 @@ while choice != 'n' and choice != 'y':
 	print choice + '? please enter y or n.'
 	choice = raw_input()
 if choice == 'y':
-	import src.PECSplotter.infoFlow as infoFlow
+	import behaviorSim.PECSplotter.infoFlow as infoFlow
 	infoFlow.showInfoFlow(envmt.agents[0])
 
 # === === === === === === CUSTOMIZING THE AGENT === === === === === ===

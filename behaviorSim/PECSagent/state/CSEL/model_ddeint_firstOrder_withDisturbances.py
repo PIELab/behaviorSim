@@ -4,7 +4,7 @@
 from pylab import array, linspace
 
 import logging
-from src.__util.ddeint import *	#delay ode solver
+from behaviorSim.__util.ddeint import *	#delay ode solver
 
 from ...settings import settings
 

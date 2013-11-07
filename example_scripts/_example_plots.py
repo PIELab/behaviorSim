@@ -1,14 +1,14 @@
 import pylab
 
 # === === === === === === AGENT SETUP === === === === === ===
-from src.environment.environment import environment
+from behaviorSim.environment.environment import environment
 envmt = environment()	#load default environment
 
-from src.PECSagent.agent import agent
+from behaviorSim.PECSagent.agent import agent
 agent1 = agent(envmt)	#load default agent
 
 # === === === === === === PLOTS === === === === === ===
-from src.PECSplotter.plot import plotAll, plotInputs, plotState 	#load the plotter
+from behaviorSim.PECSplotter.plot import plotAll, plotInputs, plotState 	#load the plotter
 
 print 'plot using plotAll? (y/n)'
 choice = raw_input()

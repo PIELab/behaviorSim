@@ -10,14 +10,14 @@ from datetime import datetime, timedelta
 #setup log file for this script
 import logging
 print str(logging.getLogger())
-logging.basicConfig(filename='src/__logs/CSELexample.log',\
+logging.basicConfig(filename='__logs/CSELexample.log',\
 	                 level=logging.DEBUG,\
 	                format='%(asctime)s %(levelname)s:%(message)s',\
                    filemode='w')
 
 print ' === === === === === === SETTINGS === === === === === ==='
 # load settings (same as in _example_basicUsage)
-from src.PECSagent.settings import settings
+from behaviorSim.PECSagent.settings import settings
 # customize settings
 settings.deltaTime    = timedelta(days=1)
 settings.simStartTime = datetime(2011, 1, 1, 12, 0, 0, 0)
@@ -29,29 +29,29 @@ t0 = 0   #startTime
 tf = 180 #endTime
 
 # === === === === === === AGENT SETUP === === === === === ===
-from src.environment.environment import environment
+from behaviorSim.environment.environment import environment
 envmt = environment()	# load default environment
 
 # load agents personalities for i, ii, and iii
-from src.PECSagent.agent import agent
-from src.PECSagent.state.CSEL import agent_i, agent_ii, agent_iii
+from behaviorSim.PECSagent.agent import agent
+from behaviorSim.PECSagent.state.CSEL import agent_i, agent_ii, agent_iii
 agent1 = agent(envmt)
-agent1.state.setPersonality(agent_i.agent())
+agent1.state.setPersonality(agent_i.personality())
 
 agent2 = agent(envmt)
-agent2.state.setPersonality(agent_ii.agent())
+agent2.state.setPersonality(agent_ii.personality())
 
 agent3 = agent(envmt)
-agent3.state.setPersonality(agent_iii.agent())
+agent3.state.setPersonality(agent_iii.personality())
 #add disturbances
-from src.PECSagent.state.CSEL.model_ddeint_firstOrder_withDisturbances import getEta
+from behaviorSim.PECSagent.state.CSEL.model_ddeint_firstOrder_withDisturbances import getEta
 # print 'args='+str(agent3.state.eta_PA.args)
 #def getEta(data,t,xi_PA,agent,zeta_PA):
-agent3.state.eta_PA.setFunction(getEta,agent3.inputs.xi_PA,agent3.state.agentPersonality,agent3.state.zeta_PA)
-agent3.state.eta_EB.setFunction(getEta,agent3.inputs.xi_EB,agent3.state.agentPersonality,agent3.state.zeta_EB)
+agent3.state.eta_PA.setFunction(getEta,agent3.inputs.xi_PA,agent3.state.personality,agent3.state.zeta_PA)
+agent3.state.eta_EB.setFunction(getEta,agent3.inputs.xi_EB,agent3.state.personality,agent3.state.zeta_EB)
 
 # customize the CSEL input functions (exogeneous flow vars)
-from src.PECSagent.inputs.CSEL.attitudes import stepOne
+from behaviorSim.PECSagent.inputs.CSEL.attitudes import stepOne
 
 def eatingAttitude(t):
 	beforeChange = 7
@@ -84,12 +84,12 @@ print '* xi_PA(t): '+str(agent1.inputs.xi_PA(tf))
 print '\n === === === === === === STATE === === === === === ==='
 print '      === CSEL vars ==='
 print '       (model constants)'
-print '*    theta: '+str(agent1.state.agentPersonality.theta)
-print '*      tau: '+str(agent1.state.agentPersonality.tau)
-print '*    gamma: \n'+str(agent1.state.agentPersonality.gamma)
-print '*     beta: \n'+str(agent1.state.agentPersonality.beta)
-print '*     tauA: '+str(agent1.state.agentPersonality.tauA)
-print '*    sigma: '+str(agent1.state.agentPersonality.sigma)
+print '*    theta: '+str(agent1.state.personality.theta)
+print '*      tau: '+str(agent1.state.personality.tau)
+print '*    gamma: \n'+str(agent1.state.personality.gamma)
+print '*     beta: \n'+str(agent1.state.personality.beta)
+print '*     tauA: '+str(agent1.state.personality.tauA)
+print '*    sigma: '+str(agent1.state.personality.sigma)
 print '*      (disturbances)'
 print '*  zeta_PA(t): '+str(agent1.state.zeta_PA(tf))
 print '*      (state vars (endogeneous flow vars))'
@@ -174,13 +174,13 @@ def ask(question):
 
 
 if ask('plot all?') == 'y':
-	from src.PECSplotter.plot import plotAll
+	from behaviorSim.PECSplotter.plot import plotAll
 	plotAll(agent1,t0,tf)
 	import pylab
 	pylab.show()
 
 if ask('show infoFlow?') == 'y':
-	from src.PECSplotter.infoFlow import showInfoFlow
+	from behaviorSim.PECSplotter.infoFlow import showInfoFlow
 	print 'showing agent 1 infoFlow...'
 	showInfoFlow(agent1)
 	
