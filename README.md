@@ -23,17 +23,22 @@ This is not the only way to install, but we're going to walk you through the eas
 7. start behaviorSim main UI `python behaviorSimUI.py`
 
 ### For Windows ###
-1. [download & install python 2.7](http://www.python.org/getit/)
-2. open command prompt
-3. test python install by checking version. Type `python -V` in command prompt; if this does not work try something like `C:\Python27\python.exe -V`.
-4. [download & install git](http://git-scm.com/download/win)
+1. [download & install Enthought Canopy version of python 2.7](https://www.enthought.com/downloads/) (NOTE: [python(x,y)](https://code.google.com/p/pythonxy/wiki/Downloads?tm=2) may be a valid alternative.)
+2. [download & install git](http://git-scm.com/download/win)
+3. open git bash command prompt
+4. enter `cd Documents` to enter your documents directory
+5. enter `git clone https://github.com/PIELab/behaviorSim.git` to download behaviorSim source code
+6. open canopy command prompt window
+6. enter `cd Documents/behaviorSim` to enter behaviorSim directory 
+7. start behaviorSim main UI by typing `python behaviorSimUI.py` (or `C:\Python27\python.exe behaviorSimUI.py`)
+
+additional troubleshooting stuff:
+* test python install by checking version. Type `python -V` in command prompt; if this does not work try something like `C:\Python27\python.exe -V`.
+
+these instructions used to be included, but don't really work:
 5. enter `git clone git@github.com:matplotlib/matplotlib.git` in cmd prompt to download matplotlib
 6. enter `cd matplotlib` in cmd propmt to enter matplotlib directory
 7. enter `python setup.py install` (or `C:\Python27\python.exe setup.py install`) to install
-8. enter `cd ..` to go up a directory
-9. download behaviorSim source code `git clone https://github.com/PIELab/behaviorSim.git`
-10. enter behaviorSim directory `cd behaviorSim`
-11. start behaviorSim main UI `python behaviorSimUI.py` (or `C:\Python27\python.exe behaviorSimUI.py`)
 
 ### Mac OS ###
 ???
