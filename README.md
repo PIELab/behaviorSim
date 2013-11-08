@@ -9,16 +9,21 @@ Simply download and import the package to get started. For more hints take a loo
 
 Dependencies
 -------------
+_Hard-dependencies_
+You *need* these installed to use behaviorSim.
 * Python (v2.7 preferred, others may work)
 * [PyLab](http://wiki.scipy.org/PyLab)
 
 _Feature-dependent dependencies:_
+The following modules are required to use certain features, but the core software can be run without them.
 * The horizonGraph plotter requires an install of the matplotlib add-on from [thomaskern/horizongraph_matplotlib](https://github.com/thomaskern/horizongraph_matplotlib).
 * viewing informationFlow graphs using requires [graphViz](http://www.graphviz.org/). Simply install with "sudo apt-get graphviz".
 
-_Included Packages (no work needed, these are just FYI)_
+_Included Packages_
+The following dependencies are packaged into the behaviorSim.__util directory and no setup or worry about them is needed, but they help make this work possible and merit mention here:
 * [pydot](https://code.google.com/p/pydot/) for creating informationFlow graphs
 * [ddeint](http://zulko.wordpress.com/2013/03/01/delay-differential-equations-easy-with-python/) for solving delay differential equations
+* [appdirs](https://pypi.python.org/pypi/appdirs/1.2.0) - "A small Python module for determining appropriate platform-specific dirs". Used under permission of the [MIT License](http://opensource.org/licenses/MIT).
 
 Package Structure
 -----------------

@@ -9,11 +9,8 @@ from datetime import datetime, timedelta
 
 #setup log file for this script
 import logging
-print str(logging.getLogger())
-logging.basicConfig(filename='__logs/CSELexample.log',\
-	                 level=logging.DEBUG,\
-	                format='%(asctime)s %(levelname)s:%(message)s',\
-                   filemode='w')
+from behaviorSim.__util.setupLog import setupLog
+setupLog()
 
 print ' === === === === === === SETTINGS === === === === === ==='
 # load settings (same as in _example_basicUsage)

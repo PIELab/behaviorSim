@@ -3,10 +3,8 @@ t = 5	#time of interest in simulation timesteps (set in settings)
 
 #setup log file for this script
 import logging
-logging.basicConfig(filename='__logs/basicExample.log',\
-	                 level=logging.DEBUG,\
-	                format='%(asctime)s %(levelname)s:%(message)s',\
-                   filemode='w')
+from behaviorSim.__util.setupLog import setupLog
+setupLog()
 
 # === === === === === === AGENT SETUP === === === === === ===
 from behaviorSim.environment.environment import environment
