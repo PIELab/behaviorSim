@@ -5,21 +5,19 @@ A framework designed to aid in the implementation of PECS-style agent (based on 
 
 Installation & Setup
 --------------------
-Simply download and import the package to get started. For more hints take a look at the included example scripts.
-
-Dependencies
--------------
-_Hard-dependencies_
+### Hard-dependencies ###
 You *need* these installed to use behaviorSim.
-* Python (v2.7 preferred, others may work)
-* [PyLab](http://wiki.scipy.org/PyLab)
+* [Python (v2.7 preferred, others may work)](http://www.python.org/download/)
+* [PyLab](http://wiki.scipy.org/PyLab), which can be istalled [like so](http://stackoverflow.com/a/10965351/1483986).
 
-_Feature-dependent dependencies:_
+Once you have these installed, simply download and import the package to get started. For more hints take a look at the included example scripts.
+
+### Feature-dependent dependencies ###
 The following modules are required to use certain features, but the core software can be run without them.
 * The horizonGraph plotter requires an install of the matplotlib add-on from [thomaskern/horizongraph_matplotlib](https://github.com/thomaskern/horizongraph_matplotlib).
 * viewing informationFlow graphs using requires [graphViz](http://www.graphviz.org/). Simply install with "sudo apt-get graphviz".
 
-_Included Packages_
+### Included Packages ###
 The following dependencies are packaged into the behaviorSim.__util directory and no setup or worry about them is needed, but they help make this work possible and merit mention here:
 * [pydot](https://code.google.com/p/pydot/) for creating informationFlow graphs
 * [ddeint](http://zulko.wordpress.com/2013/03/01/delay-differential-equations-easy-with-python/) for solving delay differential equations
