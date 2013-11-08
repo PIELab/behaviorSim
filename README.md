@@ -3,21 +3,43 @@ PECSmodeler
 
 A framework designed to aid in the implementation of PECS-style agent (based on the work of Bernd Schmidt et al.). This framework is designed to be theory-independent, extensible, and very easy to use. Please see the [wiki page](https://github.com/7yl4r/PECSmodeler/wiki) for additional documentation.
 
-Basic Installation & Setup
---------------------
-### Unix-like systems ###
-You *need* these installed to use behaviorSim.
-* [Python (v2.7 preferred, others may work)](http://www.python.org/download/). You probably already have this, just check your version by typing `python -V` in a terminal.
-* [PyLab](http://wiki.scipy.org/PyLab), which can be istalled as part of matplotlib [like so](http://stackoverflow.com/a/10965351/1483986).
+Basic Setup
+-------------------------
+This is not the only way to install, but we're going to walk you through the easiest way.
+### General Steps ###
+1. [install python 2.7 (other versions *might* work)](http://www.python.org/download/)
+2. [install git](http://git-scm.com/book/en/Getting-Started-Installing-Git)
+3. download & install pylab & dependencies
+4. download behaviorSim using git
+5. cd into behaviorSim directory & start behaviorSimUI.py
 
-Once you have these installed download the package, cd into the behaviorSim directory, and start up the main interface by typing `python behaviorSimUI.py` in your terminal.
+### For Ubuntu ###
+1. open a terminal (ctrl+alt+t)
+2. install python `sudo apt-get install python`
+3. install pylab `sudo apt-get install python-numpy python-scipy python-matplotlib`
+4. install git `sudo apt-get install git`
+5. download behaviorSim source code `git clone https://github.com/PIELab/behaviorSim.git`
+6. enter behaviorSim directory `cd behaviorSim`
+7. start behaviorSim main UI `python behaviorSimUI.py`
 
-### Windows ###
-You *need* these installed to use behaviorSim.
-* [Python (v2.7 preferred, others may work)](http://www.python.org/download/).
-* [PyLab](http://wiki.scipy.org/PyLab), which can be istalled as part of numpy [using these binaries](http://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy)
+### For Windows ###
+1. [download & install python 2.7](http://www.python.org/getit/)
+2. open command prompt
+3. test python install by checking version. Type `python -V` in command prompt; if this does not work try something like `C:\Python27\python.exe -V`.
+4. [download & install git](http://git-scm.com/download/win)
+5. enter `git clone git@github.com:matplotlib/matplotlib.git` in cmd prompt to download matplotlib
+6. enter `cd matplotlib` in cmd propmt to enter matplotlib directory
+7. enter `python setup.py install` (or `C:\Python27\python.exe setup.py install`) to install
+8. enter `cd ..` to go up a directory
+9. download behaviorSim source code `git clone https://github.com/PIELab/behaviorSim.git`
+10. enter behaviorSim directory `cd behaviorSim`
+11. start behaviorSim main UI `python behaviorSimUI.py` (or `C:\Python27\python.exe behaviorSimUI.py`)
 
-Once you have these installed download the package, cd into the behaviorSim directory, and start up the main interface by typing `python behaviorSimUI.py` in command prompt.
+### Mac OS ###
+???
+
+### Other Linux ###
+???
 
 Advanced Setup
 -------------------
