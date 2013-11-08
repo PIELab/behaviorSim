@@ -5,14 +5,14 @@ A framework designed to aid in the implementation of PECS-style agent (based on 
 
 Basic Installation & Setup
 --------------------
-## Unix-like systems ##
+### Unix-like systems ###
 You *need* these installed to use behaviorSim.
 * [Python (v2.7 preferred, others may work)](http://www.python.org/download/). You probably already have this, just check your version by typing `python -V` in a terminal.
 * [PyLab](http://wiki.scipy.org/PyLab), which can be istalled as part of matplotlib [like so](http://stackoverflow.com/a/10965351/1483986).
 
 Once you have these installed download the package, cd into the behaviorSim directory, and start up the main interface by typing `python behaviorSimUI.py` in your terminal.
 
-## Windows ##
+### Windows ###
 You *need* these installed to use behaviorSim.
 * [Python (v2.7 preferred, others may work)](http://www.python.org/download/).
 * [PyLab](http://wiki.scipy.org/PyLab), which can be istalled as part of numpy [using these binaries](http://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy)
