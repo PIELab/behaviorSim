@@ -3,14 +3,25 @@ PECSmodeler
 
 A framework designed to aid in the implementation of PECS-style agent (based on the work of Bernd Schmidt et al.). This framework is designed to be theory-independent, extensible, and very easy to use. Please see the [wiki page](https://github.com/7yl4r/PECSmodeler/wiki) for additional documentation.
 
-Installation & Setup
+Basic Installation & Setup
 --------------------
-### Hard-dependencies ###
+## Unix-like systems ##
 You *need* these installed to use behaviorSim.
-* [Python (v2.7 preferred, others may work)](http://www.python.org/download/)
-* [PyLab](http://wiki.scipy.org/PyLab), which can be istalled [like so](http://stackoverflow.com/a/10965351/1483986).
+* [Python (v2.7 preferred, others may work)](http://www.python.org/download/). You probably already have this, just check your version by typing `python -V` in a terminal.
+* [PyLab](http://wiki.scipy.org/PyLab), which can be istalled as part of matplotlib [like so](http://stackoverflow.com/a/10965351/1483986).
 
-Once you have these installed, simply download and import the package to get started. For more hints take a look at the included example scripts.
+Once you have these installed download the package, cd into the behaviorSim directory, and start up the main interface by typing `python behaviorSimUI.py` in your terminal.
+
+## Windows ##
+You *need* these installed to use behaviorSim.
+* [Python (v2.7 preferred, others may work)](http://www.python.org/download/).
+* [PyLab](http://wiki.scipy.org/PyLab), which can be istalled as part of numpy [using these binaries](http://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy)
+
+Once you have these installed download the package, cd into the behaviorSim directory, and start up the main interface by typing `python behaviorSimUI.py` in command prompt.
+
+Advanced Setup
+-------------------
+If you are trying to use some more advanced features of the software, you may need to do some more setup.
 
 ### Feature-dependent dependencies ###
 The following modules are required to use certain features, but the core software can be run without them.
