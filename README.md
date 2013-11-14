@@ -1,7 +1,9 @@
 PECSmodeler
 ===========
 
-A toolkit for agent-based modeling of human systems. This framework is designed to be theory-independent, extensible, and very easy to use. We are actively searching for collaborators and users of this toolkit. If you want to use this toolkit to perform simulations, implement a cognitive theory, or test out add your machine-learning model to our collection please contact me (tylarmurray@mail.usf.edu) and I will be thrilled to help you. You may also find more information in the [wiki page](https://github.com/7yl4r/PECSmodeler/wiki).
+A toolkit for agent-based modeling of human systems. This framework is designed to be theory-independent, extensible, and very easy to use. 
+
+We are actively searching for collaborators and users of this toolkit! If you want to use this toolkit to perform simulations, implement a cognitive/behavioral theory, or test out add your machine-learning model to our collection please contact me (tylarmurray@mail.usf.edu) and I will be thrilled to help you. You may also find more information in the [wiki page](https://github.com/7yl4r/PECSmodeler/wiki).
 
 Basic Setup
 -------------------------
