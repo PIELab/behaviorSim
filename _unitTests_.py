@@ -1,44 +1,45 @@
 # this file is used to run unit tests on various code bits
 
+import unittest
+import random
+from time import time
+
 # setup logging
 import logging
-logging.basicConfig(filename='src/__logs/unitTesting.log',\
-                    level=logging.DEBUG,\
-                    format='%(asctime)s %(levelname)s:%(message)s')
+from behaviorSim.__util.setupLog import setupLog
+setupLog()
 
-def testAgentData():
-	def littleCalcTest(d):
-		print '   d.data='+str(d.data)
-		print 'd.calc(1)='+str(d.calc(1))
-		print '   d.data='+str(d.data)
-		print '     d(2)='+str(d(2))
-		print '   d.data='+str(d.data)
-		print '   d(1.4)='+str(d(1.4))
-		print '   d.data='+str(d.data)
-		print '   d(1.5)='+str(d(1.5))
-		print '   d.data='+str(d.data)
-		print '   d(1.6)='+str(d(1.6))
-		print '   d.data='+str(d.data)
-		print '   d(5.6)='+str(d(5.6))
-		print '   d.data='+str(d.data)
+class testAgentData(unittest.TestCase):
 
-	print 'importing dataObject...'
-	from src.__util.agentData import dataObject
+	def setUp(self):
+		self.randCoeff = random.uniform(-1.0,1.0)
 
-	D = dataObject()
-	print 'testing default setup...'
-	littleCalcTest(D)
+	def linearTestFunc(self,t):
+		"""Simple linear time-dependent function."""
+		return t
+
+	def calcCheck(self, d, testF, t0, tf):
+		"""checks that d(t) and testF(t) return the same for times from t0 to tf"""
+		for t in range(t0,tf):
+			self.assertTrue( d(t) == self.linearTestFunc(t) )
+
+	def test_dataObjectInit(self):
+		from behaviorSim.__util.agentData import dataObject
+
+		D = dataObject('testObject',self.linearTestFunc)
+
+		start_time = time()
+		N = 100000
+		# initial calculation
+		self.calcCheck(D, self.linearTestFunc, 0, N)
+		t1 = time()-start_time
+
+		# 2nd time is just retrieval, should be faster (calculation is more complex than lookup)
+		self.calcCheck(D, self.linearTestFunc, 0, N)
+		t2 = time()-start_time-t1
+		print 't/calc=', t1/N, ' t/lookup=', t2/N
+		self.assertTrue( t1 >= t2 ) 
 	
-	print 'resetting dataObject...'
-	D.reset()
-
-	print 'testing customization...'
-	D.setFunction(lambda t: t*10)
-	littleCalcTest(D)
-	
-
-# ============================
-# === === === MAIN === === ===
-# ============================
-testAgentData()
+if __name__ == '__main__':
+    unittest.main()
 

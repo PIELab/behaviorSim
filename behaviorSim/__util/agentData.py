@@ -4,6 +4,15 @@ import logging
 import datetime
 
 class dataObject(object):
+	"""
+	Defines a time-series style object which contains a name, dynamical function, and raw data array.
+
+	attributes:
+		name = string identifier of the object
+		func = time-dependent function which is used to calculate values of object at different times.
+		           Can also be a constant value which will be returned at all times.
+		*args= other time-dependent functions or arguments which are to be passed to func
+	"""
 	def __init__(self,name,func,*args):
 		logging.disable(logging.ERROR)
 		self.args = args	# dependencies of this function
@@ -11,11 +20,9 @@ class dataObject(object):
 		self.name = name
 		#logging.debug(str(name)+' args='+str(ar) for ar in self.args)
 		if func==None:
-			logging.warn('getter function not specified for dataObject;'+\
-			             ' I will set a temporary function for now and hope you change it later.')
-			self.calc = lambda t: t*0.1
+			raise ValueError('getter function not specified for dataObject '+str(self.name))
 		elif hasattr(func, '__call__'): #function is given
-			logging.debug(str(name)+' get function saved.')
+			logging.debug(str(name)+' getter function saved.')
 			self.calc = func  # function for calculating value at given time
 		else : #non-callable data given, assume constant function
 			logging.debug(str(name)+' is constant valued.')
@@ -65,10 +72,13 @@ class dataObject(object):
 
 	# clears all data and resets to default
 	def reset(self):
-		self = dataObject()
+		self = dataObject(self.name,self.func)
 
 # linear interpolation for the PECS data object class
 def linearInterpolate(data,t):
+	"""
+	Simple linear interpolation using the given data array
+	"""
 	logging.disable(logging.DEBUG)	#comment this line if debugging this function; otherwise disables to avoid log clutter
 
 	# custom return function to handle onExit behaviors
