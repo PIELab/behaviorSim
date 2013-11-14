@@ -8,6 +8,24 @@ from attitudeInfluences.testAttitudes import someSteps   as _DFLT_FUNC_influence
 #from attitudeInfluences.CSELsteps     import pa          as influence_PAGetter
 
 class environment(object):
+	"""
+	Defines an environment with which agents can interact.
+	
+	Attributes:
+		name  = short string descriptor of env
+		agents = list of agents in the environment
+		
+		width = physical dimension of environment grid
+		height = ""
+		
+		dynamical values
+			influence_EB = influence on eating behavior attitude
+			influence_PA = influence on physical activity attitude
+		
+		location-dependent constant attributes:
+			temperature = array of values defining temperature at location
+
+	"""
 	def __init__(self):
 		#TODO: search for environment file name in settings
 		#TODO: load named environment from given file
@@ -19,7 +37,7 @@ class environment(object):
 
 		#environment constants:
 		self.name = 'defaultEnvironment'
-		self.width = self.height = 100 #physical dimensions of environment grid
+		self.width = self.height = 100 
 
 		#TODO: change this to use dataObject
 		#time-dependent functions:
