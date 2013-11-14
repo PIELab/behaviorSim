@@ -1,5 +1,5 @@
 import unittest
-from plugin import Horizon, InputError
+from behaviorSim.PECSplotter.horizongraph_matplotlib.plugin import Horizon, InputError
 
 class TestSequenceFu(unittest.TestCase):
 

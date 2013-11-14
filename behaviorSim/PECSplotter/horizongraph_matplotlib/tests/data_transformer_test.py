@@ -1,5 +1,5 @@
 import unittest
-from data_transformer import DataTransformer
+from behaviorSim.PECSplotter.horizongraph_matplotlib.data_transformer import DataTransformer
 
 class DataTransformerTest(unittest.TestCase):
   
