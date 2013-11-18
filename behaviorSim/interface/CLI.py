@@ -72,7 +72,11 @@ def loadScript():
 
 def startInteractive():
 	"""load up a default environment and start python interactive mode"""
-	#TODO: load up default environment & agent
+	from behaviorSim.interface.CLI_envSetup import setup
+	behaviorSim = setup()
+	from behaviorSim.interface.CLI_envConfig import configure
+	configure(behaviorSim)
+	print '\n\n starting interactive console with these values stored in object "behaviorSim". Have fun!\n\n'
 	code.interact(local=locals())
 
 def promptForScriptOrSample():
