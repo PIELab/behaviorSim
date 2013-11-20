@@ -6,13 +6,15 @@ import logging
 from behaviorSim.__util.setupLog import setupLog
 setupLog()
 
-# === === === === === === AGENT SETUP === === === === === ===
-from behaviorSim.environment.environment import environment
-envmt = environment()	#load default environment
+import behaviorSim.API as API 
 
-from behaviorSim.PECSagent.agent import agent
-myAgent = agent(envmt)	#load default agent
-#TODO: customize the agent
+# === === === === === === AGENT SETUP === === === === === ===
+sim   = API.getDefaultSimulation()
+
+#API.congfigureSimulation(sim,script)
+
+myAgent = API.getDefaultAgent(sim.environment)	#load default agent
+
 #TODO: defaultAgent.tag = 'my very first agent'
 
 # you can not reference the agent using 'myAgent' or 'envmt.agent[0]'
