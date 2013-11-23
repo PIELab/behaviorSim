@@ -1,5 +1,6 @@
-
-from ..environment.environment import environment
+"""
+The agent module defines the default agent setup. 
+"""
 
 from inputs.inputs     import inputs
 from state.state       import state

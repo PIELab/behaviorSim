@@ -70,6 +70,10 @@ class environment(object):
 
 	#add an agent to this environment
 	def addAgent(self,agent):
+		"""
+		DO NOT CALL THIS. 
+		Use agent(environment) and the agent constructor will call this automatically.
+		"""
 		agent.environmentName = self.name
 		self.agents.append(agent)
 

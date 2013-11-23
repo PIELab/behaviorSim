@@ -14,8 +14,10 @@ def getDefaultSimulation():
 	return behaviorSim.simulation.simulation()
 	
 def configureSimulation(sim,configScript):
-	configScript = imp.load_source('configuration',configScript)
-	configScript.configure(sim)
+	imp.load_source('configuration',configScript).configure(sim)
+	
+def exploreSimulation(sim,exploreScript):
+	imp.load_source('exploration',exploreScript).explore(sim)
 	
 def getDefaultEnvironment():
 	from behaviorSim.environment.environment import environment

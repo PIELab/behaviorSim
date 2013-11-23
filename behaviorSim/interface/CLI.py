@@ -79,15 +79,15 @@ def startInteractive():
 	
 	print 'opening config util...'
 	from behaviorSim.interface.CLI_config import CLI_config
-	config = CLI_config()
-	config.configure(behaviorSim)
+	CLI_config().configure(behaviorSim)
 	
 	from behaviorSim.interface.CLI_run import CLI_run
+	CLI_run().run(behaviorSim)
 	
-	run = CLI_run()
-	run.run(behaviorSim)
+	from behaviorSim.interface.CLI_explore import CLI_explore
+	CLI_explore().explore(behaviorSim)
 	
-	print '\n\n starting interactive console with these values stored in object "behaviorSim". Have fun!\n\n'
+	print '\n\n starting interactive console with simulation stored in object "behaviorSim". Have fun!\n\n'
 	code.interact(local=locals())
 
 def promptForScriptOrSample():

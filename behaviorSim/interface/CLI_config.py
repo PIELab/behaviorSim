@@ -16,11 +16,19 @@ import  behaviorSim.API as API
 
 class CLI_config(object):
 	
+	def __init__(self):
+		self.configured = False # flag to show if a setup has been run yet.
+	
 	def configure(self,sim):
 		"""call this to configure environment"""
 		
+		# run default setup
+		defaultConfigFile = SIMULATION_CONFIG_SCRIPTS_PATH+'_default_.py'
+		API.configureSimulation(sim,defaultConfigFile)
+
 		self.showAll(sim)
 		
+		# give user other setup options
 		choice = self.configure
 		while(choice != None):
 			choices = {1 : None,
@@ -80,6 +88,7 @@ class CLI_config(object):
 		print 'you choose:',choice
 		print 'running config script...'
 		API.configureSimulation(sim,choice)
+		self.configured = True
 		print 'done.'
 		self.showAll(sim)
 		return 
