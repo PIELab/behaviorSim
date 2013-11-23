@@ -14,14 +14,11 @@ from .CSEL.behaviorDescriptor import outputValues as behaviorValueGetter
 
 class behavior:
 	# constructor
-	def __init__(self,theInputs,state,themotives):
-		### dependencies ###
-		self.inputs = theInputs
-		self.motive = themotives
+	def __init__(self,inputs,state,motive):
 
 		### define dataObjects ###
 		self.behaviorKey=dataObject('behaviorKey',behaviorKeyGetter)
-		self.behaviorValue=dataObject('behaviorValue',behaviorValueGetter,state.eta_PA,state.eta_EB)
+		self.behaviorValue=dataObject('behaviorValue',behaviorValueGetter,motive.will_PA,motive.will_EB)
 
 		# === Behavioral intention and behavior ===
 		#self.__behavioralIntention=list() ???
