@@ -46,20 +46,21 @@ class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
 	# returns ALL data for given time t as a dict 
 	def __call__(self,t):
 		### return ALL input info for that time as a dict ###
-		return dict(initTime=self.initTime(t), \
-		            time    =self.time(t),\
-		            attitudeChange_PA=[self.attitudeChange_PA(t).behavioralBelief,\
-		            self.attitudeChange_PA(t).behaviorAttitude,\
-		            self.attitudeChange_PA(t).normativeBelief,\
-		            self.attitudeChange_PA(t).subjectiveNorm,\
-		            self.attitudeChange_PA(t).PBC,\
-		            self.attitudeChange_PA(t).controlBelief],\
-		            xi_PA           =str(self.xi_PA(t)),\
-						attitudeChange_EB=[self.attitudeChange_EB(t).behavioralBelief,\
-		            self.attitudeChange_EB(t).behaviorAttitude,\
-		            self.attitudeChange_EB(t).normativeBelief,\
-		            self.attitudeChange_EB(t).subjectiveNorm,\
-		            self.attitudeChange_EB(t).PBC,\
-		            self.attitudeChange_EB(t).controlBelief],\
-		            xi_EB           =str(self.xi_EB(t)))
+		return self.__dict__
+#		return dict(initTime=self.initTime(t), \
+#		            time    =self.time(t),\
+#		            attitudeChange_PA=[self.attitudeChange_PA(t).behavioralBelief,\
+#		            self.attitudeChange_PA(t).behaviorAttitude,\
+#		            self.attitudeChange_PA(t).normativeBelief,\
+#		            self.attitudeChange_PA(t).subjectiveNorm,\
+#		            self.attitudeChange_PA(t).PBC,\
+#		            self.attitudeChange_PA(t).controlBelief],\
+#		            xi_PA           =str(self.xi_PA(t)),\
+#						attitudeChange_EB=[self.attitudeChange_EB(t).behavioralBelief,\
+#		            self.attitudeChange_EB(t).behaviorAttitude,\
+#		            self.attitudeChange_EB(t).normativeBelief,\
+#		            self.attitudeChange_EB(t).subjectiveNorm,\
+#		            self.attitudeChange_EB(t).PBC,\
+#		            self.attitudeChange_EB(t).controlBelief],\
+#		            xi_EB           =str(self.xi_EB(t)))
 

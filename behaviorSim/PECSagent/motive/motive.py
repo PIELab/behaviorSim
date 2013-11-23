@@ -27,7 +27,8 @@ class motive:
 	# returns ALL data for given time t as a dict 
 	def __call__(self,t):
 		### return ALL info for that time as a dict ###
-		return dict(mortality=self.mortality(t),\
-		            will_PA=self.will_PA(t),\
-		            will_EB=self.will_EB(t))
+		return self.__dict__
+		#return dict(mortality=self.mortality(t),\
+		#            will_PA=self.will_PA(t),\
+		#            will_EB=self.will_EB(t))
 

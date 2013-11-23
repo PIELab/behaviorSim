@@ -7,7 +7,7 @@
 from ...__util.agentData import dataObject
 
 ### define default functions ###
-from .CSEL.behaviorDescriptor import outputKeys   as behaviorKeyGetter
+from .CSEL.behaviorDescriptor import outputKey    as behaviorKeyGetter
 from .CSEL.behaviorDescriptor import outputValues as behaviorValueGetter
 
 
@@ -16,12 +16,12 @@ class behavior:
 	# constructor
 	def __init__(self,theInputs,state,themotives):
 		### dependencies ###
-		self.inputs     = theInputs
+		self.inputs = theInputs
 		self.motive = themotives
 
 		### define dataObjects ###
 		self.behaviorKey=dataObject('behaviorKey',behaviorKeyGetter)
-		self.behaviorValue=dataObject('behaviorValue',behaviorValueGetter,state.eta_PA)
+		self.behaviorValue=dataObject('behaviorValue',behaviorValueGetter,state)
 
 		# === Behavioral intention and behavior ===
 		#self.__behavioralIntention=list() ???
@@ -32,8 +32,10 @@ class behavior:
 	# returns ALL data for given time t as a dict 
 	def __call__(self,t):
 		### return ALL info for that time as a dict ###
-		return dict(behaviorKey=self.behaviorKey(t),\
-		            behaviorValue=self.behaviorValue(t))
+		return self.__dict__
+	#	return dict(behaviorKey=self.behaviorKey(t),\
+	#	            behaviorValue=self.behaviorValue(t))
+
 
 	# === 4 define ALL getters using external functions ===
 	# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
