@@ -71,6 +71,11 @@ def loadScript():
 		startScript(choice)
 
 def startInteractive():
+	"""starts the python interactive console"""
+	print '\n\n starting interactive console with simulation stored in object "behaviorSim". Have fun!\n\n'
+	code.interact(local=locals())
+
+def newExperiment():
 	"""load up a default environment and start python interactive mode"""
 	from behaviorSim.simulation import simulation
 	print 'loading simulation...'
@@ -85,23 +90,36 @@ def startInteractive():
 	CLI_run().run(behaviorSim)
 	
 	from behaviorSim.interface.CLI_explore import CLI_explore
-	CLI_explore().explore(behaviorSim)
+	def runExploration():
+		CLI_explore().explore(behaviorSim)
+	runExploration()
 	
-	print '\n\n starting interactive console with simulation stored in object "behaviorSim". Have fun!\n\n'
-	code.interact(local=locals())
+	print 'simulation complete.'
+	
+	while(True):
+		prompt = """What would you like to do now?
+		 1) run another exploration script
+		 2) open the python interactive console to explore manually
+		 3) start over
+		 4) exit"""
+		options = {1 : runExploration,
+		           2 : startInteractive,
+		           3 : promptForScriptOrSample,
+				4 : exit}
+		getUserInput(options,prompt)()
 
 def promptForScriptOrSample():
 	"""
 	Prompts the user to choose to load a sample or a personal script. Returns the value returned by chosen option function. 
 	"""
 	print	"""What would you like to do?:
-	/t 1) load sample script (from '/example_scripts/')
-	/t 2) load script (from '/scripts/')
-	/t 3) load basic environment and start interactive mode
+	/t 1) create new simulation experiment
+	/t 2) load experiment script (from '/scripts/')
+	/t 3) load sample experiment script (from '/example_scripts/')
 	"""
-	options = {1 : loadSample,
+	options = {1 : newExperiment,
 	           2 : loadScript,
-	           3 : startInteractive
+	           3 : loadSample
 	}
 	try:
 		choice = int(raw_input())

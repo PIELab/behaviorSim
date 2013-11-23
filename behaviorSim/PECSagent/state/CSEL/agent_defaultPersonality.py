@@ -14,7 +14,7 @@ class personality:
 	def __call__(self,t):
 			return self
 
-	name = 'default'
+	name = 'defaultPersonality'
 	theta = array([0,0,0, 2,2,2,2,2]);	#time delays
 	tau   = array([1,1,1, 2, 4]);		#time constants
 
