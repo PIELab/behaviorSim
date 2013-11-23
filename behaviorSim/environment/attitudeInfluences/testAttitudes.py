@@ -33,20 +33,15 @@ def constAttitude(data, t):
 # requirements for this method to be valid:
 	# requiredTimeScale = null
 	# requiredTimeStep  = null
-def squareWaves(data, t):
-	if t < len(data):
-		return data[t]
-	else:
-		for i in range(len(data),t+1):
-			a = attitude()
-			a.behavioralBelief = squareWave(t,.9,.1,1)
-			a.behaviorAttitude = squareWave(t,.9,.1,2)
-			a.normativeBelief  = squareWave(t,.9,.1,3)
-			a.subjectiveNorm   = squareWave(t,.9,.1,4)
-			a.PBC              = squareWave(t,.9,.1,5)
-			a.controlBelief    = squareWave(t,.9,.1,6)
-			data.append(a)
-		return data[t]
+def squareWaves(t):
+	a = attitude()
+	a.behavioralBelief = squareWave(t,.9,.1,1)
+	a.behaviorAttitude = squareWave(t,.9,.1,2)
+	a.normativeBelief  = squareWave(t,.9,.1,3)
+	a.subjectiveNorm   = squareWave(t,.9,.1,4)
+	a.PBC              = squareWave(t,.9,.1,5)
+	a.controlBelief    = squareWave(t,.9,.1,6)
+	return a
 
 def someSteps(t):
 	a = attitude()

@@ -18,9 +18,7 @@ from .CSEL.xi              import xi         as _DFLT_FUNC_xi
 
 class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
 	# constructor
-	def __init__(self,envir):
-		self.environment = envir
-
+	def __init__(self,environment):
 		### create dataObjects ###
 
 		# real-world time of calculation for each sim-world calculation of inputs
@@ -31,13 +29,13 @@ class inputs:	#can't use 'input' as the name b/c of built-in 'input()'
 
 		## for Physical Activity (PA)
 		#inflow to attitude about physical activity from theory of planned behavior
-		self.attitudeChange_PA = dataObject('attitudeChange_PA',_DFLT_FUNC_attitudeChange_PA,self.environment)
+		self.attitudeChange_PA = dataObject('attitudeChange_PA',_DFLT_FUNC_attitudeChange_PA,environment.influence_PA)
 		#exogenous flow variables from package CSEL
 		self.xi_PA = dataObject('xi_PA',_DFLT_FUNC_xi,self.attitudeChange_PA)
 
 		## for Eating Behavior (EB) ##
 		#inflow to attitude about eating behaviors from theory of planned behavior
-		self.attitudeChange_EB = dataObject('attitudeChange_EB',_DFLT_FUNC_attitudeChange_EB,self.environment)
+		self.attitudeChange_EB = dataObject('attitudeChange_EB',_DFLT_FUNC_attitudeChange_EB,environment.influence_EB)
 		#exogenous flow variables from package CSEL
 		self.xi_EB = dataObject('xi_EB',_DFLT_FUNC_xi,self.attitudeChange_EB)
 

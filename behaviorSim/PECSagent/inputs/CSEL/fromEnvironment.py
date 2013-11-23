@@ -6,8 +6,8 @@
 # requirements for this method to be valid:
 	# requiredTimeScale = null
 	# requiredTimeStep  = null
-def pa(t,environment):
-	return environment.influence_PA(t)
+def pa(t,influence_PA):
+	return influence_PA(t)
 
-def eb(t,environment):
-	return environment.influence_EB(t)
+def eb(t,influence_EB):
+	return influence_EB(t)

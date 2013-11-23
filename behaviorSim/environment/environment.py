@@ -3,7 +3,7 @@
 from behaviorSim.__util.agentData import dataObject
 
 ### define default functions
-from attitudeInfluences.testAttitudes import squareWaves as influence_PAGetter
+from attitudeInfluences.testAttitudes import squareWaves as _DFLT_FUNC_influence_PA
 from attitudeInfluences.testAttitudes import someSteps   as _DFLT_FUNC_influence_EB
 #from attitudeInfluences.CSELsteps     import pa          as influence_PAGetter
 
@@ -42,6 +42,7 @@ class environment(object):
 		#TODO: change this to use dataObject
 		#time-dependent functions:
 		self.__influence_PA = list()
+		self.influence_PA = dataObject('influence_PA',_DFLT_FUNC_influence_PA)
 
 		self.influence_EB = dataObject('influence_EB',_DFLT_FUNC_influence_EB)
 
@@ -63,10 +64,6 @@ class environment(object):
 		self.agents = list()
 		#import fileName
 		#fileName.setupOrSomething(self)
-		
-	#influence on agent opinion of physical activity
-	def influence_PA(self,t):
-		return influence_PAGetter(self.__influence_PA,t)
 
 	#add an agent to this environment
 	def addAgent(self,agent):

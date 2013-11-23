@@ -13,8 +13,8 @@ def outputKey(t):
 # requirements for this method to be valid:
 	# requiredTimeScale = null
 	# requiredTimeStep  = null
-def outputValues(t,state):
-	PAfullness = state.eta_PA(t)[4]
-	EBfullness = state.eta_EB(t)[4]
+def outputValues(t,eta_PA,eta_EB):
+	PAfullness = eta_PA(t)[4]
+	EBfullness = eta_EB(t)[4]
 	return[PAfullness,EBfullness]
 

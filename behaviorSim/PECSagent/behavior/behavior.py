@@ -21,7 +21,7 @@ class behavior:
 
 		### define dataObjects ###
 		self.behaviorKey=dataObject('behaviorKey',behaviorKeyGetter)
-		self.behaviorValue=dataObject('behaviorValue',behaviorValueGetter,state)
+		self.behaviorValue=dataObject('behaviorValue',behaviorValueGetter,state.eta_PA,state.eta_EB)
 
 		# === Behavioral intention and behavior ===
 		#self.__behavioralIntention=list() ???
