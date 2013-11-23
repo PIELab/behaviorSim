@@ -82,6 +82,11 @@ def startInteractive():
 	config = CLI_config()
 	config.configure(behaviorSim)
 	
+	from behaviorSim.interface.CLI_run import CLI_run
+	
+	run = CLI_run()
+	run.run(behaviorSim)
+	
 	print '\n\n starting interactive console with these values stored in object "behaviorSim". Have fun!\n\n'
 	code.interact(local=locals())
 

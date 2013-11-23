@@ -15,8 +15,34 @@ from behaviorSim.PECSagent.agent import agent
 import  behaviorSim.API as API
 
 class CLI_config(object):
-	def __init__(self):
-		pass
+	
+	def configure(self,sim):
+		"""call this to configure environment"""
+		
+		self.showAll(sim)
+		
+		choice = self.configure
+		while(choice != None):
+			choices = {1 : None,
+					2 : self.showEnvStatus,
+			           3 : self.selectNewConfig,
+			           4 : self.editConfig}
+			prompt = """what would you like to do?
+			\t 1) continue
+			\t 2) show environment details
+			\t 3) select new simulation config file.
+			\t 4) edit current simulation config script"""
+			
+			choice = getUserInput(choices,prompt)
+			try:
+				choice(sim)
+			except TypeError as e:
+				if e.message=="'NoneType' object is not callable":
+					self.finish()
+					return
+				else: raise
+				
+	# === PRIVATE METHODS ===
 	
 	def showSettings(self,sim):
 		print 'simulation settings:'
@@ -67,30 +93,4 @@ class CLI_config(object):
 		print 'opening text editor (not implemented)'
 		#TODO: do it!
 		return
-		
-	def configure(self,sim):
-		"""call this to configure environment"""
-		
-		self.showAll(sim)
-		
-		choice = self.configure
-		while(choice != None):
-			choices = {1 : None,
-					2 : self.showEnvStatus,
-			           3 : self.selectNewConfig,
-			           4 : self.editConfig}
-			prompt = """what would you like to do?
-			\t 1) continue
-			\t 2) show environment details
-			\t 3) select new simulation config file.
-			\t 4) edit current simulation config script"""
-			
-			choice = getUserInput(choices,prompt)
-			try:
-				choice(sim)
-			except TypeError as e:
-				if e.message=="'NoneType' object is not callable":
-					self.finish()
-					return
-				else: raise
 				

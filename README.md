@@ -59,9 +59,10 @@ The following modules are required to use certain features, but the core softwar
 
 ### Included Packages ###
 The following dependencies are packaged into the behaviorSim.__util directory and no setup or worry about them is needed, but they help make this work possible and merit mention here:
-* [pydot](https://code.google.com/p/pydot/) for creating informationFlow graphs
-* [ddeint](http://zulko.wordpress.com/2013/03/01/delay-differential-equations-easy-with-python/) for solving delay differential equations
-* [appdirs](https://pypi.python.org/pypi/appdirs/1.2.0) - "A small Python module for determining appropriate platform-specific dirs". Used under permission of the [MIT License](http://opensource.org/licenses/MIT).
+* [pydot](https://code.google.com/p/pydot/) for creating informationFlow graphs. [MIT License](http://opensource.org/licenses/mit-license.php)
+* [ddeint](http://zulko.wordpress.com/2013/03/01/delay-differential-equations-easy-with-python/) for solving delay differential equations. Unlicensed, published for public use.
+* [appdirs](https://pypi.python.org/pypi/appdirs/1.2.0) - "A small Python module for determining appropriate platform-specific dirs". [MIT License](http://opensource.org/licenses/MIT).
+* [progressbar 2.2](https://pypi.python.org/pypi/progressbar/2.2) - "Text progressbar library for python." [GNU LGPL](http://www.gnu.org/licenses/lgpl.html).
 
 Package Structure
 -----------------

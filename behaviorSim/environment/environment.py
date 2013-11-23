@@ -48,6 +48,14 @@ class environment(object):
 		#environment maps (location dependent functions):
 		self.temperature = [[[20]*self.width]*self.height]	#array of temperatures in degrees Celcius
 
+	def __call__(self,t):
+		"""
+		Returns all data as dict for given time t
+		"""
+		self.influence_PA(t)
+		self.influence_EB(t)
+		
+		return self.__dict__
 
 	#TODO: implement the following function:
 	#load environment from given file
