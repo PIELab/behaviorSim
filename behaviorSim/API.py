@@ -11,7 +11,7 @@ import imp
 
 def getDefaultSimulation():
 	import behaviorSim.simulation
-	return behaviorSim.simulation()
+	return behaviorSim.simulation.simulation()
 	
 def configureSimulation(sim,configScript):
 	configScript = imp.load_source('configuration',configScript)
@@ -24,4 +24,5 @@ def getDefaultEnvironment():
 def getDefaultAgent(envmt):
 	from behaviorSim.PECSagent.agent import agent
 	return agent(envmt)
+
 

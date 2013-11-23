@@ -17,35 +17,33 @@ myAgent = API.getDefaultAgent(sim.environment)	#load default agent
 
 #TODO: defaultAgent.tag = 'my very first agent'
 
-# you can not reference the agent using 'myAgent' or 'envmt.agent[0]'
+# you can not reference the agent using 'myAgent' or 'environment.agent[0]'
 
 # add agent to environment 
 
 
 
 print ' === === === === === === SETTINGS === === === === === ==='
-# load settings of the simulation (just FYI here)
-from behaviorSim.PECSagent.settings import settings
-print '* simulation start time (sim-time): ' + str(settings.simStartTime)
-print '*     size of time step, deltaTime: ' + str(settings.deltaTime)
+print '* simulation start time (sim-time): ' + str(sim.settings.simStartTime)
+print '*     size of time step, deltaTime: ' + str(sim.settings.deltaTime)
 
 
 
 print '\n === === === === === === INPUTS === === === === === ==='
 # === to get data: ===
 #<agentName>.inputs.<desiredValue>(<desiredTime>)
-print '*   time(t): ' + str(envmt.agents[0].inputs.time(t))
+print '*   time(t): ' + str(sim.environment.agents[0].inputs.time(t))
 # don't worry about if the data is 'there' or up-to-date; all of that is handled automagically, just ask for time you want
 
 # === to get all data at one time (as a dict) === :
 #<agentName>.inputs(<desiredTime>)
-print '* inputs(3): ' + str(envmt.agents[0].inputs(3))
+print '* inputs(3): ' + str(sim.environment.agents[0].inputs(3))
 # that way you can explore available data in the object
 
 # to get at more underlying raw data and methods use:
-# help(envmt.agents[0].inputs)
+# help(sim.environment.agents[0].inputs)
 # or
-# print dir(envmt.agents[0].inputs)
+# print dir(sim.environment.agents[0].inputs)
 # or explore the contents of inputs.inputs.py directly
 
 
@@ -53,15 +51,15 @@ print '* inputs(3): ' + str(envmt.agents[0].inputs(3))
 print '\n === === === === === === STATE === === === === === ==='
 # === to get data ===
 #<agentName>.state.<desiredValue>(<desiredTime>)
-print '*     agent name: '+str(envmt.agents[0].state.name)
-print '* agent birthday: '+str(envmt.agents[0].state.birthday)
-print '*   agent age(0): '+str(envmt.agents[0].state.age(0))
-print '*   agent age(t): '+str(envmt.agents[0].state.age(t))
+print '*     agent name: '+str(sim.environment.agents[0].state.name)
+print '* agent birthday: '+str(sim.environment.agents[0].state.birthday)
+print '*   agent age(0): '+str(sim.environment.agents[0].state.age(0))
+print '*   agent age(t): '+str(sim.environment.agents[0].state.age(t))
 
 # === to explore available data in the object use ===
-# help(envmt.agents[0].state)
+# help(environment.agents[0].state)
 # or
-# print dir(envmt.agents[0].state)
+# print dir(environment.agents[0].state)
 # or explore the contents of state.state.py directly
 
 #TODO: group these into PECS parts like this:
@@ -72,7 +70,7 @@ print '*   agent age(t): '+str(envmt.agents[0].state.age(t))
 
 
 print '\n === === === === === === MOTIVES === === === === === ==='
-print '* mortality: '+str(envmt.agents[0].motive.mortality(t))
+print '* mortality: '+str(sim.environment.agents[0].motive.mortality(t))
 #agent.motive.desire_PA(t)
 
 #agent.motive(t)
@@ -82,8 +80,8 @@ print '* mortality: '+str(envmt.agents[0].motive.mortality(t))
 
 
 print '\n === === === === === === BEHAVIOR === === === === === ==='
-print '*   behaviorKey: '+str(envmt.agents[0].behavior.behaviorKey(t))
-print '* behaviorValue: '+str(envmt.agents[0].behavior.behaviorValue(t))
+print '*   behaviorKey: '+str(sim.environment.agents[0].behavior.behaviorKey(t))
+print '* behaviorValue: '+str(sim.environment.agents[0].behavior.behaviorValue(t))
 #agent.output(t)
 
 #NOTE: all model.run() and all that is done automatically, just don't worry about it.
@@ -97,7 +95,7 @@ while choice != 'n' and choice != 'y':
 if choice == 'y':
 	print 'plottings all attributes for time 0 to 100'
 	from behaviorSim.PECSplotter.plot import plotAll
-	plotAll(envmt.agents[0],0,100)
+	plotAll(sim.environment.agents[0],0,100)
 	import pylab
 	pylab.show()	
 
@@ -108,7 +106,7 @@ while choice != 'n' and choice != 'y':
 	choice = raw_input()
 if choice == 'y':
 	import behaviorSim.PECSplotter.infoFlow as infoFlow
-	infoFlow.showInfoFlow(envmt.agents[0])
+	infoFlow.showInfoFlow(sim.environment.agents[0])
 
 # === === === === === === CUSTOMIZING THE AGENT === === === === === ===
 #this is how I want to set the parts:
