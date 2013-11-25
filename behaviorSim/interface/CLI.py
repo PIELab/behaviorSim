@@ -70,8 +70,9 @@ def loadScript():
 		choice = getUserInput(options,prompt)
 		startScript(choice)
 
-def startInteractive():
-	"""starts the python interactive console"""
+def startInteractive(sim):
+	"""starts the python interactive console with simulation stored in memory"""
+	behaviorSim = sim
 	print '\n\n starting interactive console with simulation stored in object "behaviorSim". Have fun!\n\n'
 	code.interact(local=locals())
 
@@ -106,7 +107,11 @@ def newExperiment():
 		           2 : startInteractive,
 		           3 : promptForScriptOrSample,
 				4 : exit}
-		getUserInput(options,prompt)()
+		choice = getUserInput(options,prompt)
+		try: choice()
+		except TypeError: 
+			try: choice(behaviorSim)
+			except: raise
 
 def promptForScriptOrSample():
 	"""
