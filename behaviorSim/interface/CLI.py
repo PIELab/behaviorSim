@@ -109,7 +109,7 @@ def newExperiment():
 				4 : exit}
 		choice = getUserInput(options,prompt)
 		try: choice()
-		except TypeError: 
+		except TypeError: #try passing the function simulation arg
 			try: choice(behaviorSim)
 			except: raise
 
