@@ -45,8 +45,8 @@ class CLI_explore(object):
 	def selectNewExploration(self,sim):
 		print 'choose a new exploration script:'
 		prompt,options = printFilesInDir(SIMULATION_EXPLORATION_SCRIPTS_PATH)
-		choice = getUserInput(options,prompt)
-		print choice, 'selected.'
+		self.selectedScript = getUserInput(options,prompt)
+		print self.selectedScript, 'selected.'
 		return 
 		
 	def editExploration(self,sim):

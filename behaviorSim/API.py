@@ -17,7 +17,10 @@ def configureSimulation(sim,configScript):
 	imp.load_source('configuration',configScript).configure(sim)
 	
 def exploreSimulation(sim,exploreScript):
-	imp.load_source('exploration',exploreScript).explore(sim)
+	imp.load_source('exploration_sim',exploreScript).explore(sim)
+	
+def exploreAgent(agent,exploreScript):
+	imp.load_source('exploration_agent',exploreScript).explore(agent)
 	
 def getDefaultEnvironment():
 	from behaviorSim.environment.environment import environment
