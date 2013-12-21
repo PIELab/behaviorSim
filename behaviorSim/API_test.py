@@ -43,7 +43,7 @@ class basicAPI_Test(unittest.TestCase):
 		with self.assertRaises(AttributeError):
 			self.defAgent.state.name
 			
-		newNameObj = dataObject('name',nameSetter())
+		newNameObj = API.getConstruct('name',nameSetter() )
 		API.addConstruct(self.defAgent.state,newNameObj)
 
 		t = randrange(10)

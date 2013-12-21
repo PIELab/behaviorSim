@@ -8,7 +8,8 @@ Created on Tue Nov 19 22:04:44 2013
 """
 
 import imp
-import logging
+
+from behaviorSim.__util.agentData import dataObject
 
 ### OBJECT CREATION ###
 def getDefaultSimulation():
@@ -43,12 +44,18 @@ def exploreAgent(agent,exploreScript):
 ### DETAILED OBJECT CUSTOMIZATION ###
 
 def removeConstruct(agentComponent,constructName):
+	''' remove the specified data construct from the given agent'''
 	print 'del attribute agent.'+str(constructName)		
 	
 	delattr(agentComponent, constructName)
 
 def addConstruct(agentComponent,constructObj):
+	''' add the given data construct to the given agent component '''
 	setattr(agentComponent,constructObj.name,constructObj)
+	
+def getConstruct(constructName, contructCalcFunc, *constructDependencies):
+	''' return a data construct using given information '''
+	return dataObject(constructName,contructCalcFunc, constructDependencies)
 	
 #TODO: include detailed environment customization
 
