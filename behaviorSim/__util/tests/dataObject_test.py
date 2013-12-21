@@ -9,7 +9,7 @@ import logging
 from behaviorSim.__util.setupLog import setupLog
 setupLog()
 
-class testAgentData(unittest.TestCase):
+class testDataObject(unittest.TestCase):
 
 	def setUp(self):
 		self.randCoeff = random.uniform(-1.0,1.0)

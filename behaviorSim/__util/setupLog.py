@@ -1,7 +1,7 @@
 		#NOTE: this file only resets when golly is restarted, 
 		#      otherwise the log object is retained and reused, 
 		#      appending to the file as the script is run multiple times
-from os.path import expanduser,join
+from os.path import join
 from os import makedirs
 import logging
 

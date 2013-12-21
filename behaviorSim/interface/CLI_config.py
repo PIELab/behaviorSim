@@ -41,6 +41,9 @@ class CLI_config(object):
 			\t 3) select new simulation config file.
 			\t 4) edit current simulation config script"""
 			
+			# TODO: add option to configure agents & environment individually using agent/env setup scripts			
+
+
 			choice = getUserInput(choices,prompt)
 			try:
 				choice(sim)

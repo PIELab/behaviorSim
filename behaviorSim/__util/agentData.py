@@ -5,13 +5,26 @@ import datetime
 
 class dataObject(object):
 	"""
-	Defines a time-series style object which contains a name, dynamical function, and raw data array.
+	Defines a time-series style object which contains a name, dynamical function,
+	 and raw data array. __call__ method should be used to get data. For example:
+			
+		myThing = dataObject('nameOfMyThing',myThingCalculatingFunc,['args',2,'use'])
+		print myThing(t)
 
-	attributes:
+	parameters:
 		name = string identifier of the object
 		func = time-dependent function which is used to calculate values of object at different times.
 		           Can also be a constant value which will be returned at all times.
 		*args= other time-dependent functions or arguments which are to be passed to func
+
+	attributes:
+		calc = stores the given calculating function 'func'
+		args = stores arguments given in '*args'
+		name = unique string identifier for the object
+
+	hidden attributes:
+		data = raw data list for every t
+		
 	"""
 	def __init__(self,name,func,*args):
 		logging.disable(logging.ERROR)
