@@ -31,6 +31,7 @@ class dataObject(object):
 		self.args = args	# dependencies of this function
 		self.data = list()           # time series data list
 		self.name = name
+		self.constantValue = None
 		#logging.debug(str(name)+' args='+str(ar) for ar in self.args)
 		if func==None:
 			raise ValueError('getter function not specified for dataObject '+str(self.name))
@@ -39,12 +40,14 @@ class dataObject(object):
 			self.calc = func  # function for calculating value at given time
 		else : #non-callable data given, assume constant function
 			logging.debug(str(name)+' is constant valued.')
+			self._constantValue = func
 			self.calc = lambda t: func
 
 	def __call__(self, t=None):
 		if t==None:	        # if no time specified, spit out all the data we have
 			return self.data
-
+		elif self._constantValue != None:
+			return self._constantValue
 		# please don't be upset by how unpythonic this next part is... I'm going to come back and add functionality, I promise.
 		elif isinstance(t, datetime.date):	# if time given is a date
 			#TODO: convert it to int using deltatime & carry on 
