@@ -11,38 +11,37 @@ import behaviorSim.API as API
 from behaviorSim.__util.setupLog import setupLog
 setupLog()
 
-from behaviorSim.__util.agentData import dataObject
 from behaviorSim.PECSagent.state.baseInfo.name import iterativeNamer as nameSetter
 from random import randrange
 
 
 
 class basicAPI_Test(unittest.TestCase):
-	
+
 	def setUp(self):
 		self.defSim = API.getDefaultSimulation()
-			
+
 		self.defEnv = API.getDefaultEnvironment()
-			
+
 		self.defAgent = API.getDefaultAgent(self.defEnv)
-	
+
 	def test_basicLoadNoCrash(self):
 		self.defSim = API.getDefaultSimulation()
-			
+
 		self.defEnv = API.getDefaultEnvironment()
-			
+
 		self.defAgent = API.getDefaultAgent(self.defEnv)
-		
+
 	#TODO: add testing of all configuration scripts in config script dir
-	
+
 	#TODO: add testing of all exploration scripts in exploration dir, suppress outputs
-		
+
 	def test_customizeAgent(self):
 		API.removeConstruct(self.defAgent.state,'name')
-		
+
 		with self.assertRaises(AttributeError):
 			self.defAgent.state.name
-			
+
 		newNameObj = API.getConstruct('name',nameSetter() )
 		API.addConstruct(self.defAgent.state,newNameObj)
 

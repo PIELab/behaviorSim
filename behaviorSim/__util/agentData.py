@@ -7,7 +7,7 @@ class dataObject(object):
 	"""
 	Defines a time-series style object which contains a name, dynamical function,
 	 and raw data array. __call__ method should be used to get data. For example:
-			
+
 		myThing = dataObject('nameOfMyThing',myThingCalculatingFunc,['args',2,'use'])
 		print myThing(t)
 
@@ -24,14 +24,14 @@ class dataObject(object):
 
 	hidden attributes:
 		data = raw data list for every t
-		
+
 	"""
 	def __init__(self,name,func,*args):
 		logging.disable(logging.ERROR)
 		self.args = args	# dependencies of this function
 		self.data = list()           # time series data list
 		self.name = name
-		self.constantValue = None
+		self._constantValue = None
 		#logging.debug(str(name)+' args='+str(ar) for ar in self.args)
 		if func==None:
 			raise ValueError('getter function not specified for dataObject '+str(self.name))
@@ -50,13 +50,13 @@ class dataObject(object):
 			return self._constantValue
 		# please don't be upset by how unpythonic this next part is... I'm going to come back and add functionality, I promise.
 		elif isinstance(t, datetime.date):	# if time given is a date
-			#TODO: convert it to int using deltatime & carry on 
+			#TODO: convert it to int using deltatime & carry on
 			raise RuntimeError('call with date not yet supported')
 		elif isinstance(t, datetime.datetime):
-			#TODO: convert it to int using deltatime & carry on 
+			#TODO: convert it to int using deltatime & carry on
 			raise RuntimeError('call with datetime not yet supported')
 		elif isinstance(t, datetime.timedelta):
-			#TODO: convert it to int using deltatime & carry on 
+			#TODO: convert it to int using deltatime & carry on
 			raise RuntimeError('call with timedelta not yet supported')
 		elif t+1 < len(self.data): # if already calculated for this time, use previous value
 			return linearInterpolate(self.data,t)
